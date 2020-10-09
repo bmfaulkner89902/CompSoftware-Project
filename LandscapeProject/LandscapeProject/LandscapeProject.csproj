@@ -69,11 +69,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProgOps.cs" />
+    <Compile Include="EmployeeJobMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeJobMaterial.Designer.cs">
+      <DependentUpon>EmployeeJobMaterial.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmployeeMain.Designer.cs">
       <DependentUpon>EmployeeMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeCustomer.Designer.cs">
+      <DependentUpon>EmployeeCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginScreen.cs">
       <SubType>Form</SubType>
@@ -96,6 +109,12 @@
     <Compile Include="UserMain.Designer.cs">
       <DependentUpon>UserMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EmployeeCustomer.resx">
+      <DependentUpon>EmployeeCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeJobMaterial.resx">
+      <DependentUpon>EmployeeJobMaterial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeeMain.resx">
       <DependentUpon>EmployeeMain.cs</DependentUpon>
     </EmbeddedResource>
