@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProgOps.cs" />
     <Compile Include="EmployeeJobMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
