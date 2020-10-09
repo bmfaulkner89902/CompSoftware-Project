@@ -6,8 +6,26 @@ C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bi
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\LandscapeProject.pdb
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.exe
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.pdb
+<<<<<<< HEAD
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csprojAssemblyReference.cache
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeMain.resources
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.LoginScreen.resources
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.OwnerMain.resources
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.UserMain.resources
+=======
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\LandscapeProject.exe.config
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\LandscapeProject.exe
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\LandscapeProject.pdb
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csprojAssemblyReference.cache
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeCustomer.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeJobMaterial.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeMain.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.LoginScreen.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.OwnerMain.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.Properties.Resources.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.UserMain.resources
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.GenerateResource.cache
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.CoreCompileInputs.cache
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.exe
+C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.pdb
+>>>>>>> master

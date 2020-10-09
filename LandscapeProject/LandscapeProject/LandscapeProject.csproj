@@ -69,12 +69,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <Compile Include="ProgOps.cs" />
+    <Compile Include="EmployeeJobMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeJobMaterial.Designer.cs">
+      <DependentUpon>EmployeeJobMaterial.cs</DependentUpon>
+    </Compile>
+>>>>>>> master
     <Compile Include="EmployeeMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmployeeMain.Designer.cs">
       <DependentUpon>EmployeeMain.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="EmployeeCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeCustomer.Designer.cs">
+      <DependentUpon>EmployeeCustomer.cs</DependentUpon>
+    </Compile>
+>>>>>>> master
     <Compile Include="LoginScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +115,15 @@
     <Compile Include="UserMain.Designer.cs">
       <DependentUpon>UserMain.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <EmbeddedResource Include="EmployeeCustomer.resx">
+      <DependentUpon>EmployeeCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeJobMaterial.resx">
+      <DependentUpon>EmployeeJobMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> master
     <EmbeddedResource Include="EmployeeMain.resx">
       <DependentUpon>EmployeeMain.cs</DependentUpon>
     </EmbeddedResource>
