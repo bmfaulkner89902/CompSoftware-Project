@@ -7,25 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-<<<<<<< HEAD
-=======
 using System.Data.SqlClient; 
->>>>>>> master
 
 namespace LandscapeProject
 {
     public partial class EmployeeMain : Form
     {
-<<<<<<< HEAD
-=======
         CurrencyManager empManager; 
->>>>>>> master
         public EmployeeMain()
         {
             InitializeComponent();
         }
-<<<<<<< HEAD
-=======
         //const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id=group1fa202330;password=1524152"; 
 
         
@@ -78,6 +70,5 @@ namespace LandscapeProject
             EmployeeJobMaterial form2 = new EmployeeJobMaterial();
             form2.Show(); 
         }
->>>>>>> master
     }
 }
