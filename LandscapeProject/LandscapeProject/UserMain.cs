@@ -16,5 +16,20 @@ namespace LandscapeProject
         {
             InitializeComponent();
         }
+
+        private void btnRequest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnContact_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
