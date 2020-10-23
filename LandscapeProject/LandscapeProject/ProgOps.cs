@@ -14,13 +14,13 @@ namespace LandscapeProject
 {
     class ProgOps
     {
-        const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id = group1fa202330; password=1524152";
+        const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id=group1fa202330;password=1524152";
         public static SqlConnection empConnection = new SqlConnection(connectionString);
         public static SqlDataAdapter empAdapter = new SqlDataAdapter();
         public static DataTable empJobInfoDT = new DataTable();
         public static DataTable empTimeTableDt = new DataTable();
         public static DataTable empCustomersDT = new DataTable();
-        //EMployeeJobMaterial 
+        //EmployeeJobMaterial 
         public static DataTable empCreateCustomerDT = new DataTable(); 
         public static DataTable empCreateJobDT = new DataTable();
         public static DataTable empAssignWorkersDT = new DataTable();
@@ -28,10 +28,12 @@ namespace LandscapeProject
         public static DataTable empWorkerIDDT = new DataTable(); 
         public static SqlCommand empCommand;
         public static SqlCommandBuilder empCommBuilder = new SqlCommandBuilder(); 
+
         public static void Open()
         {
             empConnection.Open();
         }
+
         public static void startCustomers(TextBox fName, TextBox lName, TextBox address, TextBox email, TextBox city, TextBox zipCode, TextBox CustID)
         {
             string[] customerRow = { CustID.Text,fName.Text, lName.Text, address.Text, email.Text, city.Text, zipCode.Text};
@@ -47,6 +49,7 @@ namespace LandscapeProject
             empAdapter.Update(empCreateCustomerDT);
 
         }
+
         public static void startJobs(TextBox ID, TextBox address, TextBox type, TextBox begin, TextBox end, TextBox size, TextBox price )
         {
             //take info from text boxes + put into array 
@@ -71,6 +74,7 @@ namespace LandscapeProject
             empAdapter.Update(empCreateJobDT);
 
         }
+
         public static void startMaterials(TextBox materialID, TextBox Units, TextBox Type, TextBox price, TextBox date, TextBox jobId)
         {
             //take info from text boxes + put into array 
@@ -94,6 +98,7 @@ namespace LandscapeProject
             empAdapter.Update(empGetMaterialsDT);
 
         }
+
         public static void assignMaterialsToJob(TextBox MaterialID,TextBoxBase JobId)
         {
             empCommand = new SqlCommand("SELECT * FROM group1fa202330.JobMaterials; ", empConnection);
@@ -109,6 +114,7 @@ namespace LandscapeProject
             empCommBuilder.GetUpdateCommand();
             empAdapter.Update(empGetMaterialsDT);
         }
+
         public static void startAssign(TextBox JobID, CheckedListBox workerIDs)
         {
             //take info from text boxes 
@@ -135,6 +141,7 @@ namespace LandscapeProject
             
             
         }
+
         public static void CloseAll()
         {
             //close connection. 
