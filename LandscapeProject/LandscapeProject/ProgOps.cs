@@ -101,7 +101,7 @@ namespace LandscapeProject
 
             DataRow materialRelations = empGetMaterialsDT.NewRow();
             materialRelations[0] = Convert.ToInt32(JobId.Text);
-            materialRelations[1] =Convert.ToInt32( MaterialID.Text);
+            materialRelations[1] = Convert.ToInt32( MaterialID.Text);
 
             empGetMaterialsDT.Rows.Add(materialRelations);
             empCommBuilder = new SqlCommandBuilder(empAdapter);
@@ -110,17 +110,28 @@ namespace LandscapeProject
         }
         public static void startAssign(TextBox JobID, CheckedListBox workerIDs)
         {
-            //take info from text boxes 
+           
+            //take info from text boxes (jobid); 
+            
+
+            //add array into datatable. 
+            //take info from text boxes (jobid); 
             empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs;", empConnection);
             empAdapter.SelectCommand = empCommand;
             empAdapter.Fill(empAssignWorkersDT);
-            //add array into datatable. 
+            //add workerIds into datatable. 
             DataRow workerJobsRow = empAssignWorkersDT.NewRow();
 
-            for (int i = 0; i < workerIDs.CheckedItems.Count; i++)
+            empCommand = new SqlCommand("SELECT WorkerID FROM group1fa202330.Workers;", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empAdapter.Fill(empWorkerIDDT);
+
+            
+            foreach (int indexChecked in workerIDs.CheckedIndices)
             {
-                workerJobsRow[1] = Convert.ToInt32(workerIDs.CheckedItems[i].ToString());
-                workerJobsRow[0] = Convert.ToInt32(JobID.Text);
+                workerJobsRow[0] = empWorkerIDDT.Rows[0][indexChecked]; 
+                workerJobsRow[1] = Convert.ToInt32(JobID.Text);
+                MessageBox.Show(workerJobsRow[0].ToString()); 
             }
            
 
@@ -131,8 +142,26 @@ namespace LandscapeProject
             empAdapter.Update(empAssignWorkersDT);
 
 
-            
-            
+
+
+        }
+        public static void LoadCheckList(CheckedListBox workerIDs)
+        {
+            //get information to fill workerID checklist. . 
+            empCommand = new SqlCommand("SELECT WorkerID FROM group1fa202330.Workers; ", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empWorkerIDDT = new DataTable();
+            empAdapter.Fill(empWorkerIDDT);
+
+            workerIDs.DataBindings.Add("Text", empWorkerIDDT, "WorkerID");
+            workerIDs.DataSource = empWorkerIDDT;
+            workerIDs.DisplayMember = "WorkerID";
+
+            //get workerJobs table 
+            empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs; ", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empAssignWorkersDT = new DataTable();
+            empAdapter.Fill(empAssignWorkersDT);
         }
         public static void CloseAll()
         {
@@ -144,6 +173,7 @@ namespace LandscapeProject
             empConnection.Dispose();
             empAdapter.Dispose();
             empCommBuilder.Dispose(); 
+            
         }
         
 
