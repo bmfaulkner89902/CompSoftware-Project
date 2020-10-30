@@ -22,7 +22,8 @@ namespace LandscapeProject
         {
             //Open Database then load JobCommand
             OwnerProgOps.OpenDatabase();
-            OwnerProgOps.JobCommand(dgvJobs, dgvJobMaterials);
+            OwnerProgOps.JobCommand(dgvJobs);
+            OwnerProgOps.EmployeeAndCustomerJobs(lbxJobEmployees);
         }
 
         private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -32,7 +33,7 @@ namespace LandscapeProject
             switch (tabIndex)
             {
                 case 0:
-                    OwnerProgOps.JobCommand(dgvJobs, dgvJobMaterials);
+                    OwnerProgOps.JobCommand(dgvJobs);
                     break;
                 case 1:
                     OwnerProgOps.CustomerCommand(dgvCustomers);
@@ -48,6 +49,14 @@ namespace LandscapeProject
                     break;
 
             }
+        }
+
+        private void dgvJobs_SelectionChanged(object sender, EventArgs e)
+        {   
+            //Need to change from a selection changed event to something else, throws error code with clicking on a header 
+            int selectedJob = dgvJobs.CurrentRow.Index;
+            int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+            OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
         }
 
         //Employee Functions-----------------------------------------------------------------------------------------

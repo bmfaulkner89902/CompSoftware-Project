@@ -39,9 +39,8 @@ namespace LandscapeProject
             _cntDatabase.Dispose();
         }
 
-        public static void JobCommand(DataGridView dgvJobs, DataGridView dgvMaterials)
+        public static void JobCommand(DataGridView dgvJobs)
         {
-            //Job Sites Table--------------------------------------------------------------------------------
             //Set Command Objects To Null To Begin With
             _sqlLandscapeCommand = null;
             _daLandscape = new SqlDataAdapter();
@@ -67,9 +66,10 @@ namespace LandscapeProject
             _sqlLandscapeCommand.Dispose();
             _daLandscape.Dispose();
             _dtLandscape.Dispose();
-            //-----------------------------------------------------------------------------------------------
+        }
 
-            //Materials Table--------------------------------------------------------------------------------
+        public static void EmployeeAndCustomerJobs(ListBox lbxEmployees)
+        {
             //Set Command Objects To Null To Begin With
             _sqlLandscapeCommand = null;
             _daLandscape = new SqlDataAdapter();
@@ -78,7 +78,40 @@ namespace LandscapeProject
             try
             {
                 //Establish Command Objects
-                _sqlLandscapeCommand = new SqlCommand("Select * From group1fa202330.Materials;", _cntDatabase);
+                _sqlLandscapeCommand = new SqlCommand("Select W.FirstName, W.LastName From group1fa202330.Workers W" +
+                    " Join group1fa202330.WorkerJobs WJ On W.WorkerID = WJ.WorkerID Join group1fa202330.JobSites " +
+                    "JS On JS.JobID = WJ.JobID Where WJ.JobID = 100;", _cntDatabase);
+                //Establish Data Adapter
+                _daLandscape.SelectCommand = _sqlLandscapeCommand;
+                //Fill Data Table
+                _daLandscape.Fill(_dtLandscape);
+                //Bind DataGridView
+                string[] test = {"penis"};
+                lbxEmployees.DataSource = test;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //Dispose Of Command, Adapter And Table Object
+            _sqlLandscapeCommand.Dispose();
+            _daLandscape.Dispose();
+            _dtLandscape.Dispose();
+        }
+
+        public static void MaterialCommand(DataGridView dgvMaterials, int JobID)
+        {
+            //Set Command Objects To Null To Begin With
+            _sqlLandscapeCommand = null;
+            _daLandscape = new SqlDataAdapter();
+            _dtLandscape = new DataTable();
+
+            try
+            {
+                //Establish Command Objects
+                _sqlLandscapeCommand = new SqlCommand("Select M.* From group1fa202330.Materials M Join group1fa202330.JobMaterials" +
+                    " JM On M.MaterialID = JM.MaterialID Join group1fa202330.JobSites JS On JS.JobID = JM.JobID Where JM.JobID = " + JobID + ";", _cntDatabase);
                 //Establish Data Adapter
                 _daLandscape.SelectCommand = _sqlLandscapeCommand;
                 //Fill Data Table
@@ -95,7 +128,6 @@ namespace LandscapeProject
             _sqlLandscapeCommand.Dispose();
             _daLandscape.Dispose();
             _dtLandscape.Dispose();
-            //-----------------------------------------------------------------------------------------------
         }
 
 

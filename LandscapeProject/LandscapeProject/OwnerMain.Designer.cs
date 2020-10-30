@@ -125,6 +125,8 @@
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.tpReports = new System.Windows.Forms.TabPage();
+            this.lblJobContractors = new System.Windows.Forms.Label();
+            this.lblJobEmployees = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpJobs.SuspendLayout();
@@ -151,7 +153,7 @@
             this.dgvJobs.AllowUserToDeleteRows = false;
             this.dgvJobs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvJobs.Location = new System.Drawing.Point(7, 6);
+            this.dgvJobs.Location = new System.Drawing.Point(7, 5);
             this.dgvJobs.MultiSelect = false;
             this.dgvJobs.Name = "dgvJobs";
             this.dgvJobs.ReadOnly = true;
@@ -160,6 +162,7 @@
             this.dgvJobs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvJobs.Size = new System.Drawing.Size(1029, 234);
             this.dgvJobs.TabIndex = 1;
+            this.dgvJobs.SelectionChanged += new System.EventHandler(this.dgvJobs_SelectionChanged);
             // 
             // tcMain
             // 
@@ -196,6 +199,8 @@
             // 
             // gbxJobAssignWorkers
             // 
+            this.gbxJobAssignWorkers.Controls.Add(this.lblJobEmployees);
+            this.gbxJobAssignWorkers.Controls.Add(this.lblJobContractors);
             this.gbxJobAssignWorkers.Controls.Add(this.lbxJobEmployees);
             this.gbxJobAssignWorkers.Controls.Add(this.lbxJobContractors);
             this.gbxJobAssignWorkers.Controls.Add(this.btnApproveJobs);
@@ -214,10 +219,10 @@
             this.lbxJobEmployees.FormattingEnabled = true;
             this.lbxJobEmployees.ItemHeight = 20;
             this.lbxJobEmployees.Items.AddRange(new object[] {
-            "Employees On Job:"});
-            this.lbxJobEmployees.Location = new System.Drawing.Point(264, 26);
+            "lbxJobEmployees"});
+            this.lbxJobEmployees.Location = new System.Drawing.Point(264, 66);
             this.lbxJobEmployees.Name = "lbxJobEmployees";
-            this.lbxJobEmployees.Size = new System.Drawing.Size(246, 184);
+            this.lbxJobEmployees.Size = new System.Drawing.Size(246, 144);
             this.lbxJobEmployees.TabIndex = 13;
             // 
             // lbxJobContractors
@@ -225,10 +230,10 @@
             this.lbxJobContractors.FormattingEnabled = true;
             this.lbxJobContractors.ItemHeight = 20;
             this.lbxJobContractors.Items.AddRange(new object[] {
-            "Contractors On Job:"});
-            this.lbxJobContractors.Location = new System.Drawing.Point(6, 26);
+            "lbxJobContractors"});
+            this.lbxJobContractors.Location = new System.Drawing.Point(6, 66);
             this.lbxJobContractors.Name = "lbxJobContractors";
-            this.lbxJobContractors.Size = new System.Drawing.Size(246, 184);
+            this.lbxJobContractors.Size = new System.Drawing.Size(246, 144);
             this.lbxJobContractors.TabIndex = 12;
             // 
             // btnApproveJobs
@@ -1165,6 +1170,26 @@
             this.tpReports.ToolTipText = "View and Manage Reports";
             this.tpReports.UseVisualStyleBackColor = true;
             // 
+            // lblJobContractors
+            // 
+            this.lblJobContractors.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobContractors.Location = new System.Drawing.Point(2, 43);
+            this.lblJobContractors.Name = "lblJobContractors";
+            this.lblJobContractors.Size = new System.Drawing.Size(245, 20);
+            this.lblJobContractors.TabIndex = 14;
+            this.lblJobContractors.Text = "Contractors On Job:";
+            this.lblJobContractors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobEmployees
+            // 
+            this.lblJobEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobEmployees.Location = new System.Drawing.Point(260, 43);
+            this.lblJobEmployees.Name = "lblJobEmployees";
+            this.lblJobEmployees.Size = new System.Drawing.Size(245, 20);
+            this.lblJobEmployees.TabIndex = 15;
+            this.lblJobEmployees.Text = "Employees On Job:";
+            this.lblJobEmployees.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // OwnerMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -1302,5 +1327,7 @@
         private System.Windows.Forms.Button btnCustomerDelete;
         private System.Windows.Forms.TextBox tbxContractorPhone;
         private System.Windows.Forms.Label lblContractorPhone;
+        private System.Windows.Forms.Label lblJobEmployees;
+        private System.Windows.Forms.Label lblJobContractors;
     }
 }
