@@ -32,12 +32,12 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpJobs = new System.Windows.Forms.TabPage();
             this.gbxJobAssignWorkers = new System.Windows.Forms.GroupBox();
+            this.btnRemoveEmployeeFromJob = new System.Windows.Forms.Button();
+            this.lblJobEmployees = new System.Windows.Forms.Label();
+            this.lblJobContractors = new System.Windows.Forms.Label();
             this.lbxJobEmployees = new System.Windows.Forms.ListBox();
             this.lbxJobContractors = new System.Windows.Forms.ListBox();
-            this.btnApproveJobs = new System.Windows.Forms.Button();
-            this.btnEditJobs = new System.Windows.Forms.Button();
-            this.btnCancelJobs = new System.Windows.Forms.Button();
-            this.btnUpdateJobs = new System.Windows.Forms.Button();
+            this.btnRemoveContractorFromJob = new System.Windows.Forms.Button();
             this.gbxJobMaterials = new System.Windows.Forms.GroupBox();
             this.btnApproveMaterials = new System.Windows.Forms.Button();
             this.btnCancelMaterials = new System.Windows.Forms.Button();
@@ -125,8 +125,6 @@
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.tpReports = new System.Windows.Forms.TabPage();
-            this.lblJobContractors = new System.Windows.Forms.Label();
-            this.lblJobEmployees = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpJobs.SuspendLayout();
@@ -161,8 +159,8 @@
             this.dgvJobs.RowTemplate.Height = 24;
             this.dgvJobs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvJobs.Size = new System.Drawing.Size(1029, 234);
-            this.dgvJobs.TabIndex = 1;
-            this.dgvJobs.SelectionChanged += new System.EventHandler(this.dgvJobs_SelectionChanged);
+            this.dgvJobs.TabIndex = 0;
+            this.dgvJobs.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJobs_CellClick);
             // 
             // tcMain
             // 
@@ -179,7 +177,7 @@
             this.tcMain.SelectedIndex = 0;
             this.tcMain.ShowToolTips = true;
             this.tcMain.Size = new System.Drawing.Size(1052, 655);
-            this.tcMain.TabIndex = 2;
+            this.tcMain.TabIndex = 0;
             this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
             // 
             // tpJobs
@@ -188,10 +186,10 @@
             this.tpJobs.Controls.Add(this.gbxJobAssignWorkers);
             this.tpJobs.Controls.Add(this.gbxJobMaterials);
             this.tpJobs.Controls.Add(this.dgvJobs);
-            this.tpJobs.Location = new System.Drawing.Point(4, 29);
+            this.tpJobs.Location = new System.Drawing.Point(4, 26);
             this.tpJobs.Name = "tpJobs";
             this.tpJobs.Padding = new System.Windows.Forms.Padding(3);
-            this.tpJobs.Size = new System.Drawing.Size(1044, 622);
+            this.tpJobs.Size = new System.Drawing.Size(1044, 625);
             this.tpJobs.TabIndex = 0;
             this.tpJobs.Text = "Jobs";
             this.tpJobs.ToolTipText = "View and Manage Jobs";
@@ -199,78 +197,80 @@
             // 
             // gbxJobAssignWorkers
             // 
+            this.gbxJobAssignWorkers.Controls.Add(this.btnRemoveEmployeeFromJob);
             this.gbxJobAssignWorkers.Controls.Add(this.lblJobEmployees);
             this.gbxJobAssignWorkers.Controls.Add(this.lblJobContractors);
             this.gbxJobAssignWorkers.Controls.Add(this.lbxJobEmployees);
             this.gbxJobAssignWorkers.Controls.Add(this.lbxJobContractors);
-            this.gbxJobAssignWorkers.Controls.Add(this.btnApproveJobs);
-            this.gbxJobAssignWorkers.Controls.Add(this.btnEditJobs);
-            this.gbxJobAssignWorkers.Controls.Add(this.btnCancelJobs);
-            this.gbxJobAssignWorkers.Controls.Add(this.btnUpdateJobs);
+            this.gbxJobAssignWorkers.Controls.Add(this.btnRemoveContractorFromJob);
             this.gbxJobAssignWorkers.Location = new System.Drawing.Point(518, 246);
             this.gbxJobAssignWorkers.Name = "gbxJobAssignWorkers";
             this.gbxJobAssignWorkers.Size = new System.Drawing.Size(516, 337);
-            this.gbxJobAssignWorkers.TabIndex = 10;
+            this.gbxJobAssignWorkers.TabIndex = 2;
             this.gbxJobAssignWorkers.TabStop = false;
             this.gbxJobAssignWorkers.Text = "Job Contractors/Employees";
+            // 
+            // btnRemoveEmployeeFromJob
+            // 
+            this.btnRemoveEmployeeFromJob.Location = new System.Drawing.Point(292, 262);
+            this.btnRemoveEmployeeFromJob.Name = "btnRemoveEmployeeFromJob";
+            this.btnRemoveEmployeeFromJob.Size = new System.Drawing.Size(186, 48);
+            this.btnRemoveEmployeeFromJob.TabIndex = 5;
+            this.btnRemoveEmployeeFromJob.Text = "Remove Selected Employee From Job";
+            this.btnRemoveEmployeeFromJob.UseVisualStyleBackColor = true;
+            this.btnRemoveEmployeeFromJob.Click += new System.EventHandler(this.btnRemoveEmployeeFromJob_Click);
+            // 
+            // lblJobEmployees
+            // 
+            this.lblJobEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobEmployees.Location = new System.Drawing.Point(260, 43);
+            this.lblJobEmployees.Name = "lblJobEmployees";
+            this.lblJobEmployees.Size = new System.Drawing.Size(245, 20);
+            this.lblJobEmployees.TabIndex = 1;
+            this.lblJobEmployees.Text = "Employees On Job:";
+            this.lblJobEmployees.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobContractors
+            // 
+            this.lblJobContractors.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobContractors.Location = new System.Drawing.Point(2, 43);
+            this.lblJobContractors.Name = "lblJobContractors";
+            this.lblJobContractors.Size = new System.Drawing.Size(245, 20);
+            this.lblJobContractors.TabIndex = 0;
+            this.lblJobContractors.Text = "Contractors On Job:";
+            this.lblJobContractors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbxJobEmployees
             // 
             this.lbxJobEmployees.FormattingEnabled = true;
-            this.lbxJobEmployees.ItemHeight = 20;
+            this.lbxJobEmployees.ItemHeight = 17;
             this.lbxJobEmployees.Items.AddRange(new object[] {
             "lbxJobEmployees"});
             this.lbxJobEmployees.Location = new System.Drawing.Point(264, 66);
             this.lbxJobEmployees.Name = "lbxJobEmployees";
-            this.lbxJobEmployees.Size = new System.Drawing.Size(246, 144);
-            this.lbxJobEmployees.TabIndex = 13;
+            this.lbxJobEmployees.Size = new System.Drawing.Size(246, 140);
+            this.lbxJobEmployees.TabIndex = 4;
             // 
             // lbxJobContractors
             // 
             this.lbxJobContractors.FormattingEnabled = true;
-            this.lbxJobContractors.ItemHeight = 20;
+            this.lbxJobContractors.ItemHeight = 17;
             this.lbxJobContractors.Items.AddRange(new object[] {
             "lbxJobContractors"});
             this.lbxJobContractors.Location = new System.Drawing.Point(6, 66);
             this.lbxJobContractors.Name = "lbxJobContractors";
-            this.lbxJobContractors.Size = new System.Drawing.Size(246, 144);
-            this.lbxJobContractors.TabIndex = 12;
+            this.lbxJobContractors.Size = new System.Drawing.Size(246, 140);
+            this.lbxJobContractors.TabIndex = 2;
             // 
-            // btnApproveJobs
+            // btnRemoveContractorFromJob
             // 
-            this.btnApproveJobs.Location = new System.Drawing.Point(180, 226);
-            this.btnApproveJobs.Name = "btnApproveJobs";
-            this.btnApproveJobs.Size = new System.Drawing.Size(158, 39);
-            this.btnApproveJobs.TabIndex = 9;
-            this.btnApproveJobs.Text = "Approve Workers";
-            this.btnApproveJobs.UseVisualStyleBackColor = true;
-            // 
-            // btnEditJobs
-            // 
-            this.btnEditJobs.Location = new System.Drawing.Point(81, 271);
-            this.btnEditJobs.Name = "btnEditJobs";
-            this.btnEditJobs.Size = new System.Drawing.Size(114, 39);
-            this.btnEditJobs.TabIndex = 6;
-            this.btnEditJobs.Text = "Edit";
-            this.btnEditJobs.UseVisualStyleBackColor = true;
-            // 
-            // btnCancelJobs
-            // 
-            this.btnCancelJobs.Location = new System.Drawing.Point(201, 271);
-            this.btnCancelJobs.Name = "btnCancelJobs";
-            this.btnCancelJobs.Size = new System.Drawing.Size(114, 39);
-            this.btnCancelJobs.TabIndex = 8;
-            this.btnCancelJobs.Text = "Cancel Edit";
-            this.btnCancelJobs.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdateJobs
-            // 
-            this.btnUpdateJobs.Location = new System.Drawing.Point(321, 271);
-            this.btnUpdateJobs.Name = "btnUpdateJobs";
-            this.btnUpdateJobs.Size = new System.Drawing.Size(114, 39);
-            this.btnUpdateJobs.TabIndex = 7;
-            this.btnUpdateJobs.Text = "Update";
-            this.btnUpdateJobs.UseVisualStyleBackColor = true;
+            this.btnRemoveContractorFromJob.Location = new System.Drawing.Point(38, 262);
+            this.btnRemoveContractorFromJob.Name = "btnRemoveContractorFromJob";
+            this.btnRemoveContractorFromJob.Size = new System.Drawing.Size(186, 48);
+            this.btnRemoveContractorFromJob.TabIndex = 3;
+            this.btnRemoveContractorFromJob.Text = "Remove Selected Contractor From Job";
+            this.btnRemoveContractorFromJob.UseVisualStyleBackColor = true;
+            this.btnRemoveContractorFromJob.Click += new System.EventHandler(this.btnRemoveContractorFromJob_Click);
             // 
             // gbxJobMaterials
             // 
@@ -282,7 +282,7 @@
             this.gbxJobMaterials.Location = new System.Drawing.Point(8, 246);
             this.gbxJobMaterials.Name = "gbxJobMaterials";
             this.gbxJobMaterials.Size = new System.Drawing.Size(503, 338);
-            this.gbxJobMaterials.TabIndex = 2;
+            this.gbxJobMaterials.TabIndex = 1;
             this.gbxJobMaterials.TabStop = false;
             this.gbxJobMaterials.Text = "Job Materials";
             // 
@@ -291,7 +291,7 @@
             this.btnApproveMaterials.Location = new System.Drawing.Point(172, 226);
             this.btnApproveMaterials.Name = "btnApproveMaterials";
             this.btnApproveMaterials.Size = new System.Drawing.Size(158, 39);
-            this.btnApproveMaterials.TabIndex = 6;
+            this.btnApproveMaterials.TabIndex = 1;
             this.btnApproveMaterials.Text = "Approve Materials";
             this.btnApproveMaterials.UseVisualStyleBackColor = true;
             // 
@@ -300,7 +300,7 @@
             this.btnCancelMaterials.Location = new System.Drawing.Point(194, 271);
             this.btnCancelMaterials.Name = "btnCancelMaterials";
             this.btnCancelMaterials.Size = new System.Drawing.Size(114, 39);
-            this.btnCancelMaterials.TabIndex = 5;
+            this.btnCancelMaterials.TabIndex = 3;
             this.btnCancelMaterials.Text = "Cancel Edit";
             this.btnCancelMaterials.UseVisualStyleBackColor = true;
             // 
@@ -334,7 +334,7 @@
             this.btnEditMaterials.Location = new System.Drawing.Point(74, 271);
             this.btnEditMaterials.Name = "btnEditMaterials";
             this.btnEditMaterials.Size = new System.Drawing.Size(114, 39);
-            this.btnEditMaterials.TabIndex = 3;
+            this.btnEditMaterials.TabIndex = 2;
             this.btnEditMaterials.Text = "Edit";
             this.btnEditMaterials.UseVisualStyleBackColor = true;
             // 
@@ -344,10 +344,10 @@
             this.tpCustomers.Controls.Add(this.gbxCustomerInfo);
             this.tpCustomers.Controls.Add(this.gbxCustomerAdd);
             this.tpCustomers.Controls.Add(this.dgvCustomers);
-            this.tpCustomers.Location = new System.Drawing.Point(4, 29);
+            this.tpCustomers.Location = new System.Drawing.Point(4, 26);
             this.tpCustomers.Name = "tpCustomers";
             this.tpCustomers.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCustomers.Size = new System.Drawing.Size(1044, 622);
+            this.tpCustomers.Size = new System.Drawing.Size(1044, 625);
             this.tpCustomers.TabIndex = 1;
             this.tpCustomers.Text = "Customers";
             this.tpCustomers.ToolTipText = "View and Manage Customers";
@@ -366,7 +366,7 @@
             this.gbxCustomerInfo.Location = new System.Drawing.Point(518, 246);
             this.gbxCustomerInfo.Name = "gbxCustomerInfo";
             this.gbxCustomerInfo.Size = new System.Drawing.Size(516, 337);
-            this.gbxCustomerInfo.TabIndex = 11;
+            this.gbxCustomerInfo.TabIndex = 2;
             this.gbxCustomerInfo.TabStop = false;
             this.gbxCustomerInfo.Text = "Edit Customer Information";
             // 
@@ -375,7 +375,7 @@
             this.btnCustomerDelete.Location = new System.Drawing.Point(179, 277);
             this.btnCustomerDelete.Name = "btnCustomerDelete";
             this.btnCustomerDelete.Size = new System.Drawing.Size(158, 54);
-            this.btnCustomerDelete.TabIndex = 17;
+            this.btnCustomerDelete.TabIndex = 7;
             this.btnCustomerDelete.Text = "Delete Selected Customer";
             this.btnCustomerDelete.UseVisualStyleBackColor = true;
             this.btnCustomerDelete.Click += new System.EventHandler(this.btnCustomerDelete_Click);
@@ -386,7 +386,7 @@
             this.lblCustomerInfoTitle.Location = new System.Drawing.Point(117, 54);
             this.lblCustomerInfoTitle.Name = "lblCustomerInfoTitle";
             this.lblCustomerInfoTitle.Size = new System.Drawing.Size(282, 24);
-            this.lblCustomerInfoTitle.TabIndex = 14;
+            this.lblCustomerInfoTitle.TabIndex = 0;
             this.lblCustomerInfoTitle.Text = "Select a Customer From Above";
             this.lblCustomerInfoTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -395,7 +395,7 @@
             this.lblCustomerInfoNew.Location = new System.Drawing.Point(26, 177);
             this.lblCustomerInfoNew.Name = "lblCustomerInfoNew";
             this.lblCustomerInfoNew.Size = new System.Drawing.Size(224, 20);
-            this.lblCustomerInfoNew.TabIndex = 13;
+            this.lblCustomerInfoNew.TabIndex = 3;
             this.lblCustomerInfoNew.Text = "Enter new information:";
             this.lblCustomerInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -404,12 +404,14 @@
             this.lblCustomerCategory.Location = new System.Drawing.Point(22, 123);
             this.lblCustomerCategory.Name = "lblCustomerCategory";
             this.lblCustomerCategory.Size = new System.Drawing.Size(228, 20);
-            this.lblCustomerCategory.TabIndex = 12;
+            this.lblCustomerCategory.TabIndex = 1;
             this.lblCustomerCategory.Text = "Select a Category to Edit:";
             this.lblCustomerCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboCustomerCategory
             // 
+            this.cboCustomerCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboCustomerCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCustomerCategory.FormattingEnabled = true;
             this.cboCustomerCategory.Items.AddRange(new object[] {
             "FirstName",
@@ -420,22 +422,22 @@
             "ZipCode"});
             this.cboCustomerCategory.Location = new System.Drawing.Point(256, 120);
             this.cboCustomerCategory.Name = "cboCustomerCategory";
-            this.cboCustomerCategory.Size = new System.Drawing.Size(210, 28);
-            this.cboCustomerCategory.TabIndex = 11;
+            this.cboCustomerCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboCustomerCategory.TabIndex = 2;
             // 
             // tbxCustomerInfoNew
             // 
             this.tbxCustomerInfoNew.Location = new System.Drawing.Point(256, 174);
             this.tbxCustomerInfoNew.Name = "tbxCustomerInfoNew";
-            this.tbxCustomerInfoNew.Size = new System.Drawing.Size(210, 27);
-            this.tbxCustomerInfoNew.TabIndex = 10;
+            this.tbxCustomerInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxCustomerInfoNew.TabIndex = 4;
             // 
             // btnCustomerSubmit
             // 
             this.btnCustomerSubmit.Location = new System.Drawing.Point(90, 232);
             this.btnCustomerSubmit.Name = "btnCustomerSubmit";
             this.btnCustomerSubmit.Size = new System.Drawing.Size(158, 39);
-            this.btnCustomerSubmit.TabIndex = 9;
+            this.btnCustomerSubmit.TabIndex = 5;
             this.btnCustomerSubmit.Text = "Submit Changes";
             this.btnCustomerSubmit.UseVisualStyleBackColor = true;
             this.btnCustomerSubmit.Click += new System.EventHandler(this.btnCustomerSubmit_Click);
@@ -445,7 +447,7 @@
             this.btnCustomerCancel.Location = new System.Drawing.Point(269, 232);
             this.btnCustomerCancel.Name = "btnCustomerCancel";
             this.btnCustomerCancel.Size = new System.Drawing.Size(158, 39);
-            this.btnCustomerCancel.TabIndex = 8;
+            this.btnCustomerCancel.TabIndex = 6;
             this.btnCustomerCancel.Text = "Cancel Changes";
             this.btnCustomerCancel.UseVisualStyleBackColor = true;
             this.btnCustomerCancel.Click += new System.EventHandler(this.btnCustomerCancel_Click);
@@ -469,7 +471,7 @@
             this.gbxCustomerAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxCustomerAdd.Name = "gbxCustomerAdd";
             this.gbxCustomerAdd.Size = new System.Drawing.Size(503, 338);
-            this.gbxCustomerAdd.TabIndex = 3;
+            this.gbxCustomerAdd.TabIndex = 1;
             this.gbxCustomerAdd.TabStop = false;
             this.gbxCustomerAdd.Text = "Add a New Customer";
             // 
@@ -477,50 +479,50 @@
             // 
             this.tbxCustomerEmail.Location = new System.Drawing.Point(112, 193);
             this.tbxCustomerEmail.Name = "tbxCustomerEmail";
-            this.tbxCustomerEmail.Size = new System.Drawing.Size(371, 27);
-            this.tbxCustomerEmail.TabIndex = 45;
+            this.tbxCustomerEmail.Size = new System.Drawing.Size(371, 23);
+            this.tbxCustomerEmail.TabIndex = 11;
             // 
             // tbxCustomerZip
             // 
             this.tbxCustomerZip.Location = new System.Drawing.Point(346, 148);
             this.tbxCustomerZip.Name = "tbxCustomerZip";
-            this.tbxCustomerZip.Size = new System.Drawing.Size(137, 27);
-            this.tbxCustomerZip.TabIndex = 44;
+            this.tbxCustomerZip.Size = new System.Drawing.Size(137, 23);
+            this.tbxCustomerZip.TabIndex = 9;
             // 
             // tbxCustomerCity
             // 
             this.tbxCustomerCity.Location = new System.Drawing.Point(112, 148);
             this.tbxCustomerCity.Name = "tbxCustomerCity";
-            this.tbxCustomerCity.Size = new System.Drawing.Size(197, 27);
-            this.tbxCustomerCity.TabIndex = 43;
+            this.tbxCustomerCity.Size = new System.Drawing.Size(197, 23);
+            this.tbxCustomerCity.TabIndex = 7;
             // 
             // tbxCustomerAddress
             // 
             this.tbxCustomerAddress.Location = new System.Drawing.Point(112, 99);
             this.tbxCustomerAddress.Name = "tbxCustomerAddress";
-            this.tbxCustomerAddress.Size = new System.Drawing.Size(371, 27);
-            this.tbxCustomerAddress.TabIndex = 42;
+            this.tbxCustomerAddress.Size = new System.Drawing.Size(371, 23);
+            this.tbxCustomerAddress.TabIndex = 5;
             // 
             // tbxCustomerLastName
             // 
             this.tbxCustomerLastName.Location = new System.Drawing.Point(346, 51);
             this.tbxCustomerLastName.Name = "tbxCustomerLastName";
-            this.tbxCustomerLastName.Size = new System.Drawing.Size(137, 27);
-            this.tbxCustomerLastName.TabIndex = 41;
+            this.tbxCustomerLastName.Size = new System.Drawing.Size(137, 23);
+            this.tbxCustomerLastName.TabIndex = 3;
             // 
             // tbxCustomerFirstName
             // 
             this.tbxCustomerFirstName.Location = new System.Drawing.Point(112, 51);
             this.tbxCustomerFirstName.Name = "tbxCustomerFirstName";
-            this.tbxCustomerFirstName.Size = new System.Drawing.Size(137, 27);
-            this.tbxCustomerFirstName.TabIndex = 40;
+            this.tbxCustomerFirstName.Size = new System.Drawing.Size(137, 23);
+            this.tbxCustomerFirstName.TabIndex = 1;
             // 
             // lblCustomerEmail
             // 
             this.lblCustomerEmail.Location = new System.Drawing.Point(60, 193);
             this.lblCustomerEmail.Name = "lblCustomerEmail";
             this.lblCustomerEmail.Size = new System.Drawing.Size(59, 24);
-            this.lblCustomerEmail.TabIndex = 39;
+            this.lblCustomerEmail.TabIndex = 10;
             this.lblCustomerEmail.Text = "Email:";
             this.lblCustomerEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -529,7 +531,7 @@
             this.lblCustomerZip.Location = new System.Drawing.Point(315, 148);
             this.lblCustomerZip.Name = "lblCustomerZip";
             this.lblCustomerZip.Size = new System.Drawing.Size(46, 24);
-            this.lblCustomerZip.TabIndex = 38;
+            this.lblCustomerZip.TabIndex = 8;
             this.lblCustomerZip.Text = "Zip:";
             this.lblCustomerZip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -538,7 +540,7 @@
             this.lblCustomerCity.Location = new System.Drawing.Point(73, 148);
             this.lblCustomerCity.Name = "lblCustomerCity";
             this.lblCustomerCity.Size = new System.Drawing.Size(46, 24);
-            this.lblCustomerCity.TabIndex = 37;
+            this.lblCustomerCity.TabIndex = 6;
             this.lblCustomerCity.Text = "City:";
             this.lblCustomerCity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -547,7 +549,7 @@
             this.lblCustomerAddress.Location = new System.Drawing.Point(40, 99);
             this.lblCustomerAddress.Name = "lblCustomerAddress";
             this.lblCustomerAddress.Size = new System.Drawing.Size(79, 24);
-            this.lblCustomerAddress.TabIndex = 36;
+            this.lblCustomerAddress.TabIndex = 4;
             this.lblCustomerAddress.Text = "Address:";
             this.lblCustomerAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -556,7 +558,7 @@
             this.lblCustomerLastName.Location = new System.Drawing.Point(255, 51);
             this.lblCustomerLastName.Name = "lblCustomerLastName";
             this.lblCustomerLastName.Size = new System.Drawing.Size(106, 24);
-            this.lblCustomerLastName.TabIndex = 35;
+            this.lblCustomerLastName.TabIndex = 2;
             this.lblCustomerLastName.Text = "Last Name:";
             this.lblCustomerLastName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -565,7 +567,7 @@
             this.lblCustomerFirstName.Location = new System.Drawing.Point(19, 51);
             this.lblCustomerFirstName.Name = "lblCustomerFirstName";
             this.lblCustomerFirstName.Size = new System.Drawing.Size(100, 24);
-            this.lblCustomerFirstName.TabIndex = 34;
+            this.lblCustomerFirstName.TabIndex = 0;
             this.lblCustomerFirstName.Text = "First Name:";
             this.lblCustomerFirstName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -574,7 +576,7 @@
             this.btnCancelNewCustomer.Location = new System.Drawing.Point(259, 271);
             this.btnCancelNewCustomer.Name = "btnCancelNewCustomer";
             this.btnCancelNewCustomer.Size = new System.Drawing.Size(158, 39);
-            this.btnCancelNewCustomer.TabIndex = 33;
+            this.btnCancelNewCustomer.TabIndex = 13;
             this.btnCancelNewCustomer.Text = "Cancel Customer";
             this.btnCancelNewCustomer.UseVisualStyleBackColor = true;
             this.btnCancelNewCustomer.Click += new System.EventHandler(this.btnCancelNewCustomer_Click);
@@ -584,7 +586,7 @@
             this.btnAddNewCustomer.Location = new System.Drawing.Point(86, 271);
             this.btnAddNewCustomer.Name = "btnAddNewCustomer";
             this.btnAddNewCustomer.Size = new System.Drawing.Size(158, 39);
-            this.btnAddNewCustomer.TabIndex = 32;
+            this.btnAddNewCustomer.TabIndex = 12;
             this.btnAddNewCustomer.Text = "Add Customer";
             this.btnAddNewCustomer.UseVisualStyleBackColor = true;
             this.btnAddNewCustomer.Click += new System.EventHandler(this.btnAddNewCustomer_Click);
@@ -603,7 +605,7 @@
             this.dgvCustomers.RowTemplate.Height = 24;
             this.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCustomers.Size = new System.Drawing.Size(1029, 234);
-            this.dgvCustomers.TabIndex = 2;
+            this.dgvCustomers.TabIndex = 0;
             // 
             // tpContractors
             // 
@@ -611,10 +613,10 @@
             this.tpContractors.Controls.Add(this.gbxContractorInf);
             this.tpContractors.Controls.Add(this.gbxContractorAdd);
             this.tpContractors.Controls.Add(this.dgvContractors);
-            this.tpContractors.Location = new System.Drawing.Point(4, 29);
+            this.tpContractors.Location = new System.Drawing.Point(4, 26);
             this.tpContractors.Name = "tpContractors";
             this.tpContractors.Padding = new System.Windows.Forms.Padding(3);
-            this.tpContractors.Size = new System.Drawing.Size(1044, 622);
+            this.tpContractors.Size = new System.Drawing.Size(1044, 625);
             this.tpContractors.TabIndex = 2;
             this.tpContractors.Text = "Contractors";
             this.tpContractors.ToolTipText = "Vew and Manage Contractors";
@@ -633,7 +635,7 @@
             this.gbxContractorInf.Location = new System.Drawing.Point(518, 246);
             this.gbxContractorInf.Name = "gbxContractorInf";
             this.gbxContractorInf.Size = new System.Drawing.Size(516, 337);
-            this.gbxContractorInf.TabIndex = 13;
+            this.gbxContractorInf.TabIndex = 2;
             this.gbxContractorInf.TabStop = false;
             this.gbxContractorInf.Text = "Edit Contractor Information";
             // 
@@ -642,7 +644,7 @@
             this.btnContractorDelete.Location = new System.Drawing.Point(179, 277);
             this.btnContractorDelete.Name = "btnContractorDelete";
             this.btnContractorDelete.Size = new System.Drawing.Size(158, 54);
-            this.btnContractorDelete.TabIndex = 16;
+            this.btnContractorDelete.TabIndex = 7;
             this.btnContractorDelete.Text = "Delete Selected Contractor";
             this.btnContractorDelete.UseVisualStyleBackColor = true;
             this.btnContractorDelete.Click += new System.EventHandler(this.btnContractorDelete_Click);
@@ -653,7 +655,7 @@
             this.lblContractorInfoTitle.Location = new System.Drawing.Point(110, 54);
             this.lblContractorInfoTitle.Name = "lblContractorInfoTitle";
             this.lblContractorInfoTitle.Size = new System.Drawing.Size(296, 24);
-            this.lblContractorInfoTitle.TabIndex = 14;
+            this.lblContractorInfoTitle.TabIndex = 0;
             this.lblContractorInfoTitle.Text = "Select a Contractor From Above";
             this.lblContractorInfoTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -662,7 +664,7 @@
             this.lblContractorInfoNew.Location = new System.Drawing.Point(25, 177);
             this.lblContractorInfoNew.Name = "lblContractorInfoNew";
             this.lblContractorInfoNew.Size = new System.Drawing.Size(225, 20);
-            this.lblContractorInfoNew.TabIndex = 13;
+            this.lblContractorInfoNew.TabIndex = 3;
             this.lblContractorInfoNew.Text = "Enter new information:";
             this.lblContractorInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -671,12 +673,14 @@
             this.lblContractorCategory.Location = new System.Drawing.Point(21, 123);
             this.lblContractorCategory.Name = "lblContractorCategory";
             this.lblContractorCategory.Size = new System.Drawing.Size(229, 20);
-            this.lblContractorCategory.TabIndex = 12;
+            this.lblContractorCategory.TabIndex = 1;
             this.lblContractorCategory.Text = "Select a Category to Edit:";
             this.lblContractorCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboContractorCategory
             // 
+            this.cboContractorCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboContractorCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboContractorCategory.FormattingEnabled = true;
             this.cboContractorCategory.Items.AddRange(new object[] {
             "FirstName",
@@ -688,22 +692,22 @@
             "ZipCode"});
             this.cboContractorCategory.Location = new System.Drawing.Point(256, 120);
             this.cboContractorCategory.Name = "cboContractorCategory";
-            this.cboContractorCategory.Size = new System.Drawing.Size(210, 28);
-            this.cboContractorCategory.TabIndex = 11;
+            this.cboContractorCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboContractorCategory.TabIndex = 2;
             // 
             // tbxContractorInfoNew
             // 
             this.tbxContractorInfoNew.Location = new System.Drawing.Point(256, 174);
             this.tbxContractorInfoNew.Name = "tbxContractorInfoNew";
-            this.tbxContractorInfoNew.Size = new System.Drawing.Size(210, 27);
-            this.tbxContractorInfoNew.TabIndex = 10;
+            this.tbxContractorInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxContractorInfoNew.TabIndex = 4;
             // 
             // btnContractorSubmit
             // 
             this.btnContractorSubmit.Location = new System.Drawing.Point(90, 232);
             this.btnContractorSubmit.Name = "btnContractorSubmit";
             this.btnContractorSubmit.Size = new System.Drawing.Size(158, 39);
-            this.btnContractorSubmit.TabIndex = 9;
+            this.btnContractorSubmit.TabIndex = 5;
             this.btnContractorSubmit.Text = "Submit Changes";
             this.btnContractorSubmit.UseVisualStyleBackColor = true;
             this.btnContractorSubmit.Click += new System.EventHandler(this.btnContractorSubmit_Click);
@@ -713,7 +717,7 @@
             this.btnContractorCancel.Location = new System.Drawing.Point(269, 232);
             this.btnContractorCancel.Name = "btnContractorCancel";
             this.btnContractorCancel.Size = new System.Drawing.Size(158, 39);
-            this.btnContractorCancel.TabIndex = 8;
+            this.btnContractorCancel.TabIndex = 6;
             this.btnContractorCancel.Text = "Cancel Changes";
             this.btnContractorCancel.UseVisualStyleBackColor = true;
             this.btnContractorCancel.Click += new System.EventHandler(this.btnContractorCancel_Click);
@@ -739,7 +743,7 @@
             this.gbxContractorAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxContractorAdd.Name = "gbxContractorAdd";
             this.gbxContractorAdd.Size = new System.Drawing.Size(503, 338);
-            this.gbxContractorAdd.TabIndex = 12;
+            this.gbxContractorAdd.TabIndex = 1;
             this.gbxContractorAdd.TabStop = false;
             this.gbxContractorAdd.Text = "Add a New Contractor";
             // 
@@ -747,15 +751,15 @@
             // 
             this.tbxContractorPhone.Location = new System.Drawing.Point(180, 232);
             this.tbxContractorPhone.Name = "tbxContractorPhone";
-            this.tbxContractorPhone.Size = new System.Drawing.Size(303, 27);
-            this.tbxContractorPhone.TabIndex = 33;
+            this.tbxContractorPhone.Size = new System.Drawing.Size(303, 23);
+            this.tbxContractorPhone.TabIndex = 13;
             // 
             // lblContractorPhone
             // 
             this.lblContractorPhone.Location = new System.Drawing.Point(60, 232);
             this.lblContractorPhone.Name = "lblContractorPhone";
             this.lblContractorPhone.Size = new System.Drawing.Size(127, 24);
-            this.lblContractorPhone.TabIndex = 32;
+            this.lblContractorPhone.TabIndex = 12;
             this.lblContractorPhone.Text = "Phone Number:";
             this.lblContractorPhone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -763,50 +767,50 @@
             // 
             this.tbxContractorEmail.Location = new System.Drawing.Point(112, 193);
             this.tbxContractorEmail.Name = "tbxContractorEmail";
-            this.tbxContractorEmail.Size = new System.Drawing.Size(371, 27);
-            this.tbxContractorEmail.TabIndex = 31;
+            this.tbxContractorEmail.Size = new System.Drawing.Size(371, 23);
+            this.tbxContractorEmail.TabIndex = 11;
             // 
             // tbxContractorZip
             // 
             this.tbxContractorZip.Location = new System.Drawing.Point(346, 148);
             this.tbxContractorZip.Name = "tbxContractorZip";
-            this.tbxContractorZip.Size = new System.Drawing.Size(137, 27);
-            this.tbxContractorZip.TabIndex = 30;
+            this.tbxContractorZip.Size = new System.Drawing.Size(137, 23);
+            this.tbxContractorZip.TabIndex = 9;
             // 
             // tbxContractorCity
             // 
             this.tbxContractorCity.Location = new System.Drawing.Point(112, 148);
             this.tbxContractorCity.Name = "tbxContractorCity";
-            this.tbxContractorCity.Size = new System.Drawing.Size(197, 27);
-            this.tbxContractorCity.TabIndex = 29;
+            this.tbxContractorCity.Size = new System.Drawing.Size(197, 23);
+            this.tbxContractorCity.TabIndex = 7;
             // 
             // tbxContractorAddress
             // 
             this.tbxContractorAddress.Location = new System.Drawing.Point(112, 99);
             this.tbxContractorAddress.Name = "tbxContractorAddress";
-            this.tbxContractorAddress.Size = new System.Drawing.Size(371, 27);
-            this.tbxContractorAddress.TabIndex = 28;
+            this.tbxContractorAddress.Size = new System.Drawing.Size(371, 23);
+            this.tbxContractorAddress.TabIndex = 5;
             // 
             // tbxContractorLastName
             // 
             this.tbxContractorLastName.Location = new System.Drawing.Point(346, 51);
             this.tbxContractorLastName.Name = "tbxContractorLastName";
-            this.tbxContractorLastName.Size = new System.Drawing.Size(137, 27);
-            this.tbxContractorLastName.TabIndex = 27;
+            this.tbxContractorLastName.Size = new System.Drawing.Size(137, 23);
+            this.tbxContractorLastName.TabIndex = 3;
             // 
             // tbxContractorFirstName
             // 
             this.tbxContractorFirstName.Location = new System.Drawing.Point(112, 51);
             this.tbxContractorFirstName.Name = "tbxContractorFirstName";
-            this.tbxContractorFirstName.Size = new System.Drawing.Size(137, 27);
-            this.tbxContractorFirstName.TabIndex = 26;
+            this.tbxContractorFirstName.Size = new System.Drawing.Size(137, 23);
+            this.tbxContractorFirstName.TabIndex = 1;
             // 
             // lblContractorEmail
             // 
             this.lblContractorEmail.Location = new System.Drawing.Point(60, 193);
             this.lblContractorEmail.Name = "lblContractorEmail";
             this.lblContractorEmail.Size = new System.Drawing.Size(59, 24);
-            this.lblContractorEmail.TabIndex = 25;
+            this.lblContractorEmail.TabIndex = 10;
             this.lblContractorEmail.Text = "Email:";
             this.lblContractorEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -815,7 +819,7 @@
             this.lblContractorZip.Location = new System.Drawing.Point(315, 148);
             this.lblContractorZip.Name = "lblContractorZip";
             this.lblContractorZip.Size = new System.Drawing.Size(46, 24);
-            this.lblContractorZip.TabIndex = 24;
+            this.lblContractorZip.TabIndex = 8;
             this.lblContractorZip.Text = "Zip:";
             this.lblContractorZip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -824,7 +828,7 @@
             this.lblContractorCity.Location = new System.Drawing.Point(73, 148);
             this.lblContractorCity.Name = "lblContractorCity";
             this.lblContractorCity.Size = new System.Drawing.Size(46, 24);
-            this.lblContractorCity.TabIndex = 23;
+            this.lblContractorCity.TabIndex = 6;
             this.lblContractorCity.Text = "City:";
             this.lblContractorCity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -833,7 +837,7 @@
             this.lblContractorAddress.Location = new System.Drawing.Point(40, 99);
             this.lblContractorAddress.Name = "lblContractorAddress";
             this.lblContractorAddress.Size = new System.Drawing.Size(79, 24);
-            this.lblContractorAddress.TabIndex = 22;
+            this.lblContractorAddress.TabIndex = 4;
             this.lblContractorAddress.Text = "Address:";
             this.lblContractorAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -842,7 +846,7 @@
             this.lblContractorLastName.Location = new System.Drawing.Point(255, 51);
             this.lblContractorLastName.Name = "lblContractorLastName";
             this.lblContractorLastName.Size = new System.Drawing.Size(106, 24);
-            this.lblContractorLastName.TabIndex = 21;
+            this.lblContractorLastName.TabIndex = 2;
             this.lblContractorLastName.Text = "Last Name:";
             this.lblContractorLastName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -851,7 +855,7 @@
             this.lblContractorFirstName.Location = new System.Drawing.Point(19, 51);
             this.lblContractorFirstName.Name = "lblContractorFirstName";
             this.lblContractorFirstName.Size = new System.Drawing.Size(100, 24);
-            this.lblContractorFirstName.TabIndex = 20;
+            this.lblContractorFirstName.TabIndex = 0;
             this.lblContractorFirstName.Text = "First Name:";
             this.lblContractorFirstName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -860,7 +864,7 @@
             this.btnCancelNewContractor.Location = new System.Drawing.Point(259, 271);
             this.btnCancelNewContractor.Name = "btnCancelNewContractor";
             this.btnCancelNewContractor.Size = new System.Drawing.Size(158, 39);
-            this.btnCancelNewContractor.TabIndex = 19;
+            this.btnCancelNewContractor.TabIndex = 15;
             this.btnCancelNewContractor.Text = "Cancel Contractor";
             this.btnCancelNewContractor.UseVisualStyleBackColor = true;
             this.btnCancelNewContractor.Click += new System.EventHandler(this.btnCancelNewContractor_Click);
@@ -870,7 +874,7 @@
             this.btnAddNewContractor.Location = new System.Drawing.Point(86, 271);
             this.btnAddNewContractor.Name = "btnAddNewContractor";
             this.btnAddNewContractor.Size = new System.Drawing.Size(158, 39);
-            this.btnAddNewContractor.TabIndex = 18;
+            this.btnAddNewContractor.TabIndex = 14;
             this.btnAddNewContractor.Text = "Add Contractor";
             this.btnAddNewContractor.UseVisualStyleBackColor = true;
             this.btnAddNewContractor.Click += new System.EventHandler(this.btnAddNewContractor_Click);
@@ -889,7 +893,7 @@
             this.dgvContractors.RowTemplate.Height = 24;
             this.dgvContractors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvContractors.Size = new System.Drawing.Size(1029, 234);
-            this.dgvContractors.TabIndex = 2;
+            this.dgvContractors.TabIndex = 0;
             // 
             // tpEmployees
             // 
@@ -897,10 +901,10 @@
             this.tpEmployees.Controls.Add(this.gbxEmployeeInfo);
             this.tpEmployees.Controls.Add(this.gbxEmployeeAdd);
             this.tpEmployees.Controls.Add(this.dgvEmployees);
-            this.tpEmployees.Location = new System.Drawing.Point(4, 29);
+            this.tpEmployees.Location = new System.Drawing.Point(4, 26);
             this.tpEmployees.Name = "tpEmployees";
             this.tpEmployees.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEmployees.Size = new System.Drawing.Size(1044, 622);
+            this.tpEmployees.Size = new System.Drawing.Size(1044, 625);
             this.tpEmployees.TabIndex = 3;
             this.tpEmployees.Text = "Employees";
             this.tpEmployees.ToolTipText = "View and Manage Employees";
@@ -919,7 +923,7 @@
             this.gbxEmployeeInfo.Location = new System.Drawing.Point(518, 246);
             this.gbxEmployeeInfo.Name = "gbxEmployeeInfo";
             this.gbxEmployeeInfo.Size = new System.Drawing.Size(516, 337);
-            this.gbxEmployeeInfo.TabIndex = 15;
+            this.gbxEmployeeInfo.TabIndex = 2;
             this.gbxEmployeeInfo.TabStop = false;
             this.gbxEmployeeInfo.Text = "Edit Employee Information";
             // 
@@ -928,7 +932,7 @@
             this.btnEmployeeDelete.Location = new System.Drawing.Point(179, 277);
             this.btnEmployeeDelete.Name = "btnEmployeeDelete";
             this.btnEmployeeDelete.Size = new System.Drawing.Size(158, 54);
-            this.btnEmployeeDelete.TabIndex = 15;
+            this.btnEmployeeDelete.TabIndex = 7;
             this.btnEmployeeDelete.Text = "Delete Selected Employee";
             this.btnEmployeeDelete.UseVisualStyleBackColor = true;
             this.btnEmployeeDelete.Click += new System.EventHandler(this.btnEmployeeDelete_Click);
@@ -939,7 +943,7 @@
             this.lblEmployeeInfoTitle.Location = new System.Drawing.Point(110, 54);
             this.lblEmployeeInfoTitle.Name = "lblEmployeeInfoTitle";
             this.lblEmployeeInfoTitle.Size = new System.Drawing.Size(296, 24);
-            this.lblEmployeeInfoTitle.TabIndex = 14;
+            this.lblEmployeeInfoTitle.TabIndex = 0;
             this.lblEmployeeInfoTitle.Text = "Select an Employee From Above";
             this.lblEmployeeInfoTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -948,7 +952,7 @@
             this.lblEmployeeInfoNew.Location = new System.Drawing.Point(23, 177);
             this.lblEmployeeInfoNew.Name = "lblEmployeeInfoNew";
             this.lblEmployeeInfoNew.Size = new System.Drawing.Size(227, 20);
-            this.lblEmployeeInfoNew.TabIndex = 13;
+            this.lblEmployeeInfoNew.TabIndex = 3;
             this.lblEmployeeInfoNew.Text = "Enter new information:";
             this.lblEmployeeInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -957,12 +961,14 @@
             this.lblEmployeeCategory.Location = new System.Drawing.Point(19, 123);
             this.lblEmployeeCategory.Name = "lblEmployeeCategory";
             this.lblEmployeeCategory.Size = new System.Drawing.Size(231, 20);
-            this.lblEmployeeCategory.TabIndex = 12;
+            this.lblEmployeeCategory.TabIndex = 1;
             this.lblEmployeeCategory.Text = "Select a Category to Edit:";
             this.lblEmployeeCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboEmployeeCategory
             // 
+            this.cboEmployeeCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboEmployeeCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboEmployeeCategory.FormattingEnabled = true;
             this.cboEmployeeCategory.Items.AddRange(new object[] {
             "FirstName",
@@ -973,22 +979,22 @@
             "ZipCode"});
             this.cboEmployeeCategory.Location = new System.Drawing.Point(256, 120);
             this.cboEmployeeCategory.Name = "cboEmployeeCategory";
-            this.cboEmployeeCategory.Size = new System.Drawing.Size(210, 28);
-            this.cboEmployeeCategory.TabIndex = 11;
+            this.cboEmployeeCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboEmployeeCategory.TabIndex = 2;
             // 
             // tbxEmployeeInfoNew
             // 
             this.tbxEmployeeInfoNew.Location = new System.Drawing.Point(256, 174);
             this.tbxEmployeeInfoNew.Name = "tbxEmployeeInfoNew";
-            this.tbxEmployeeInfoNew.Size = new System.Drawing.Size(210, 27);
-            this.tbxEmployeeInfoNew.TabIndex = 10;
+            this.tbxEmployeeInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxEmployeeInfoNew.TabIndex = 4;
             // 
             // btnEmployeeSubmit
             // 
             this.btnEmployeeSubmit.Location = new System.Drawing.Point(90, 232);
             this.btnEmployeeSubmit.Name = "btnEmployeeSubmit";
             this.btnEmployeeSubmit.Size = new System.Drawing.Size(158, 39);
-            this.btnEmployeeSubmit.TabIndex = 9;
+            this.btnEmployeeSubmit.TabIndex = 5;
             this.btnEmployeeSubmit.Text = "Submit Changes";
             this.btnEmployeeSubmit.UseVisualStyleBackColor = true;
             this.btnEmployeeSubmit.Click += new System.EventHandler(this.btnEmployeeSubmit_Click);
@@ -998,7 +1004,7 @@
             this.btnEmployeeCancel.Location = new System.Drawing.Point(269, 232);
             this.btnEmployeeCancel.Name = "btnEmployeeCancel";
             this.btnEmployeeCancel.Size = new System.Drawing.Size(158, 39);
-            this.btnEmployeeCancel.TabIndex = 8;
+            this.btnEmployeeCancel.TabIndex = 6;
             this.btnEmployeeCancel.Text = "Cancel Changes";
             this.btnEmployeeCancel.UseVisualStyleBackColor = true;
             this.btnEmployeeCancel.Click += new System.EventHandler(this.btnEmployeeCancel_Click);
@@ -1022,7 +1028,7 @@
             this.gbxEmployeeAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxEmployeeAdd.Name = "gbxEmployeeAdd";
             this.gbxEmployeeAdd.Size = new System.Drawing.Size(503, 338);
-            this.gbxEmployeeAdd.TabIndex = 14;
+            this.gbxEmployeeAdd.TabIndex = 1;
             this.gbxEmployeeAdd.TabStop = false;
             this.gbxEmployeeAdd.Text = "Add a New Employee";
             // 
@@ -1030,50 +1036,50 @@
             // 
             this.tbxEmployeeEmail.Location = new System.Drawing.Point(112, 193);
             this.tbxEmployeeEmail.Name = "tbxEmployeeEmail";
-            this.tbxEmployeeEmail.Size = new System.Drawing.Size(371, 27);
-            this.tbxEmployeeEmail.TabIndex = 17;
+            this.tbxEmployeeEmail.Size = new System.Drawing.Size(371, 23);
+            this.tbxEmployeeEmail.TabIndex = 11;
             // 
             // tbxEmployeeZip
             // 
             this.tbxEmployeeZip.Location = new System.Drawing.Point(346, 148);
             this.tbxEmployeeZip.Name = "tbxEmployeeZip";
-            this.tbxEmployeeZip.Size = new System.Drawing.Size(137, 27);
-            this.tbxEmployeeZip.TabIndex = 16;
+            this.tbxEmployeeZip.Size = new System.Drawing.Size(137, 23);
+            this.tbxEmployeeZip.TabIndex = 9;
             // 
             // tbxEmployeeCity
             // 
             this.tbxEmployeeCity.Location = new System.Drawing.Point(112, 148);
             this.tbxEmployeeCity.Name = "tbxEmployeeCity";
-            this.tbxEmployeeCity.Size = new System.Drawing.Size(197, 27);
-            this.tbxEmployeeCity.TabIndex = 15;
+            this.tbxEmployeeCity.Size = new System.Drawing.Size(197, 23);
+            this.tbxEmployeeCity.TabIndex = 7;
             // 
             // tbxEmployeeAddress
             // 
             this.tbxEmployeeAddress.Location = new System.Drawing.Point(112, 99);
             this.tbxEmployeeAddress.Name = "tbxEmployeeAddress";
-            this.tbxEmployeeAddress.Size = new System.Drawing.Size(371, 27);
-            this.tbxEmployeeAddress.TabIndex = 14;
+            this.tbxEmployeeAddress.Size = new System.Drawing.Size(371, 23);
+            this.tbxEmployeeAddress.TabIndex = 5;
             // 
             // tbxEmployeeLastName
             // 
             this.tbxEmployeeLastName.Location = new System.Drawing.Point(346, 51);
             this.tbxEmployeeLastName.Name = "tbxEmployeeLastName";
-            this.tbxEmployeeLastName.Size = new System.Drawing.Size(137, 27);
-            this.tbxEmployeeLastName.TabIndex = 13;
+            this.tbxEmployeeLastName.Size = new System.Drawing.Size(137, 23);
+            this.tbxEmployeeLastName.TabIndex = 3;
             // 
             // tbxEmployeeFirstName
             // 
             this.tbxEmployeeFirstName.Location = new System.Drawing.Point(112, 51);
             this.tbxEmployeeFirstName.Name = "tbxEmployeeFirstName";
-            this.tbxEmployeeFirstName.Size = new System.Drawing.Size(137, 27);
-            this.tbxEmployeeFirstName.TabIndex = 12;
+            this.tbxEmployeeFirstName.Size = new System.Drawing.Size(137, 23);
+            this.tbxEmployeeFirstName.TabIndex = 1;
             // 
             // lblEmployeeEmail
             // 
             this.lblEmployeeEmail.Location = new System.Drawing.Point(60, 193);
             this.lblEmployeeEmail.Name = "lblEmployeeEmail";
             this.lblEmployeeEmail.Size = new System.Drawing.Size(59, 24);
-            this.lblEmployeeEmail.TabIndex = 11;
+            this.lblEmployeeEmail.TabIndex = 10;
             this.lblEmployeeEmail.Text = "Email:";
             this.lblEmployeeEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1082,7 +1088,7 @@
             this.lblEmployeeZip.Location = new System.Drawing.Point(315, 148);
             this.lblEmployeeZip.Name = "lblEmployeeZip";
             this.lblEmployeeZip.Size = new System.Drawing.Size(46, 24);
-            this.lblEmployeeZip.TabIndex = 10;
+            this.lblEmployeeZip.TabIndex = 8;
             this.lblEmployeeZip.Text = "Zip:";
             this.lblEmployeeZip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1091,7 +1097,7 @@
             this.lblEmployeeCity.Location = new System.Drawing.Point(73, 148);
             this.lblEmployeeCity.Name = "lblEmployeeCity";
             this.lblEmployeeCity.Size = new System.Drawing.Size(46, 24);
-            this.lblEmployeeCity.TabIndex = 9;
+            this.lblEmployeeCity.TabIndex = 6;
             this.lblEmployeeCity.Text = "City:";
             this.lblEmployeeCity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1100,7 +1106,7 @@
             this.lblEmployeeAddress.Location = new System.Drawing.Point(40, 99);
             this.lblEmployeeAddress.Name = "lblEmployeeAddress";
             this.lblEmployeeAddress.Size = new System.Drawing.Size(79, 24);
-            this.lblEmployeeAddress.TabIndex = 8;
+            this.lblEmployeeAddress.TabIndex = 4;
             this.lblEmployeeAddress.Text = "Address:";
             this.lblEmployeeAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1109,7 +1115,7 @@
             this.lblEmployeeLastName.Location = new System.Drawing.Point(255, 51);
             this.lblEmployeeLastName.Name = "lblEmployeeLastName";
             this.lblEmployeeLastName.Size = new System.Drawing.Size(106, 24);
-            this.lblEmployeeLastName.TabIndex = 7;
+            this.lblEmployeeLastName.TabIndex = 2;
             this.lblEmployeeLastName.Text = "Last Name:";
             this.lblEmployeeLastName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1118,7 +1124,7 @@
             this.lblEmployeeFirstName.Location = new System.Drawing.Point(19, 51);
             this.lblEmployeeFirstName.Name = "lblEmployeeFirstName";
             this.lblEmployeeFirstName.Size = new System.Drawing.Size(100, 24);
-            this.lblEmployeeFirstName.TabIndex = 6;
+            this.lblEmployeeFirstName.TabIndex = 0;
             this.lblEmployeeFirstName.Text = "First Name:";
             this.lblEmployeeFirstName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1127,7 +1133,7 @@
             this.btnCancelNewEmployee.Location = new System.Drawing.Point(259, 271);
             this.btnCancelNewEmployee.Name = "btnCancelNewEmployee";
             this.btnCancelNewEmployee.Size = new System.Drawing.Size(158, 39);
-            this.btnCancelNewEmployee.TabIndex = 5;
+            this.btnCancelNewEmployee.TabIndex = 13;
             this.btnCancelNewEmployee.Text = "Cancel Employee";
             this.btnCancelNewEmployee.UseVisualStyleBackColor = true;
             this.btnCancelNewEmployee.Click += new System.EventHandler(this.btnCancelNewEmployee_Click);
@@ -1137,7 +1143,7 @@
             this.btnAddNewEmployee.Location = new System.Drawing.Point(86, 271);
             this.btnAddNewEmployee.Name = "btnAddNewEmployee";
             this.btnAddNewEmployee.Size = new System.Drawing.Size(158, 39);
-            this.btnAddNewEmployee.TabIndex = 3;
+            this.btnAddNewEmployee.TabIndex = 12;
             this.btnAddNewEmployee.Text = "Add Employee";
             this.btnAddNewEmployee.UseVisualStyleBackColor = true;
             this.btnAddNewEmployee.Click += new System.EventHandler(this.btnAddNewEmployee_Click);
@@ -1156,39 +1162,19 @@
             this.dgvEmployees.RowTemplate.Height = 24;
             this.dgvEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployees.Size = new System.Drawing.Size(1029, 234);
-            this.dgvEmployees.TabIndex = 2;
+            this.dgvEmployees.TabIndex = 0;
             // 
             // tpReports
             // 
             this.tpReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tpReports.Location = new System.Drawing.Point(4, 29);
+            this.tpReports.Location = new System.Drawing.Point(4, 26);
             this.tpReports.Name = "tpReports";
             this.tpReports.Padding = new System.Windows.Forms.Padding(3);
-            this.tpReports.Size = new System.Drawing.Size(1044, 622);
+            this.tpReports.Size = new System.Drawing.Size(1044, 625);
             this.tpReports.TabIndex = 4;
             this.tpReports.Text = "Reports";
             this.tpReports.ToolTipText = "View and Manage Reports";
             this.tpReports.UseVisualStyleBackColor = true;
-            // 
-            // lblJobContractors
-            // 
-            this.lblJobContractors.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJobContractors.Location = new System.Drawing.Point(2, 43);
-            this.lblJobContractors.Name = "lblJobContractors";
-            this.lblJobContractors.Size = new System.Drawing.Size(245, 20);
-            this.lblJobContractors.TabIndex = 14;
-            this.lblJobContractors.Text = "Contractors On Job:";
-            this.lblJobContractors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblJobEmployees
-            // 
-            this.lblJobEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJobEmployees.Location = new System.Drawing.Point(260, 43);
-            this.lblJobEmployees.Name = "lblJobEmployees";
-            this.lblJobEmployees.Size = new System.Drawing.Size(245, 20);
-            this.lblJobEmployees.TabIndex = 15;
-            this.lblJobEmployees.Text = "Employees On Job:";
-            this.lblJobEmployees.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OwnerMain
             // 
@@ -1245,11 +1231,8 @@
         private System.Windows.Forms.Button btnEditMaterials;
         private System.Windows.Forms.GroupBox gbxJobMaterials;
         private System.Windows.Forms.DataGridView dgvJobMaterials;
-        private System.Windows.Forms.Button btnCancelJobs;
-        private System.Windows.Forms.Button btnUpdateJobs;
-        private System.Windows.Forms.Button btnEditJobs;
         private System.Windows.Forms.GroupBox gbxJobAssignWorkers;
-        private System.Windows.Forms.Button btnApproveJobs;
+        private System.Windows.Forms.Button btnRemoveContractorFromJob;
         private System.Windows.Forms.Button btnApproveMaterials;
         private System.Windows.Forms.ListBox lbxJobEmployees;
         private System.Windows.Forms.ListBox lbxJobContractors;
@@ -1329,5 +1312,6 @@
         private System.Windows.Forms.Label lblContractorPhone;
         private System.Windows.Forms.Label lblJobEmployees;
         private System.Windows.Forms.Label lblJobContractors;
+        private System.Windows.Forms.Button btnRemoveEmployeeFromJob;
     }
 }

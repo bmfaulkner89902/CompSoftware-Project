@@ -68,36 +68,102 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void EmployeeAndCustomerJobs(ListBox lbxEmployees)
+        public static void EmployeeAndContractorJobs(ListBox lbxEmployees, ListBox lbxContractors, int JobID)
         {
-            //Set Command Objects To Null To Begin With
-            _sqlLandscapeCommand = null;
-            _daLandscape = new SqlDataAdapter();
-            _dtLandscape = new DataTable();
-
+            SqlDataReader employeeNames = null;
+            
             try
             {
-                //Establish Command Objects
-                _sqlLandscapeCommand = new SqlCommand("Select W.FirstName, W.LastName From group1fa202330.Workers W" +
-                    " Join group1fa202330.WorkerJobs WJ On W.WorkerID = WJ.WorkerID Join group1fa202330.JobSites " +
-                    "JS On JS.JobID = WJ.JobID Where WJ.JobID = 100;", _cntDatabase);
-                //Establish Data Adapter
-                _daLandscape.SelectCommand = _sqlLandscapeCommand;
-                //Fill Data Table
-                _daLandscape.Fill(_dtLandscape);
-                //Bind DataGridView
-                string[] test = {"penis"};
-                lbxEmployees.DataSource = test;
+                lbxEmployees.Items.Clear();
 
+                //Establish Command Objects
+                _sqlLandscapeCommand = new SqlCommand("Select W.FirstName + ' ' + W.LastName as NAME From group1fa202330.Workers W" +
+                    " Join group1fa202330.WorkerJobs WJ On W.WorkerID = WJ.WorkerID Join group1fa202330.JobSites " +
+                    "JS On JS.JobID = WJ.JobID Where WJ.JobID = " + JobID + ";", _cntDatabase);
+
+                employeeNames = _sqlLandscapeCommand.ExecuteReader();
+
+                while (employeeNames.Read())
+                {
+                    lbxEmployees.Items.Add(employeeNames["NAME"]);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //Dispose Of Command, Adapter And Table Object
+            //Dispose Of Command and Reader
             _sqlLandscapeCommand.Dispose();
-            _daLandscape.Dispose();
-            _dtLandscape.Dispose();
+            employeeNames.Close();
+
+
+            SqlDataReader contractorNames = null;
+
+            try
+            {
+                lbxContractors.Items.Clear();
+
+                //Establish Command Objects
+                _sqlLandscapeCommand = new SqlCommand("Select C.FirstName + ' ' + C.LastName as NAME From group1fa202330.Contractors C" +
+                    " Join group1fa202330.ContractedJobs CJ On C.ContractorID = CJ.ContractorID Join group1fa202330.JobSites " +
+                    "JS On JS.JobID = CJ.JobID Where CJ.JobID = " + JobID + ";", _cntDatabase);
+
+                contractorNames = _sqlLandscapeCommand.ExecuteReader();
+
+                while (contractorNames.Read())
+                {
+                    lbxContractors.Items.Add(contractorNames["NAME"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //Dispose Of Command and Reader
+            _sqlLandscapeCommand.Dispose();
+            contractorNames.Close();           
+        }
+
+        public static void RemoveEmployeesFromJobs(string fullName, int jobID)
+        {
+            int employeeID;
+
+            try
+            {
+                //Method for Removing Employees from Jobs
+                SqlCommand employeeCmd = new SqlCommand("Select WorkerID From group1fa202330.Workers Where FirstName + ' ' + LastName like '" + fullName + "';", _cntDatabase);
+                employeeID = (int)employeeCmd.ExecuteScalar();
+                employeeCmd.Dispose();
+
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.WorkerJobs Where JobID = " + jobID + " and WorkerID = " + employeeID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Removing Employee From Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void RemoveContractorsFromJobs(string fullName, int jobID)
+        {
+            int contractorID;
+
+            try
+            {
+                //Method for Removing Contractors from Jobs
+                SqlCommand contractorCmd = new SqlCommand("Select ContractorID From group1fa202330.Contractors Where FirstName + ' ' + LastName like '" + fullName + "';", _cntDatabase);
+                contractorID = (int)contractorCmd.ExecuteScalar();
+                contractorCmd.Dispose();
+
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.ContractedJobs Where JobID = " + jobID + " and ContractorID = " + contractorID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Removing Contractor From Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static void MaterialCommand(DataGridView dgvMaterials, int JobID)

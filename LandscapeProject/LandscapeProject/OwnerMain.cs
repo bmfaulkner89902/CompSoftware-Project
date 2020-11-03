@@ -23,7 +23,7 @@ namespace LandscapeProject
             //Open Database then load JobCommand
             OwnerProgOps.OpenDatabase();
             OwnerProgOps.JobCommand(dgvJobs);
-            OwnerProgOps.EmployeeAndCustomerJobs(lbxJobEmployees);
+            MaterialsAndWorkersForJobs();
         }
 
         private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -34,6 +34,7 @@ namespace LandscapeProject
             {
                 case 0:
                     OwnerProgOps.JobCommand(dgvJobs);
+                    MaterialsAndWorkersForJobs();
                     break;
                 case 1:
                     OwnerProgOps.CustomerCommand(dgvCustomers);
@@ -51,12 +52,93 @@ namespace LandscapeProject
             }
         }
 
-        private void dgvJobs_SelectionChanged(object sender, EventArgs e)
-        {   
-            //Need to change from a selection changed event to something else, throws error code with clicking on a header 
+
+        private void dgvJobs_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (tcMain.SelectedIndex == 0)
+            {
+                if (e.RowIndex != -1)
+                {
+                    MaterialsAndWorkersForJobs();
+                }
+            }          
+        }
+
+        private void MaterialsAndWorkersForJobs()
+        {
             int selectedJob = dgvJobs.CurrentRow.Index;
             int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
             OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+            OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+        }
+
+        private void btnRemoveContractorFromJob_Click(object sender, EventArgs e)
+        {
+            int selectedJob = dgvJobs.CurrentRow.Index;
+            int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+            string contractorName;
+
+            if (lbxJobContractors.SelectedIndex > -1)
+            {
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to remove selected contractor from the selected job?",
+                "Remove Contractor From Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    contractorName = lbxJobContractors.SelectedItem.ToString();
+                    OwnerProgOps.RemoveContractorsFromJobs(contractorName, JobID);
+
+                    MessageBox.Show("Successfully removed selected contractor from the selected job.",
+                           "Remove Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+                }
+                else
+                {
+                    MessageBox.Show("The process for removing the selected contractor for the selected job has been cancelled.",
+                        "Remove Contractor From Job Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                
+            }           
+            else
+            {
+                MessageBox.Show("No Contractor selected.", "Error With Removing Contractor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnRemoveEmployeeFromJob_Click(object sender, EventArgs e)
+        {
+            int selectedJob = dgvJobs.CurrentRow.Index;
+            int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+            string employeeName;
+
+            if (lbxJobEmployees.SelectedIndex > -1)
+            {
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to remove selected employee from the selected job?",
+                "Remove Employee From Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    employeeName = lbxJobEmployees.SelectedItem.ToString();
+                    OwnerProgOps.RemoveEmployeesFromJobs(employeeName, JobID);
+
+                    MessageBox.Show("Successfully removed selected employee from the selected job.",
+                           "Remove Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+                }
+                else
+                {
+                    MessageBox.Show("The process for removing the selected employee for the selected job has been cancelled.",
+                       "Remove Employee From Job Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Employee selected.", "Error With Removing Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //Employee Functions-----------------------------------------------------------------------------------------
@@ -105,7 +187,7 @@ namespace LandscapeProject
             if (cboEmployeeCategory.SelectedIndex > -1 || tbxEmployeeInfoNew.Text != "")
             {
                 DialogResult result =
-                MessageBox.Show("Are you want to cancel editing employee information?",
+                MessageBox.Show("Are you sure you want to cancel editing employee information?",
                 "Cancel Employee Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
@@ -121,7 +203,7 @@ namespace LandscapeProject
             int employeeID = (int)dgvEmployees.Rows[selectedEmployee].Cells[0].Value;
 
             DialogResult result =
-                MessageBox.Show("Are you want to delete the selected employee?",
+                MessageBox.Show("Are you sure you want to delete the selected employee?",
                 "Delete Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
@@ -216,6 +298,7 @@ namespace LandscapeProject
         private void clearEmployeeBoxes()
         {
             cboEmployeeCategory.SelectedIndex = -1;
+            cboEmployeeCategory.Text = "";
             tbxEmployeeInfoNew.Text = "";
             tbxEmployeeFirstName.Text = "";
             tbxEmployeeLastName.Text = "";
@@ -273,7 +356,7 @@ namespace LandscapeProject
             if (cboContractorCategory.SelectedIndex > -1 || tbxContractorInfoNew.Text != "")
             {
                 DialogResult result =
-                MessageBox.Show("Are you want to cancel editing Contractor information?",
+                MessageBox.Show("Are you sure you want to cancel editing Contractor information?",
                 "Cancel Contractor Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
@@ -289,7 +372,7 @@ namespace LandscapeProject
             int ContractorID = (int)dgvContractors.Rows[selectedContractor].Cells[0].Value;
 
             DialogResult result =
-                MessageBox.Show("Are you want to delete the selected Contractor?",
+                MessageBox.Show("Are you sure you want to delete the selected Contractor?",
                 "Delete Contractor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
@@ -394,6 +477,7 @@ namespace LandscapeProject
         private void clearContractorBoxes()
         {
             cboContractorCategory.SelectedIndex = -1;
+            cboContractorCategory.Text = "";
             tbxContractorInfoNew.Text = "";
             tbxContractorFirstName.Text = "";
             tbxContractorLastName.Text = "";
@@ -452,7 +536,7 @@ namespace LandscapeProject
             if (cboCustomerCategory.SelectedIndex > -1 || tbxCustomerInfoNew.Text != "")
             {
                 DialogResult result =
-                MessageBox.Show("Are you want to cancel editing Customer information?",
+                MessageBox.Show("Are you sure you want to cancel editing Customer information?",
                 "Cancel Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
@@ -468,7 +552,7 @@ namespace LandscapeProject
             int CustomerID = (int)dgvCustomers.Rows[selectedCustomer].Cells[0].Value;
 
             DialogResult result =
-                MessageBox.Show("Are you want to delete the selected Customer?",
+                MessageBox.Show("Are you sure you want to delete the selected Customer?",
                 "Delete Customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
@@ -563,6 +647,7 @@ namespace LandscapeProject
         private void clearCustomerBoxes()
         {
             cboCustomerCategory.SelectedIndex = -1;
+            cboCustomerCategory.Text = "";
             tbxCustomerInfoNew.Text = "";
             tbxCustomerFirstName.Text = "";
             tbxCustomerLastName.Text = "";
