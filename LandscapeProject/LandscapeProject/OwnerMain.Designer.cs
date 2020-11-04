@@ -39,11 +39,10 @@
             this.lbxJobContractors = new System.Windows.Forms.ListBox();
             this.btnRemoveContractorFromJob = new System.Windows.Forms.Button();
             this.gbxJobMaterials = new System.Windows.Forms.GroupBox();
-            this.btnApproveMaterials = new System.Windows.Forms.Button();
-            this.btnCancelMaterials = new System.Windows.Forms.Button();
+            this.btnMaterialCancel = new System.Windows.Forms.Button();
             this.dgvJobMaterials = new System.Windows.Forms.DataGridView();
-            this.btnUpdateMaterials = new System.Windows.Forms.Button();
-            this.btnEditMaterials = new System.Windows.Forms.Button();
+            this.btnMaterialDelete = new System.Windows.Forms.Button();
+            this.btnMaterialSubmit = new System.Windows.Forms.Button();
             this.tpCustomers = new System.Windows.Forms.TabPage();
             this.gbxCustomerInfo = new System.Windows.Forms.GroupBox();
             this.btnCustomerDelete = new System.Windows.Forms.Button();
@@ -125,6 +124,10 @@
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.tpReports = new System.Windows.Forms.TabPage();
+            this.lblMaterialInfoNew = new System.Windows.Forms.Label();
+            this.lblMaterialCategory = new System.Windows.Forms.Label();
+            this.cboMaterialCategory = new System.Windows.Forms.ComboBox();
+            this.tbxMaterialInfoNew = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpJobs.SuspendLayout();
@@ -205,7 +208,7 @@
             this.gbxJobAssignWorkers.Controls.Add(this.btnRemoveContractorFromJob);
             this.gbxJobAssignWorkers.Location = new System.Drawing.Point(518, 246);
             this.gbxJobAssignWorkers.Name = "gbxJobAssignWorkers";
-            this.gbxJobAssignWorkers.Size = new System.Drawing.Size(516, 337);
+            this.gbxJobAssignWorkers.Size = new System.Drawing.Size(516, 370);
             this.gbxJobAssignWorkers.TabIndex = 2;
             this.gbxJobAssignWorkers.TabStop = false;
             this.gbxJobAssignWorkers.Text = "Job Contractors/Employees";
@@ -274,35 +277,30 @@
             // 
             // gbxJobMaterials
             // 
-            this.gbxJobMaterials.Controls.Add(this.btnApproveMaterials);
-            this.gbxJobMaterials.Controls.Add(this.btnCancelMaterials);
+            this.gbxJobMaterials.Controls.Add(this.lblMaterialInfoNew);
+            this.gbxJobMaterials.Controls.Add(this.lblMaterialCategory);
+            this.gbxJobMaterials.Controls.Add(this.cboMaterialCategory);
+            this.gbxJobMaterials.Controls.Add(this.btnMaterialDelete);
+            this.gbxJobMaterials.Controls.Add(this.tbxMaterialInfoNew);
+            this.gbxJobMaterials.Controls.Add(this.btnMaterialCancel);
             this.gbxJobMaterials.Controls.Add(this.dgvJobMaterials);
-            this.gbxJobMaterials.Controls.Add(this.btnUpdateMaterials);
-            this.gbxJobMaterials.Controls.Add(this.btnEditMaterials);
+            this.gbxJobMaterials.Controls.Add(this.btnMaterialSubmit);
             this.gbxJobMaterials.Location = new System.Drawing.Point(8, 246);
             this.gbxJobMaterials.Name = "gbxJobMaterials";
-            this.gbxJobMaterials.Size = new System.Drawing.Size(503, 338);
+            this.gbxJobMaterials.Size = new System.Drawing.Size(503, 370);
             this.gbxJobMaterials.TabIndex = 1;
             this.gbxJobMaterials.TabStop = false;
             this.gbxJobMaterials.Text = "Job Materials";
             // 
-            // btnApproveMaterials
+            // btnMaterialCancel
             // 
-            this.btnApproveMaterials.Location = new System.Drawing.Point(172, 226);
-            this.btnApproveMaterials.Name = "btnApproveMaterials";
-            this.btnApproveMaterials.Size = new System.Drawing.Size(158, 39);
-            this.btnApproveMaterials.TabIndex = 1;
-            this.btnApproveMaterials.Text = "Approve Materials";
-            this.btnApproveMaterials.UseVisualStyleBackColor = true;
-            // 
-            // btnCancelMaterials
-            // 
-            this.btnCancelMaterials.Location = new System.Drawing.Point(194, 271);
-            this.btnCancelMaterials.Name = "btnCancelMaterials";
-            this.btnCancelMaterials.Size = new System.Drawing.Size(114, 39);
-            this.btnCancelMaterials.TabIndex = 3;
-            this.btnCancelMaterials.Text = "Cancel Edit";
-            this.btnCancelMaterials.UseVisualStyleBackColor = true;
+            this.btnMaterialCancel.Location = new System.Drawing.Point(254, 262);
+            this.btnMaterialCancel.Name = "btnMaterialCancel";
+            this.btnMaterialCancel.Size = new System.Drawing.Size(158, 39);
+            this.btnMaterialCancel.TabIndex = 6;
+            this.btnMaterialCancel.Text = "Cancel Changes";
+            this.btnMaterialCancel.UseVisualStyleBackColor = true;
+            this.btnMaterialCancel.Click += new System.EventHandler(this.btnMaterialCancel_Click);
             // 
             // dgvJobMaterials
             // 
@@ -317,26 +315,28 @@
             this.dgvJobMaterials.RowHeadersWidth = 51;
             this.dgvJobMaterials.RowTemplate.Height = 24;
             this.dgvJobMaterials.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvJobMaterials.Size = new System.Drawing.Size(491, 181);
+            this.dgvJobMaterials.Size = new System.Drawing.Size(491, 125);
             this.dgvJobMaterials.TabIndex = 0;
             // 
-            // btnUpdateMaterials
+            // btnMaterialDelete
             // 
-            this.btnUpdateMaterials.Location = new System.Drawing.Point(314, 271);
-            this.btnUpdateMaterials.Name = "btnUpdateMaterials";
-            this.btnUpdateMaterials.Size = new System.Drawing.Size(114, 39);
-            this.btnUpdateMaterials.TabIndex = 4;
-            this.btnUpdateMaterials.Text = "Update";
-            this.btnUpdateMaterials.UseVisualStyleBackColor = true;
+            this.btnMaterialDelete.Location = new System.Drawing.Point(172, 307);
+            this.btnMaterialDelete.Name = "btnMaterialDelete";
+            this.btnMaterialDelete.Size = new System.Drawing.Size(158, 53);
+            this.btnMaterialDelete.TabIndex = 7;
+            this.btnMaterialDelete.Text = "Delete Selected Material";
+            this.btnMaterialDelete.UseVisualStyleBackColor = true;
+            this.btnMaterialDelete.Click += new System.EventHandler(this.btnMaterialDelete_Click);
             // 
-            // btnEditMaterials
+            // btnMaterialSubmit
             // 
-            this.btnEditMaterials.Location = new System.Drawing.Point(74, 271);
-            this.btnEditMaterials.Name = "btnEditMaterials";
-            this.btnEditMaterials.Size = new System.Drawing.Size(114, 39);
-            this.btnEditMaterials.TabIndex = 2;
-            this.btnEditMaterials.Text = "Edit";
-            this.btnEditMaterials.UseVisualStyleBackColor = true;
+            this.btnMaterialSubmit.Location = new System.Drawing.Point(90, 262);
+            this.btnMaterialSubmit.Name = "btnMaterialSubmit";
+            this.btnMaterialSubmit.Size = new System.Drawing.Size(158, 39);
+            this.btnMaterialSubmit.TabIndex = 5;
+            this.btnMaterialSubmit.Text = "Submit Changes";
+            this.btnMaterialSubmit.UseVisualStyleBackColor = true;
+            this.btnMaterialSubmit.Click += new System.EventHandler(this.btnMaterialSubmit_Click);
             // 
             // tpCustomers
             // 
@@ -365,7 +365,7 @@
             this.gbxCustomerInfo.Controls.Add(this.btnCustomerCancel);
             this.gbxCustomerInfo.Location = new System.Drawing.Point(518, 246);
             this.gbxCustomerInfo.Name = "gbxCustomerInfo";
-            this.gbxCustomerInfo.Size = new System.Drawing.Size(516, 337);
+            this.gbxCustomerInfo.Size = new System.Drawing.Size(516, 370);
             this.gbxCustomerInfo.TabIndex = 2;
             this.gbxCustomerInfo.TabStop = false;
             this.gbxCustomerInfo.Text = "Edit Customer Information";
@@ -470,7 +470,7 @@
             this.gbxCustomerAdd.Controls.Add(this.btnAddNewCustomer);
             this.gbxCustomerAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxCustomerAdd.Name = "gbxCustomerAdd";
-            this.gbxCustomerAdd.Size = new System.Drawing.Size(503, 338);
+            this.gbxCustomerAdd.Size = new System.Drawing.Size(503, 370);
             this.gbxCustomerAdd.TabIndex = 1;
             this.gbxCustomerAdd.TabStop = false;
             this.gbxCustomerAdd.Text = "Add a New Customer";
@@ -634,7 +634,7 @@
             this.gbxContractorInf.Controls.Add(this.btnContractorCancel);
             this.gbxContractorInf.Location = new System.Drawing.Point(518, 246);
             this.gbxContractorInf.Name = "gbxContractorInf";
-            this.gbxContractorInf.Size = new System.Drawing.Size(516, 337);
+            this.gbxContractorInf.Size = new System.Drawing.Size(516, 370);
             this.gbxContractorInf.TabIndex = 2;
             this.gbxContractorInf.TabStop = false;
             this.gbxContractorInf.Text = "Edit Contractor Information";
@@ -742,7 +742,7 @@
             this.gbxContractorAdd.Controls.Add(this.btnAddNewContractor);
             this.gbxContractorAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxContractorAdd.Name = "gbxContractorAdd";
-            this.gbxContractorAdd.Size = new System.Drawing.Size(503, 338);
+            this.gbxContractorAdd.Size = new System.Drawing.Size(503, 370);
             this.gbxContractorAdd.TabIndex = 1;
             this.gbxContractorAdd.TabStop = false;
             this.gbxContractorAdd.Text = "Add a New Contractor";
@@ -922,7 +922,7 @@
             this.gbxEmployeeInfo.Controls.Add(this.btnEmployeeCancel);
             this.gbxEmployeeInfo.Location = new System.Drawing.Point(518, 246);
             this.gbxEmployeeInfo.Name = "gbxEmployeeInfo";
-            this.gbxEmployeeInfo.Size = new System.Drawing.Size(516, 337);
+            this.gbxEmployeeInfo.Size = new System.Drawing.Size(516, 370);
             this.gbxEmployeeInfo.TabIndex = 2;
             this.gbxEmployeeInfo.TabStop = false;
             this.gbxEmployeeInfo.Text = "Edit Employee Information";
@@ -1027,7 +1027,7 @@
             this.gbxEmployeeAdd.Controls.Add(this.btnAddNewEmployee);
             this.gbxEmployeeAdd.Location = new System.Drawing.Point(8, 246);
             this.gbxEmployeeAdd.Name = "gbxEmployeeAdd";
-            this.gbxEmployeeAdd.Size = new System.Drawing.Size(503, 338);
+            this.gbxEmployeeAdd.Size = new System.Drawing.Size(503, 370);
             this.gbxEmployeeAdd.TabIndex = 1;
             this.gbxEmployeeAdd.TabStop = false;
             this.gbxEmployeeAdd.Text = "Add a New Employee";
@@ -1176,6 +1176,46 @@
             this.tpReports.ToolTipText = "View and Manage Reports";
             this.tpReports.UseVisualStyleBackColor = true;
             // 
+            // lblMaterialInfoNew
+            // 
+            this.lblMaterialInfoNew.Location = new System.Drawing.Point(32, 225);
+            this.lblMaterialInfoNew.Name = "lblMaterialInfoNew";
+            this.lblMaterialInfoNew.Size = new System.Drawing.Size(180, 20);
+            this.lblMaterialInfoNew.TabIndex = 3;
+            this.lblMaterialInfoNew.Text = "Enter new information:";
+            this.lblMaterialInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblMaterialCategory
+            // 
+            this.lblMaterialCategory.Location = new System.Drawing.Point(29, 171);
+            this.lblMaterialCategory.Name = "lblMaterialCategory";
+            this.lblMaterialCategory.Size = new System.Drawing.Size(183, 20);
+            this.lblMaterialCategory.TabIndex = 1;
+            this.lblMaterialCategory.Text = "Select a Category to Edit:";
+            this.lblMaterialCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cboMaterialCategory
+            // 
+            this.cboMaterialCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboMaterialCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboMaterialCategory.FormattingEnabled = true;
+            this.cboMaterialCategory.Items.AddRange(new object[] {
+            "Date",
+            "Units_In_Yards",
+            "MaterialType",
+            "Price"});
+            this.cboMaterialCategory.Location = new System.Drawing.Point(218, 168);
+            this.cboMaterialCategory.Name = "cboMaterialCategory";
+            this.cboMaterialCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboMaterialCategory.TabIndex = 2;
+            // 
+            // tbxMaterialInfoNew
+            // 
+            this.tbxMaterialInfoNew.Location = new System.Drawing.Point(218, 222);
+            this.tbxMaterialInfoNew.Name = "tbxMaterialInfoNew";
+            this.tbxMaterialInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxMaterialInfoNew.TabIndex = 4;
+            // 
             // OwnerMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -1192,6 +1232,7 @@
             this.tpJobs.ResumeLayout(false);
             this.gbxJobAssignWorkers.ResumeLayout(false);
             this.gbxJobMaterials.ResumeLayout(false);
+            this.gbxJobMaterials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobMaterials)).EndInit();
             this.tpCustomers.ResumeLayout(false);
             this.gbxCustomerInfo.ResumeLayout(false);
@@ -1226,14 +1267,13 @@
         private System.Windows.Forms.DataGridView dgvCustomers;
         private System.Windows.Forms.DataGridView dgvContractors;
         private System.Windows.Forms.DataGridView dgvEmployees;
-        private System.Windows.Forms.Button btnCancelMaterials;
-        private System.Windows.Forms.Button btnUpdateMaterials;
-        private System.Windows.Forms.Button btnEditMaterials;
+        private System.Windows.Forms.Button btnMaterialCancel;
+        private System.Windows.Forms.Button btnMaterialDelete;
+        private System.Windows.Forms.Button btnMaterialSubmit;
         private System.Windows.Forms.GroupBox gbxJobMaterials;
         private System.Windows.Forms.DataGridView dgvJobMaterials;
         private System.Windows.Forms.GroupBox gbxJobAssignWorkers;
         private System.Windows.Forms.Button btnRemoveContractorFromJob;
-        private System.Windows.Forms.Button btnApproveMaterials;
         private System.Windows.Forms.ListBox lbxJobEmployees;
         private System.Windows.Forms.ListBox lbxJobContractors;
         private System.Windows.Forms.GroupBox gbxCustomerAdd;
@@ -1313,5 +1353,9 @@
         private System.Windows.Forms.Label lblJobEmployees;
         private System.Windows.Forms.Label lblJobContractors;
         private System.Windows.Forms.Button btnRemoveEmployeeFromJob;
+        private System.Windows.Forms.Label lblMaterialInfoNew;
+        private System.Windows.Forms.Label lblMaterialCategory;
+        private System.Windows.Forms.ComboBox cboMaterialCategory;
+        private System.Windows.Forms.TextBox tbxMaterialInfoNew;
     }
 }

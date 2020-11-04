@@ -27,8 +27,23 @@ namespace LandscapeProject
 
         public static void OpenDatabase()
         {
-            //Open Connection to Database
-            _cntDatabase.Open();
+            try
+            {
+                //Checks to see if the database has troubles opening up
+                if (_cntDatabase.State == ConnectionState.Open)
+                {
+                    _cntDatabase.Close();
+                }
+                else
+                {
+                    //Opens Database if everything is working
+                    _cntDatabase.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Loading Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static void CloseDatabase()
@@ -39,6 +54,7 @@ namespace LandscapeProject
             _cntDatabase.Dispose();
         }
 
+        //Job Commands------------------------------------------------------------------------------------------------
         public static void JobCommand(DataGridView dgvJobs)
         {
             //Set Command Objects To Null To Begin With
@@ -50,13 +66,16 @@ namespace LandscapeProject
             {
                 //Establish Command Objects
                 _sqlLandscapeCommand = new SqlCommand("Select * From group1fa202330.JobSites;", _cntDatabase);
+                if (_sqlLandscapeCommand.Connection.State == ConnectionState.Executing)
+                {
+                    MessageBox.Show("Processing");
+                }
                 //Establish Data Adapter
                 _daLandscape.SelectCommand = _sqlLandscapeCommand;
                 //Fill Data Table
                 _daLandscape.Fill(_dtLandscape);
                 //Bind DataGridView
                 dgvJobs.DataSource = _dtLandscape;
-
             }
             catch (Exception ex)
             {
@@ -80,6 +99,7 @@ namespace LandscapeProject
                 _sqlLandscapeCommand = new SqlCommand("Select W.FirstName + ' ' + W.LastName as NAME From group1fa202330.Workers W" +
                     " Join group1fa202330.WorkerJobs WJ On W.WorkerID = WJ.WorkerID Join group1fa202330.JobSites " +
                     "JS On JS.JobID = WJ.JobID Where WJ.JobID = " + JobID + ";", _cntDatabase);
+                
 
                 employeeNames = _sqlLandscapeCommand.ExecuteReader();
 
@@ -138,6 +158,9 @@ namespace LandscapeProject
                 SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.WorkerJobs Where JobID = " + jobID + " and WorkerID = " + employeeID + ";", _cntDatabase);
                 JobCmd.ExecuteNonQuery();
                 JobCmd.Dispose();
+
+                MessageBox.Show("Successfully removed selected employee from the selected job.",
+                           "Remove Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -159,6 +182,9 @@ namespace LandscapeProject
                 SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.ContractedJobs Where JobID = " + jobID + " and ContractorID = " + contractorID + ";", _cntDatabase);
                 JobCmd.ExecuteNonQuery();
                 JobCmd.Dispose();
+
+                MessageBox.Show("Successfully removed selected contractor from the selected job.",
+                           "Remove Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -196,8 +222,49 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
+        public static void UpdateMaterials(string Category, string newInfo, int materialID)
+        {
+            try
+            {
+                //Method for updating information of Materials
+                SqlCommand cmd = new SqlCommand("Update group1fa202330.Materials set " + Category + "=@newInfo Where MaterialID=" + materialID + ";", _cntDatabase);
+                cmd.Parameters.AddWithValue("@newInfo", newInfo);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
 
+                MessageBox.Show("Successfully updated material information with the new information entered.",
+                "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static void DeleteMaterial(int materialID, int jobID)
+        {
+            try
+            {
+                //Method for Removing Materials from Jobs
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.JobMaterials Where JobID = " + jobID + " and MaterialID = " + materialID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
 
+                //Method for Deleting Materials
+                SqlCommand materialCmd = new SqlCommand("Delete From group1fa202330.Materials Where MaterialID=" + materialID + ";", _cntDatabase);
+                materialCmd.ExecuteNonQuery();
+                materialCmd.Dispose();
+
+                MessageBox.Show("Successfully deleted the selected material.",
+                    "Delete Material Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Deleting Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------
+
+        //Customer Commands-------------------------------------------------------------------------------------------
         public static void CustomerCommand(DataGridView dgvCustomers)
         {
             //Set Command Objects To Null To Begin With
@@ -232,11 +299,13 @@ namespace LandscapeProject
             try
             {
                 //Method for updating information of Customers
-                SqlCommand cmd = new SqlCommand("Update group1fa202330.Customers set " + Category + "=@newInfo Where CustomerID=@cusID;", _cntDatabase);
+                SqlCommand cmd = new SqlCommand("Update group1fa202330.Customers set " + Category + "=@newInfo Where CustomerID=" + cusID + ";", _cntDatabase);
                 cmd.Parameters.AddWithValue("@newInfo", newInfo);
-                cmd.Parameters.AddWithValue("@cusID", cusID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully updated Customer information with the new information entered.",
+                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -253,6 +322,9 @@ namespace LandscapeProject
                     "Values('" + FirstName + "','" + LastName + "','" + Address + "','" + Email + "','" + City + "','" + ZipCode + "');", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully added a new Customer.",
+                    "Adding Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -268,15 +340,18 @@ namespace LandscapeProject
                 SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Customers Where CustomerID=" + CustomerID + ";", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully deleted the selected Customer.",
+                    "Delete Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Deleting Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //------------------------------------------------------------------------------------------------------------
 
-
-
+        //Contractor Commands-----------------------------------------------------------------------------------------
         public static void ContractorCommand(DataGridView dgvContractors)
         {
             //Set Command Objects To Null To Begin With
@@ -311,11 +386,13 @@ namespace LandscapeProject
             try
             {
                 //Method for updating information of contractors
-                SqlCommand cmd = new SqlCommand("Update group1fa202330.Contractors set " + Category + "=@newInfo Where ContractorID=@conID;", _cntDatabase);
+                SqlCommand cmd = new SqlCommand("Update group1fa202330.Contractors set " + Category + "=@newInfo Where ContractorID=" + conID + ";", _cntDatabase);
                 cmd.Parameters.AddWithValue("@newInfo", newInfo);
-                cmd.Parameters.AddWithValue("@conID", conID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully updated Contractor information with the new information entered.",
+                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -332,6 +409,9 @@ namespace LandscapeProject
                     "Values('" + FirstName + "','" + LastName + "','" + Email + "','" + Phone + "','" + Address + "','" + City + "','" + ZipCode + "');", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully added a new Contractor.",
+                     "Adding Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -347,15 +427,18 @@ namespace LandscapeProject
                 SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Contractors Where ContractorID=" + ContractorID + ";", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully deleted the selected Contractor.",
+                    "Delete Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Deleting Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //------------------------------------------------------------------------------------------------------------
 
-
-
+        //Employee Commands-------------------------------------------------------------------------------------------
         public static void EmployeesCommand(DataGridView dgvEmployees)
         {
             //Set Command Objects To Null To Begin With
@@ -390,11 +473,13 @@ namespace LandscapeProject
             try
             {
                 //Method for updating information of employees
-                SqlCommand cmd = new SqlCommand("Update group1fa202330.Workers set " + Category + "=@newInfo Where WorkerID=@empID;", _cntDatabase);
+                SqlCommand cmd = new SqlCommand("Update group1fa202330.Workers set " + Category + "=@newInfo Where WorkerID=" + empID + ";", _cntDatabase);
                 cmd.Parameters.AddWithValue("@newInfo", newInfo);
-                cmd.Parameters.AddWithValue("@empID", empID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully updated employee information with the new information entered.",
+                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -411,6 +496,9 @@ namespace LandscapeProject
                     "Values('"+ FirstName +"','"+ LastName +"','"+ Address +"','"+ Email +"','"+ City +"','"+ ZipCode +"');", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully added a new employee.",
+                "Adding Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -426,12 +514,15 @@ namespace LandscapeProject
                 SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Workers Where WorkerID="+ EmployeeID +";", _cntDatabase);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                MessageBox.Show("Successfully deleted the selected employee.",
+                    "Delete Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Deleting Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-      
+        //------------------------------------------------------------------------------------------------------------
     }
 }
