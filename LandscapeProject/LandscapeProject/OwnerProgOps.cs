@@ -66,10 +66,6 @@ namespace LandscapeProject
             {
                 //Establish Command Objects
                 _sqlLandscapeCommand = new SqlCommand("Select * From group1fa202330.JobSites;", _cntDatabase);
-                if (_sqlLandscapeCommand.Connection.State == ConnectionState.Executing)
-                {
-                    MessageBox.Show("Processing");
-                }
                 //Establish Data Adapter
                 _daLandscape.SelectCommand = _sqlLandscapeCommand;
                 //Fill Data Table
@@ -85,6 +81,93 @@ namespace LandscapeProject
             _sqlLandscapeCommand.Dispose();
             _daLandscape.Dispose();
             _dtLandscape.Dispose();
+        }
+
+        public static void AddJob(string JobType, string Address, string BeginDate, string EndDate, double Price, float JobSize)
+        {
+            try
+            {
+                if (EndDate == "" || EndDate == " ")
+                {
+                    //Method for adding new employees
+                    SqlCommand cmd = new SqlCommand("Insert Into group1fa202330.JobSites " +
+                        "Values('" + JobType + "','" + Address + "','" + BeginDate + "', NULL , " + Price + " , " + JobSize + ");", _cntDatabase);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    //Method for adding new employees
+                    SqlCommand cmd = new SqlCommand("Insert Into group1fa202330.JobSites " +
+                        "Values('" + JobType + "','" + Address + "','" + BeginDate + "','" + EndDate + "', " + Price + " , " + JobSize + ");", _cntDatabase);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                
+                MessageBox.Show("Successfully added a new Job.",
+                "Adding Job Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Adding A Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void UpdateJob(string Category, string newInfo, int jobID)
+        {
+            try
+            {
+                //Method for updating information of Customers
+                SqlCommand cmd = new SqlCommand("Update group1fa202330.JobSites set " + Category + "=@newInfo Where JobID=" + jobID + ";", _cntDatabase);
+                cmd.Parameters.AddWithValue("@newInfo", newInfo);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                MessageBox.Show("Successfully updated Job information with the new information entered.",
+                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void DeleteJob(int JobID)
+        {
+            try
+            {
+                //Deletes the Jobs From Contracted Jobs
+                SqlCommand ContractorJobsCmd = new SqlCommand("Delete From group1fa202330.ContractedJobs Where JobID = " + JobID + ";", _cntDatabase);
+                ContractorJobsCmd.ExecuteNonQuery();
+                ContractorJobsCmd.Dispose();
+
+                //Deletes the Jobs From Customer Jobs
+                SqlCommand CustomerJobsCmd = new SqlCommand("Delete From group1fa202330.CustomerJobs Where JobID = " + JobID + ";", _cntDatabase);
+                CustomerJobsCmd.ExecuteNonQuery();
+                CustomerJobsCmd.Dispose();
+
+                //Deletes the Jobs From Worker Jobs
+                SqlCommand WorkerJobsCmd = new SqlCommand("Delete From group1fa202330.WorkerJobs Where JobID = " + JobID + ";", _cntDatabase);
+                WorkerJobsCmd.ExecuteNonQuery();
+                WorkerJobsCmd.Dispose();
+
+                //Deletes the Jobs From Job Materials
+                SqlCommand JobMaterialsCmd = new SqlCommand("Delete From group1fa202330.JobMaterials Where JobID = " + JobID + ";", _cntDatabase);
+                JobMaterialsCmd.ExecuteNonQuery();
+                JobMaterialsCmd.Dispose();
+
+                //Method for Deleting the Job
+                SqlCommand CustomerCmd = new SqlCommand("Delete From group1fa202330.JobSites Where JobID=" + JobID + ";", _cntDatabase);
+                CustomerCmd.ExecuteNonQuery();
+                CustomerCmd.Dispose();
+
+                MessageBox.Show("Successfully deleted the selected Job.",
+                    "Delete Job Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Deleting Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static void EmployeeAndContractorJobs(ListBox lbxEmployees, ListBox lbxContractors, int JobID)
@@ -336,10 +419,14 @@ namespace LandscapeProject
         {
             try
             {
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.CustomerJobs Where CustomerID = " + CustomerID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+
                 //Method for Deleting a Customer
-                SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Customers Where CustomerID=" + CustomerID + ";", _cntDatabase);
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                SqlCommand CustomerCmd = new SqlCommand("Delete From group1fa202330.Customers Where CustomerID=" + CustomerID + ";", _cntDatabase);
+                CustomerCmd.ExecuteNonQuery();
+                CustomerCmd.Dispose();
 
                 MessageBox.Show("Successfully deleted the selected Customer.",
                     "Delete Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -423,10 +510,15 @@ namespace LandscapeProject
         {
             try
             {
+
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.ContractedJobs Where ContractorID = " + ContractorID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+
                 //Method for Deleting a Contractor
-                SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Contractors Where ContractorID=" + ContractorID + ";", _cntDatabase);
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                SqlCommand ContractorCmd = new SqlCommand("Delete From group1fa202330.Contractors Where ContractorID=" + ContractorID + ";", _cntDatabase);
+                ContractorCmd.ExecuteNonQuery();
+                ContractorCmd.Dispose();
 
                 MessageBox.Show("Successfully deleted the selected Contractor.",
                     "Delete Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -510,10 +602,15 @@ namespace LandscapeProject
         {
             try
             {
+
+                SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.WorkerJobs Where WorkerID = " + EmployeeID + ";", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+
                 //Method for Deleting an Employee
-                SqlCommand cmd = new SqlCommand("Delete From group1fa202330.Workers Where WorkerID="+ EmployeeID +";", _cntDatabase);
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                SqlCommand EmployeeCmd = new SqlCommand("Delete From group1fa202330.Workers Where WorkerID="+ EmployeeID +";", _cntDatabase);
+                EmployeeCmd.ExecuteNonQuery();
+                EmployeeCmd.Dispose();
 
                 MessageBox.Show("Successfully deleted the selected employee.",
                     "Delete Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);

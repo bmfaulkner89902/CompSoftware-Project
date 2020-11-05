@@ -31,6 +31,41 @@
             this.dgvJobs = new System.Windows.Forms.DataGridView();
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpJobs = new System.Windows.Forms.TabPage();
+            this.tcJobs = new System.Windows.Forms.TabControl();
+            this.tpJobMaterials = new System.Windows.Forms.TabPage();
+            this.lblMaterialInfoNew = new System.Windows.Forms.Label();
+            this.dgvJobMaterials = new System.Windows.Forms.DataGridView();
+            this.lblMaterialCategory = new System.Windows.Forms.Label();
+            this.btnMaterialSubmit = new System.Windows.Forms.Button();
+            this.cboMaterialCategory = new System.Windows.Forms.ComboBox();
+            this.btnMaterialCancel = new System.Windows.Forms.Button();
+            this.btnMaterialDelete = new System.Windows.Forms.Button();
+            this.tbxMaterialInfoNew = new System.Windows.Forms.TextBox();
+            this.tpJobAdd = new System.Windows.Forms.TabPage();
+            this.lblJobAddNote = new System.Windows.Forms.Label();
+            this.tbxJobPrice = new System.Windows.Forms.TextBox();
+            this.tbxJobEndDate = new System.Windows.Forms.TextBox();
+            this.tbxJobBeginDate = new System.Windows.Forms.TextBox();
+            this.tbxJobAddress = new System.Windows.Forms.TextBox();
+            this.tbxJobSize = new System.Windows.Forms.TextBox();
+            this.tbxJobType = new System.Windows.Forms.TextBox();
+            this.lblJobPrice = new System.Windows.Forms.Label();
+            this.lblJobEndDate = new System.Windows.Forms.Label();
+            this.lblJobBeginDate = new System.Windows.Forms.Label();
+            this.lblJobAddress = new System.Windows.Forms.Label();
+            this.lblJobSize = new System.Windows.Forms.Label();
+            this.lblJobType = new System.Windows.Forms.Label();
+            this.btnCancelNewJob = new System.Windows.Forms.Button();
+            this.btnAddNewJob = new System.Windows.Forms.Button();
+            this.tpEditJob = new System.Windows.Forms.TabPage();
+            this.btnJobDelete = new System.Windows.Forms.Button();
+            this.lblJobInfoTitle = new System.Windows.Forms.Label();
+            this.lblJobInfoNew = new System.Windows.Forms.Label();
+            this.lblJobCategory = new System.Windows.Forms.Label();
+            this.cboJobCategory = new System.Windows.Forms.ComboBox();
+            this.tbxJobInfoNew = new System.Windows.Forms.TextBox();
+            this.btnJobSubmit = new System.Windows.Forms.Button();
+            this.btnJobCancel = new System.Windows.Forms.Button();
             this.gbxJobAssignWorkers = new System.Windows.Forms.GroupBox();
             this.btnRemoveEmployeeFromJob = new System.Windows.Forms.Button();
             this.lblJobEmployees = new System.Windows.Forms.Label();
@@ -38,11 +73,6 @@
             this.lbxJobEmployees = new System.Windows.Forms.ListBox();
             this.lbxJobContractors = new System.Windows.Forms.ListBox();
             this.btnRemoveContractorFromJob = new System.Windows.Forms.Button();
-            this.gbxJobMaterials = new System.Windows.Forms.GroupBox();
-            this.btnMaterialCancel = new System.Windows.Forms.Button();
-            this.dgvJobMaterials = new System.Windows.Forms.DataGridView();
-            this.btnMaterialDelete = new System.Windows.Forms.Button();
-            this.btnMaterialSubmit = new System.Windows.Forms.Button();
             this.tpCustomers = new System.Windows.Forms.TabPage();
             this.gbxCustomerInfo = new System.Windows.Forms.GroupBox();
             this.btnCustomerDelete = new System.Windows.Forms.Button();
@@ -124,16 +154,15 @@
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.tpReports = new System.Windows.Forms.TabPage();
-            this.lblMaterialInfoNew = new System.Windows.Forms.Label();
-            this.lblMaterialCategory = new System.Windows.Forms.Label();
-            this.cboMaterialCategory = new System.Windows.Forms.ComboBox();
-            this.tbxMaterialInfoNew = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpJobs.SuspendLayout();
-            this.gbxJobAssignWorkers.SuspendLayout();
-            this.gbxJobMaterials.SuspendLayout();
+            this.tcJobs.SuspendLayout();
+            this.tpJobMaterials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobMaterials)).BeginInit();
+            this.tpJobAdd.SuspendLayout();
+            this.tpEditJob.SuspendLayout();
+            this.gbxJobAssignWorkers.SuspendLayout();
             this.tpCustomers.SuspendLayout();
             this.gbxCustomerInfo.SuspendLayout();
             this.gbxCustomerAdd.SuspendLayout();
@@ -186,8 +215,8 @@
             // tpJobs
             // 
             this.tpJobs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpJobs.Controls.Add(this.tcJobs);
             this.tpJobs.Controls.Add(this.gbxJobAssignWorkers);
-            this.tpJobs.Controls.Add(this.gbxJobMaterials);
             this.tpJobs.Controls.Add(this.dgvJobs);
             this.tpJobs.Location = new System.Drawing.Point(4, 26);
             this.tpJobs.Name = "tpJobs";
@@ -197,6 +226,379 @@
             this.tpJobs.Text = "Jobs";
             this.tpJobs.ToolTipText = "View and Manage Jobs";
             this.tpJobs.UseVisualStyleBackColor = true;
+            // 
+            // tcJobs
+            // 
+            this.tcJobs.Controls.Add(this.tpJobMaterials);
+            this.tcJobs.Controls.Add(this.tpJobAdd);
+            this.tcJobs.Controls.Add(this.tpEditJob);
+            this.tcJobs.Location = new System.Drawing.Point(7, 246);
+            this.tcJobs.Multiline = true;
+            this.tcJobs.Name = "tcJobs";
+            this.tcJobs.SelectedIndex = 0;
+            this.tcJobs.ShowToolTips = true;
+            this.tcJobs.Size = new System.Drawing.Size(505, 370);
+            this.tcJobs.TabIndex = 1;
+            // 
+            // tpJobMaterials
+            // 
+            this.tpJobMaterials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpJobMaterials.Controls.Add(this.lblMaterialInfoNew);
+            this.tpJobMaterials.Controls.Add(this.dgvJobMaterials);
+            this.tpJobMaterials.Controls.Add(this.lblMaterialCategory);
+            this.tpJobMaterials.Controls.Add(this.btnMaterialSubmit);
+            this.tpJobMaterials.Controls.Add(this.cboMaterialCategory);
+            this.tpJobMaterials.Controls.Add(this.btnMaterialCancel);
+            this.tpJobMaterials.Controls.Add(this.btnMaterialDelete);
+            this.tpJobMaterials.Controls.Add(this.tbxMaterialInfoNew);
+            this.tpJobMaterials.Location = new System.Drawing.Point(4, 26);
+            this.tpJobMaterials.Name = "tpJobMaterials";
+            this.tpJobMaterials.Padding = new System.Windows.Forms.Padding(3);
+            this.tpJobMaterials.Size = new System.Drawing.Size(497, 340);
+            this.tpJobMaterials.TabIndex = 0;
+            this.tpJobMaterials.Text = "Job Materials";
+            this.tpJobMaterials.ToolTipText = "View And Manage Job Materials";
+            this.tpJobMaterials.UseVisualStyleBackColor = true;
+            // 
+            // lblMaterialInfoNew
+            // 
+            this.lblMaterialInfoNew.Location = new System.Drawing.Point(36, 212);
+            this.lblMaterialInfoNew.Name = "lblMaterialInfoNew";
+            this.lblMaterialInfoNew.Size = new System.Drawing.Size(180, 20);
+            this.lblMaterialInfoNew.TabIndex = 3;
+            this.lblMaterialInfoNew.Text = "Enter new information:";
+            this.lblMaterialInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // dgvJobMaterials
+            // 
+            this.dgvJobMaterials.AllowUserToAddRows = false;
+            this.dgvJobMaterials.AllowUserToDeleteRows = false;
+            this.dgvJobMaterials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvJobMaterials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvJobMaterials.Location = new System.Drawing.Point(6, 6);
+            this.dgvJobMaterials.MultiSelect = false;
+            this.dgvJobMaterials.Name = "dgvJobMaterials";
+            this.dgvJobMaterials.ReadOnly = true;
+            this.dgvJobMaterials.RowHeadersWidth = 51;
+            this.dgvJobMaterials.RowTemplate.Height = 24;
+            this.dgvJobMaterials.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvJobMaterials.Size = new System.Drawing.Size(485, 128);
+            this.dgvJobMaterials.TabIndex = 0;
+            // 
+            // lblMaterialCategory
+            // 
+            this.lblMaterialCategory.Location = new System.Drawing.Point(33, 158);
+            this.lblMaterialCategory.Name = "lblMaterialCategory";
+            this.lblMaterialCategory.Size = new System.Drawing.Size(183, 20);
+            this.lblMaterialCategory.TabIndex = 1;
+            this.lblMaterialCategory.Text = "Select a Category to Edit:";
+            this.lblMaterialCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnMaterialSubmit
+            // 
+            this.btnMaterialSubmit.Location = new System.Drawing.Point(87, 245);
+            this.btnMaterialSubmit.Name = "btnMaterialSubmit";
+            this.btnMaterialSubmit.Size = new System.Drawing.Size(158, 39);
+            this.btnMaterialSubmit.TabIndex = 5;
+            this.btnMaterialSubmit.Text = "Submit Changes";
+            this.btnMaterialSubmit.UseVisualStyleBackColor = true;
+            this.btnMaterialSubmit.Click += new System.EventHandler(this.btnMaterialSubmit_Click);
+            // 
+            // cboMaterialCategory
+            // 
+            this.cboMaterialCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboMaterialCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboMaterialCategory.FormattingEnabled = true;
+            this.cboMaterialCategory.Items.AddRange(new object[] {
+            "Date",
+            "Units_In_Yards",
+            "MaterialType",
+            "Price"});
+            this.cboMaterialCategory.Location = new System.Drawing.Point(222, 155);
+            this.cboMaterialCategory.Name = "cboMaterialCategory";
+            this.cboMaterialCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboMaterialCategory.TabIndex = 2;
+            // 
+            // btnMaterialCancel
+            // 
+            this.btnMaterialCancel.Location = new System.Drawing.Point(251, 245);
+            this.btnMaterialCancel.Name = "btnMaterialCancel";
+            this.btnMaterialCancel.Size = new System.Drawing.Size(158, 39);
+            this.btnMaterialCancel.TabIndex = 6;
+            this.btnMaterialCancel.Text = "Cancel Changes";
+            this.btnMaterialCancel.UseVisualStyleBackColor = true;
+            this.btnMaterialCancel.Click += new System.EventHandler(this.btnMaterialCancel_Click);
+            // 
+            // btnMaterialDelete
+            // 
+            this.btnMaterialDelete.Location = new System.Drawing.Point(169, 290);
+            this.btnMaterialDelete.Name = "btnMaterialDelete";
+            this.btnMaterialDelete.Size = new System.Drawing.Size(158, 44);
+            this.btnMaterialDelete.TabIndex = 7;
+            this.btnMaterialDelete.Text = "Delete Selected Material";
+            this.btnMaterialDelete.UseVisualStyleBackColor = true;
+            this.btnMaterialDelete.Click += new System.EventHandler(this.btnMaterialDelete_Click);
+            // 
+            // tbxMaterialInfoNew
+            // 
+            this.tbxMaterialInfoNew.Location = new System.Drawing.Point(222, 209);
+            this.tbxMaterialInfoNew.Name = "tbxMaterialInfoNew";
+            this.tbxMaterialInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxMaterialInfoNew.TabIndex = 4;
+            // 
+            // tpJobAdd
+            // 
+            this.tpJobAdd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpJobAdd.Controls.Add(this.lblJobAddNote);
+            this.tpJobAdd.Controls.Add(this.tbxJobPrice);
+            this.tpJobAdd.Controls.Add(this.tbxJobEndDate);
+            this.tpJobAdd.Controls.Add(this.tbxJobBeginDate);
+            this.tpJobAdd.Controls.Add(this.tbxJobAddress);
+            this.tpJobAdd.Controls.Add(this.tbxJobSize);
+            this.tpJobAdd.Controls.Add(this.tbxJobType);
+            this.tpJobAdd.Controls.Add(this.lblJobPrice);
+            this.tpJobAdd.Controls.Add(this.lblJobEndDate);
+            this.tpJobAdd.Controls.Add(this.lblJobBeginDate);
+            this.tpJobAdd.Controls.Add(this.lblJobAddress);
+            this.tpJobAdd.Controls.Add(this.lblJobSize);
+            this.tpJobAdd.Controls.Add(this.lblJobType);
+            this.tpJobAdd.Controls.Add(this.btnCancelNewJob);
+            this.tpJobAdd.Controls.Add(this.btnAddNewJob);
+            this.tpJobAdd.Location = new System.Drawing.Point(4, 26);
+            this.tpJobAdd.Name = "tpJobAdd";
+            this.tpJobAdd.Padding = new System.Windows.Forms.Padding(3);
+            this.tpJobAdd.Size = new System.Drawing.Size(497, 340);
+            this.tpJobAdd.TabIndex = 1;
+            this.tpJobAdd.Text = "Add Job";
+            this.tpJobAdd.ToolTipText = "Add A New Job";
+            this.tpJobAdd.UseVisualStyleBackColor = true;
+            // 
+            // lblJobAddNote
+            // 
+            this.lblJobAddNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobAddNote.Location = new System.Drawing.Point(45, 210);
+            this.lblJobAddNote.Name = "lblJobAddNote";
+            this.lblJobAddNote.Size = new System.Drawing.Size(407, 24);
+            this.lblJobAddNote.TabIndex = 12;
+            this.lblJobAddNote.Text = "End Date and Price can be left empty and added later*";
+            // 
+            // tbxJobPrice
+            // 
+            this.tbxJobPrice.Location = new System.Drawing.Point(109, 158);
+            this.tbxJobPrice.Name = "tbxJobPrice";
+            this.tbxJobPrice.Size = new System.Drawing.Size(137, 23);
+            this.tbxJobPrice.TabIndex = 9;
+            // 
+            // tbxJobEndDate
+            // 
+            this.tbxJobEndDate.Location = new System.Drawing.Point(343, 113);
+            this.tbxJobEndDate.Name = "tbxJobEndDate";
+            this.tbxJobEndDate.Size = new System.Drawing.Size(137, 23);
+            this.tbxJobEndDate.TabIndex = 7;
+            // 
+            // tbxJobBeginDate
+            // 
+            this.tbxJobBeginDate.Location = new System.Drawing.Point(109, 113);
+            this.tbxJobBeginDate.Name = "tbxJobBeginDate";
+            this.tbxJobBeginDate.Size = new System.Drawing.Size(137, 23);
+            this.tbxJobBeginDate.TabIndex = 5;
+            // 
+            // tbxJobAddress
+            // 
+            this.tbxJobAddress.Location = new System.Drawing.Point(109, 64);
+            this.tbxJobAddress.Name = "tbxJobAddress";
+            this.tbxJobAddress.Size = new System.Drawing.Size(371, 23);
+            this.tbxJobAddress.TabIndex = 3;
+            // 
+            // tbxJobSize
+            // 
+            this.tbxJobSize.Location = new System.Drawing.Point(373, 159);
+            this.tbxJobSize.Name = "tbxJobSize";
+            this.tbxJobSize.Size = new System.Drawing.Size(107, 23);
+            this.tbxJobSize.TabIndex = 11;
+            // 
+            // tbxJobType
+            // 
+            this.tbxJobType.Location = new System.Drawing.Point(109, 17);
+            this.tbxJobType.Name = "tbxJobType";
+            this.tbxJobType.Size = new System.Drawing.Size(371, 23);
+            this.tbxJobType.TabIndex = 1;
+            // 
+            // lblJobPrice
+            // 
+            this.lblJobPrice.Location = new System.Drawing.Point(57, 158);
+            this.lblJobPrice.Name = "lblJobPrice";
+            this.lblJobPrice.Size = new System.Drawing.Size(59, 24);
+            this.lblJobPrice.TabIndex = 8;
+            this.lblJobPrice.Text = "Price:";
+            this.lblJobPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobEndDate
+            // 
+            this.lblJobEndDate.Location = new System.Drawing.Point(262, 113);
+            this.lblJobEndDate.Name = "lblJobEndDate";
+            this.lblJobEndDate.Size = new System.Drawing.Size(84, 24);
+            this.lblJobEndDate.TabIndex = 6;
+            this.lblJobEndDate.Text = "End Date:";
+            this.lblJobEndDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobBeginDate
+            // 
+            this.lblJobBeginDate.Location = new System.Drawing.Point(16, 112);
+            this.lblJobBeginDate.Name = "lblJobBeginDate";
+            this.lblJobBeginDate.Size = new System.Drawing.Size(100, 24);
+            this.lblJobBeginDate.TabIndex = 4;
+            this.lblJobBeginDate.Text = "Begin Date:";
+            this.lblJobBeginDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobAddress
+            // 
+            this.lblJobAddress.Location = new System.Drawing.Point(37, 64);
+            this.lblJobAddress.Name = "lblJobAddress";
+            this.lblJobAddress.Size = new System.Drawing.Size(79, 24);
+            this.lblJobAddress.TabIndex = 2;
+            this.lblJobAddress.Text = "Address:";
+            this.lblJobAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobSize
+            // 
+            this.lblJobSize.Location = new System.Drawing.Point(252, 157);
+            this.lblJobSize.Name = "lblJobSize";
+            this.lblJobSize.Size = new System.Drawing.Size(124, 24);
+            this.lblJobSize.TabIndex = 10;
+            this.lblJobSize.Text = "Job Size (Yards):";
+            this.lblJobSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblJobType
+            // 
+            this.lblJobType.Location = new System.Drawing.Point(37, 16);
+            this.lblJobType.Name = "lblJobType";
+            this.lblJobType.Size = new System.Drawing.Size(100, 24);
+            this.lblJobType.TabIndex = 0;
+            this.lblJobType.Text = "Job Type:";
+            this.lblJobType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnCancelNewJob
+            // 
+            this.btnCancelNewJob.Location = new System.Drawing.Point(256, 261);
+            this.btnCancelNewJob.Name = "btnCancelNewJob";
+            this.btnCancelNewJob.Size = new System.Drawing.Size(158, 39);
+            this.btnCancelNewJob.TabIndex = 14;
+            this.btnCancelNewJob.Text = "Cancel Adding Job";
+            this.btnCancelNewJob.UseVisualStyleBackColor = true;
+            this.btnCancelNewJob.Click += new System.EventHandler(this.btnCancelNewJob_Click);
+            // 
+            // btnAddNewJob
+            // 
+            this.btnAddNewJob.Location = new System.Drawing.Point(83, 261);
+            this.btnAddNewJob.Name = "btnAddNewJob";
+            this.btnAddNewJob.Size = new System.Drawing.Size(158, 39);
+            this.btnAddNewJob.TabIndex = 13;
+            this.btnAddNewJob.Text = "Add Job";
+            this.btnAddNewJob.UseVisualStyleBackColor = true;
+            this.btnAddNewJob.Click += new System.EventHandler(this.btnAddNewJob_Click);
+            // 
+            // tpEditJob
+            // 
+            this.tpEditJob.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpEditJob.Controls.Add(this.btnJobDelete);
+            this.tpEditJob.Controls.Add(this.lblJobInfoTitle);
+            this.tpEditJob.Controls.Add(this.lblJobInfoNew);
+            this.tpEditJob.Controls.Add(this.lblJobCategory);
+            this.tpEditJob.Controls.Add(this.cboJobCategory);
+            this.tpEditJob.Controls.Add(this.tbxJobInfoNew);
+            this.tpEditJob.Controls.Add(this.btnJobSubmit);
+            this.tpEditJob.Controls.Add(this.btnJobCancel);
+            this.tpEditJob.Location = new System.Drawing.Point(4, 26);
+            this.tpEditJob.Name = "tpEditJob";
+            this.tpEditJob.Padding = new System.Windows.Forms.Padding(3);
+            this.tpEditJob.Size = new System.Drawing.Size(497, 340);
+            this.tpEditJob.TabIndex = 2;
+            this.tpEditJob.Text = "Edit Job Info";
+            this.tpEditJob.ToolTipText = "Edit Selected Job Info";
+            this.tpEditJob.UseVisualStyleBackColor = true;
+            // 
+            // btnJobDelete
+            // 
+            this.btnJobDelete.Location = new System.Drawing.Point(169, 255);
+            this.btnJobDelete.Name = "btnJobDelete";
+            this.btnJobDelete.Size = new System.Drawing.Size(158, 54);
+            this.btnJobDelete.TabIndex = 7;
+            this.btnJobDelete.Text = "Delete Selected Job";
+            this.btnJobDelete.UseVisualStyleBackColor = true;
+            this.btnJobDelete.Click += new System.EventHandler(this.btnJobDelete_Click);
+            // 
+            // lblJobInfoTitle
+            // 
+            this.lblJobInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobInfoTitle.Location = new System.Drawing.Point(107, 32);
+            this.lblJobInfoTitle.Name = "lblJobInfoTitle";
+            this.lblJobInfoTitle.Size = new System.Drawing.Size(282, 24);
+            this.lblJobInfoTitle.TabIndex = 0;
+            this.lblJobInfoTitle.Text = "Select a Job From Above";
+            this.lblJobInfoTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblJobInfoNew
+            // 
+            this.lblJobInfoNew.Location = new System.Drawing.Point(6, 156);
+            this.lblJobInfoNew.Name = "lblJobInfoNew";
+            this.lblJobInfoNew.Size = new System.Drawing.Size(224, 20);
+            this.lblJobInfoNew.TabIndex = 3;
+            this.lblJobInfoNew.Text = "Enter new information:";
+            this.lblJobInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblJobCategory
+            // 
+            this.lblJobCategory.Location = new System.Drawing.Point(2, 102);
+            this.lblJobCategory.Name = "lblJobCategory";
+            this.lblJobCategory.Size = new System.Drawing.Size(228, 20);
+            this.lblJobCategory.TabIndex = 1;
+            this.lblJobCategory.Text = "Select a Category to Edit:";
+            this.lblJobCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cboJobCategory
+            // 
+            this.cboJobCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboJobCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboJobCategory.FormattingEnabled = true;
+            this.cboJobCategory.Items.AddRange(new object[] {
+            "JobType",
+            "Address",
+            "BeginDate",
+            "EndDate",
+            "Price",
+            "JobSize_In_Yards"});
+            this.cboJobCategory.Location = new System.Drawing.Point(236, 99);
+            this.cboJobCategory.Name = "cboJobCategory";
+            this.cboJobCategory.Size = new System.Drawing.Size(210, 25);
+            this.cboJobCategory.TabIndex = 2;
+            // 
+            // tbxJobInfoNew
+            // 
+            this.tbxJobInfoNew.Location = new System.Drawing.Point(236, 153);
+            this.tbxJobInfoNew.Name = "tbxJobInfoNew";
+            this.tbxJobInfoNew.Size = new System.Drawing.Size(210, 23);
+            this.tbxJobInfoNew.TabIndex = 4;
+            // 
+            // btnJobSubmit
+            // 
+            this.btnJobSubmit.Location = new System.Drawing.Point(80, 210);
+            this.btnJobSubmit.Name = "btnJobSubmit";
+            this.btnJobSubmit.Size = new System.Drawing.Size(158, 39);
+            this.btnJobSubmit.TabIndex = 5;
+            this.btnJobSubmit.Text = "Submit Changes";
+            this.btnJobSubmit.UseVisualStyleBackColor = true;
+            this.btnJobSubmit.Click += new System.EventHandler(this.btnJobSubmit_Click);
+            // 
+            // btnJobCancel
+            // 
+            this.btnJobCancel.Location = new System.Drawing.Point(259, 210);
+            this.btnJobCancel.Name = "btnJobCancel";
+            this.btnJobCancel.Size = new System.Drawing.Size(158, 39);
+            this.btnJobCancel.TabIndex = 6;
+            this.btnJobCancel.Text = "Cancel Changes";
+            this.btnJobCancel.UseVisualStyleBackColor = true;
+            this.btnJobCancel.Click += new System.EventHandler(this.btnJobCancel_Click);
             // 
             // gbxJobAssignWorkers
             // 
@@ -274,69 +676,6 @@
             this.btnRemoveContractorFromJob.Text = "Remove Selected Contractor From Job";
             this.btnRemoveContractorFromJob.UseVisualStyleBackColor = true;
             this.btnRemoveContractorFromJob.Click += new System.EventHandler(this.btnRemoveContractorFromJob_Click);
-            // 
-            // gbxJobMaterials
-            // 
-            this.gbxJobMaterials.Controls.Add(this.lblMaterialInfoNew);
-            this.gbxJobMaterials.Controls.Add(this.lblMaterialCategory);
-            this.gbxJobMaterials.Controls.Add(this.cboMaterialCategory);
-            this.gbxJobMaterials.Controls.Add(this.btnMaterialDelete);
-            this.gbxJobMaterials.Controls.Add(this.tbxMaterialInfoNew);
-            this.gbxJobMaterials.Controls.Add(this.btnMaterialCancel);
-            this.gbxJobMaterials.Controls.Add(this.dgvJobMaterials);
-            this.gbxJobMaterials.Controls.Add(this.btnMaterialSubmit);
-            this.gbxJobMaterials.Location = new System.Drawing.Point(8, 246);
-            this.gbxJobMaterials.Name = "gbxJobMaterials";
-            this.gbxJobMaterials.Size = new System.Drawing.Size(503, 370);
-            this.gbxJobMaterials.TabIndex = 1;
-            this.gbxJobMaterials.TabStop = false;
-            this.gbxJobMaterials.Text = "Job Materials";
-            // 
-            // btnMaterialCancel
-            // 
-            this.btnMaterialCancel.Location = new System.Drawing.Point(254, 262);
-            this.btnMaterialCancel.Name = "btnMaterialCancel";
-            this.btnMaterialCancel.Size = new System.Drawing.Size(158, 39);
-            this.btnMaterialCancel.TabIndex = 6;
-            this.btnMaterialCancel.Text = "Cancel Changes";
-            this.btnMaterialCancel.UseVisualStyleBackColor = true;
-            this.btnMaterialCancel.Click += new System.EventHandler(this.btnMaterialCancel_Click);
-            // 
-            // dgvJobMaterials
-            // 
-            this.dgvJobMaterials.AllowUserToAddRows = false;
-            this.dgvJobMaterials.AllowUserToDeleteRows = false;
-            this.dgvJobMaterials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvJobMaterials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvJobMaterials.Location = new System.Drawing.Point(6, 26);
-            this.dgvJobMaterials.MultiSelect = false;
-            this.dgvJobMaterials.Name = "dgvJobMaterials";
-            this.dgvJobMaterials.ReadOnly = true;
-            this.dgvJobMaterials.RowHeadersWidth = 51;
-            this.dgvJobMaterials.RowTemplate.Height = 24;
-            this.dgvJobMaterials.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvJobMaterials.Size = new System.Drawing.Size(491, 125);
-            this.dgvJobMaterials.TabIndex = 0;
-            // 
-            // btnMaterialDelete
-            // 
-            this.btnMaterialDelete.Location = new System.Drawing.Point(172, 307);
-            this.btnMaterialDelete.Name = "btnMaterialDelete";
-            this.btnMaterialDelete.Size = new System.Drawing.Size(158, 53);
-            this.btnMaterialDelete.TabIndex = 7;
-            this.btnMaterialDelete.Text = "Delete Selected Material";
-            this.btnMaterialDelete.UseVisualStyleBackColor = true;
-            this.btnMaterialDelete.Click += new System.EventHandler(this.btnMaterialDelete_Click);
-            // 
-            // btnMaterialSubmit
-            // 
-            this.btnMaterialSubmit.Location = new System.Drawing.Point(90, 262);
-            this.btnMaterialSubmit.Name = "btnMaterialSubmit";
-            this.btnMaterialSubmit.Size = new System.Drawing.Size(158, 39);
-            this.btnMaterialSubmit.TabIndex = 5;
-            this.btnMaterialSubmit.Text = "Submit Changes";
-            this.btnMaterialSubmit.UseVisualStyleBackColor = true;
-            this.btnMaterialSubmit.Click += new System.EventHandler(this.btnMaterialSubmit_Click);
             // 
             // tpCustomers
             // 
@@ -1176,46 +1515,6 @@
             this.tpReports.ToolTipText = "View and Manage Reports";
             this.tpReports.UseVisualStyleBackColor = true;
             // 
-            // lblMaterialInfoNew
-            // 
-            this.lblMaterialInfoNew.Location = new System.Drawing.Point(32, 225);
-            this.lblMaterialInfoNew.Name = "lblMaterialInfoNew";
-            this.lblMaterialInfoNew.Size = new System.Drawing.Size(180, 20);
-            this.lblMaterialInfoNew.TabIndex = 3;
-            this.lblMaterialInfoNew.Text = "Enter new information:";
-            this.lblMaterialInfoNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblMaterialCategory
-            // 
-            this.lblMaterialCategory.Location = new System.Drawing.Point(29, 171);
-            this.lblMaterialCategory.Name = "lblMaterialCategory";
-            this.lblMaterialCategory.Size = new System.Drawing.Size(183, 20);
-            this.lblMaterialCategory.TabIndex = 1;
-            this.lblMaterialCategory.Text = "Select a Category to Edit:";
-            this.lblMaterialCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboMaterialCategory
-            // 
-            this.cboMaterialCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboMaterialCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboMaterialCategory.FormattingEnabled = true;
-            this.cboMaterialCategory.Items.AddRange(new object[] {
-            "Date",
-            "Units_In_Yards",
-            "MaterialType",
-            "Price"});
-            this.cboMaterialCategory.Location = new System.Drawing.Point(218, 168);
-            this.cboMaterialCategory.Name = "cboMaterialCategory";
-            this.cboMaterialCategory.Size = new System.Drawing.Size(210, 25);
-            this.cboMaterialCategory.TabIndex = 2;
-            // 
-            // tbxMaterialInfoNew
-            // 
-            this.tbxMaterialInfoNew.Location = new System.Drawing.Point(218, 222);
-            this.tbxMaterialInfoNew.Name = "tbxMaterialInfoNew";
-            this.tbxMaterialInfoNew.Size = new System.Drawing.Size(210, 23);
-            this.tbxMaterialInfoNew.TabIndex = 4;
-            // 
             // OwnerMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -1230,10 +1529,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).EndInit();
             this.tcMain.ResumeLayout(false);
             this.tpJobs.ResumeLayout(false);
-            this.gbxJobAssignWorkers.ResumeLayout(false);
-            this.gbxJobMaterials.ResumeLayout(false);
-            this.gbxJobMaterials.PerformLayout();
+            this.tcJobs.ResumeLayout(false);
+            this.tpJobMaterials.ResumeLayout(false);
+            this.tpJobMaterials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobMaterials)).EndInit();
+            this.tpJobAdd.ResumeLayout(false);
+            this.tpJobAdd.PerformLayout();
+            this.tpEditJob.ResumeLayout(false);
+            this.tpEditJob.PerformLayout();
+            this.gbxJobAssignWorkers.ResumeLayout(false);
             this.tpCustomers.ResumeLayout(false);
             this.gbxCustomerInfo.ResumeLayout(false);
             this.gbxCustomerInfo.PerformLayout();
@@ -1270,7 +1574,6 @@
         private System.Windows.Forms.Button btnMaterialCancel;
         private System.Windows.Forms.Button btnMaterialDelete;
         private System.Windows.Forms.Button btnMaterialSubmit;
-        private System.Windows.Forms.GroupBox gbxJobMaterials;
         private System.Windows.Forms.DataGridView dgvJobMaterials;
         private System.Windows.Forms.GroupBox gbxJobAssignWorkers;
         private System.Windows.Forms.Button btnRemoveContractorFromJob;
@@ -1357,5 +1660,32 @@
         private System.Windows.Forms.Label lblMaterialCategory;
         private System.Windows.Forms.ComboBox cboMaterialCategory;
         private System.Windows.Forms.TextBox tbxMaterialInfoNew;
+        private System.Windows.Forms.TabControl tcJobs;
+        private System.Windows.Forms.TabPage tpJobMaterials;
+        private System.Windows.Forms.TabPage tpJobAdd;
+        private System.Windows.Forms.TextBox tbxJobPrice;
+        private System.Windows.Forms.TextBox tbxJobEndDate;
+        private System.Windows.Forms.TextBox tbxJobBeginDate;
+        private System.Windows.Forms.TextBox tbxJobAddress;
+        private System.Windows.Forms.TextBox tbxJobSize;
+        private System.Windows.Forms.TextBox tbxJobType;
+        private System.Windows.Forms.Label lblJobPrice;
+        private System.Windows.Forms.Label lblJobEndDate;
+        private System.Windows.Forms.Label lblJobBeginDate;
+        private System.Windows.Forms.Label lblJobAddress;
+        private System.Windows.Forms.Label lblJobSize;
+        private System.Windows.Forms.Label lblJobType;
+        private System.Windows.Forms.Button btnCancelNewJob;
+        private System.Windows.Forms.Button btnAddNewJob;
+        private System.Windows.Forms.Label lblJobAddNote;
+        private System.Windows.Forms.TabPage tpEditJob;
+        private System.Windows.Forms.Button btnJobDelete;
+        private System.Windows.Forms.Label lblJobInfoTitle;
+        private System.Windows.Forms.Label lblJobInfoNew;
+        private System.Windows.Forms.Label lblJobCategory;
+        private System.Windows.Forms.ComboBox cboJobCategory;
+        private System.Windows.Forms.TextBox tbxJobInfoNew;
+        private System.Windows.Forms.Button btnJobSubmit;
+        private System.Windows.Forms.Button btnJobCancel;
     }
 }

@@ -35,6 +35,7 @@ namespace LandscapeProject
                 case 0:
                     OwnerProgOps.JobCommand(dgvJobs);
                     MaterialsAndWorkersForJobs();
+                    tcJobs.SelectedIndex = 0;
                     break;
                 case 1:
                     OwnerProgOps.CustomerCommand(dgvCustomers);
@@ -46,7 +47,7 @@ namespace LandscapeProject
                     OwnerProgOps.EmployeesCommand(dgvEmployees);
                     break;
                 case 4:
-                    //Shows the Crystal Reports -- Do Later
+                    //Shows the Crystal Reports -- Do Last
                     break;
 
             }
@@ -63,6 +64,174 @@ namespace LandscapeProject
                     MaterialsAndWorkersForJobs();
                 }
             }          
+        }
+
+        private void btnJobSubmit_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+
+                if (cboJobCategory.SelectedIndex > -1)
+                {
+                    string selectedCategory = (string)cboJobCategory.SelectedItem;
+
+                    if (tbxJobInfoNew.Text != "" && tbxJobInfoNew.Text != " ")
+                    {
+                        string newInformation = tbxJobInfoNew.Text;
+
+                        OwnerProgOps.UpdateJob(selectedCategory, newInformation, JobID);
+
+                        clearJobAndMaterialBoxes();
+
+                        OwnerProgOps.JobCommand(dgvJobs);
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter new information before submitting any changes.",
+                            "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    //Makes User Select a Category before trying to submit
+                    MessageBox.Show("Category must be selected before submitting any changes.",
+                        "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //If there are no Jobs available
+                MessageBox.Show("There are currently no Jobs available",
+                    "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnJobCancel_Click(object sender, EventArgs e)
+        {
+            if (cboJobCategory.SelectedIndex > -1 || tbxJobInfoNew.Text != "")
+            {
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to cancel editing Job information?",
+                "Cancel Job Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Clear New Job Information
+                    clearJobAndMaterialBoxes();
+                }
+            }
+        }
+
+        private void btnJobDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                DialogResult result =
+                    MessageBox.Show("Are you sure you want to delete the selected Job?",
+                    "Delete Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Deletes Selected Job
+                    OwnerProgOps.DeleteJob(JobID);
+
+                    OwnerProgOps.JobCommand(dgvJobs);
+
+                    clearJobAndMaterialBoxes();
+                }
+            }
+            else
+            {
+                //If there are no Jobs available
+                MessageBox.Show("There are currently no Jobs available",
+                    "Error With Deleting Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAddNewJob_Click(object sender, EventArgs e)
+        {
+            string JobType = tbxJobType.Text;
+            string Address = tbxJobAddress.Text;
+            string BeginDate = tbxJobBeginDate.Text;
+            string EndDate = tbxJobEndDate.Text;
+            double Price = 0;
+            float JobSize;
+
+            if (tbxJobPrice.Text != "" && tbxJobPrice.Text != " ")
+            {
+                if (!double.TryParse(tbxJobPrice.Text, out Price))
+                {
+                    //Makes User Enter Only A Double Value For Job Price
+                    MessageBox.Show("Job Price can only contain a double value",
+                        "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Price = double.Parse(tbxJobPrice.Text);
+                }
+            }
+            
+
+            if (JobType != "" && JobType != " ")
+            {
+                if (Address != "" && Address != " ")
+                {
+                    if (BeginDate != "" && BeginDate != " ")
+                    {                       
+                       if (tbxJobSize.Text != "" && tbxJobSize.Text != " ")
+                       {
+                            if (!float.TryParse(tbxJobSize.Text, out JobSize))
+                            {
+                                //Makes User Enter Only A Float Value For Job Price
+                                MessageBox.Show("Job Size can only contain a float value",
+                                    "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                OwnerProgOps.AddJob(JobType, Address, BeginDate, EndDate, Price, JobSize);
+
+                                clearJobAndMaterialBoxes();
+
+                                OwnerProgOps.JobCommand(dgvJobs);
+                            }                          
+                       }
+                       else
+                       {
+                            //Makes User Enter New Information before trying to submit
+                            MessageBox.Show("You must enter a Job Size before submitting a new Job",
+                                "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                       }                                                   
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter a Begin Date before submitting a new Job",
+                            "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    //Makes User Enter New Information before trying to submit
+                    MessageBox.Show("You must enter an Address before submitting a new Job",
+                        "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //Makes User Enter New Information before trying to submit
+                MessageBox.Show("You must enter a Job Type before submitting a new Job",
+                    "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelNewJob_Click(object sender, EventArgs e)
+        {
+            clearJobAndMaterialBoxes();
         }
 
         private void MaterialsAndWorkersForJobs()
@@ -186,7 +355,7 @@ namespace LandscapeProject
 
                             OwnerProgOps.UpdateMaterials(selectedCategory, newInformation, materialID);
 
-                            clearMaterialBoxes();
+                            clearJobAndMaterialBoxes();
 
                             OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
                         }
@@ -229,7 +398,7 @@ namespace LandscapeProject
                 if (result == DialogResult.Yes)
                 {
                     //Clear New Employee Information
-                    clearMaterialBoxes();
+                    clearJobAndMaterialBoxes();
                 }
             }
         }
@@ -256,7 +425,7 @@ namespace LandscapeProject
 
                         OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
 
-                        clearMaterialBoxes();
+                        clearJobAndMaterialBoxes();
                     }
                 }
                 else
@@ -274,11 +443,20 @@ namespace LandscapeProject
             }                       
         }
 
-        private void clearMaterialBoxes()
+        private void clearJobAndMaterialBoxes()
         {
             cboMaterialCategory.SelectedIndex = -1;
             cboMaterialCategory.Text = "";
+            cboJobCategory.SelectedIndex = -1;
+            cboJobCategory.Text = "";
+            tbxJobInfoNew.Text = "";
             tbxMaterialInfoNew.Text = "";
+            tbxJobType.Text = "";
+            tbxJobAddress.Text = "";
+            tbxJobBeginDate.Text = "";
+            tbxJobEndDate.Text = "";
+            tbxJobPrice.Text = "";
+            tbxJobSize.Text = "";
         }
 
         //-----------------------------------------------------------------------------------------------------------
