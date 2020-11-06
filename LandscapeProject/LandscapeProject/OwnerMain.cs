@@ -22,7 +22,8 @@ namespace LandscapeProject
         {
             //Open Database then load JobCommand
             OwnerProgOps.OpenDatabase();
-            OwnerProgOps.JobCommand(dgvJobs, dgvJobMaterials);
+            OwnerProgOps.JobCommand(dgvJobs);
+            MaterialsAndWorkersForJobs();
         }
 
         private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -32,7 +33,9 @@ namespace LandscapeProject
             switch (tabIndex)
             {
                 case 0:
-                    OwnerProgOps.JobCommand(dgvJobs, dgvJobMaterials);
+                    OwnerProgOps.JobCommand(dgvJobs);
+                    MaterialsAndWorkersForJobs();
+                    tcJobs.SelectedIndex = 0;
                     break;
                 case 1:
                     OwnerProgOps.CustomerCommand(dgvCustomers);
@@ -44,96 +47,517 @@ namespace LandscapeProject
                     OwnerProgOps.EmployeesCommand(dgvEmployees);
                     break;
                 case 4:
-                    //Shows the Crystal Reports -- Do Later
+                    //Shows the Crystal Reports -- Do Last
                     break;
 
             }
         }
 
-        //Employee Functions-----------------------------------------------------------------------------------------
+        //Job Functions----------------------------------------------------------------------------------------------
 
-        private void btnEmployeeSubmit_Click(object sender, EventArgs e)
+        private void dgvJobs_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int selectedEmployee = dgvEmployees.CurrentRow.Index;
-            int employeeID = (int)dgvEmployees.Rows[selectedEmployee].Cells[0].Value;
-            
-
-            if (cboEmployeeCategory.SelectedIndex > -1)
+            if (tcMain.SelectedIndex == 0)
             {
-                string selectedCategory = (string)cboEmployeeCategory.SelectedItem;
-
-                if (tbxEmployeeInfoNew.Text != "" && tbxEmployeeInfoNew.Text != " ")
+                if (e.RowIndex != -1)
                 {
-                    string newInformation = tbxEmployeeInfoNew.Text;
+                    MaterialsAndWorkersForJobs();
+                }
+            }          
+        }
 
-                    OwnerProgOps.UpdateEmployee(selectedCategory, newInformation, employeeID);
+        private void btnJobSubmit_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
 
-                    MessageBox.Show("Successfully updated employee information with the new information entered.",
-                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    clearEmployeeBoxes();
 
-                    OwnerProgOps.EmployeesCommand(dgvEmployees);
+                if (cboJobCategory.SelectedIndex > -1)
+                {
+                    string selectedCategory = (string)cboJobCategory.SelectedItem;
+
+                    if (tbxJobInfoNew.Text != "" && tbxJobInfoNew.Text != " ")
+                    {
+                        string newInformation = tbxJobInfoNew.Text;
+
+                        OwnerProgOps.UpdateJob(selectedCategory, newInformation, JobID);
+
+                        clearJobAndMaterialBoxes();
+
+                        OwnerProgOps.JobCommand(dgvJobs);
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter new information before submitting any changes.",
+                            "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    //Makes User Enter New Information before trying to submit
-                    MessageBox.Show("You must enter new information before submitting any changes.",
-                        "Error With Updating Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //Makes User Select a Category before trying to submit
+                    MessageBox.Show("Category must be selected before submitting any changes.",
+                        "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                //Makes User Select a Category before trying to submit
-                MessageBox.Show("Category must be selected before submitting any changes.",
-                    "Error With Updating Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //If there are no Jobs available
+                MessageBox.Show("There are currently no Jobs available",
+                    "Error With Updating Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnJobCancel_Click(object sender, EventArgs e)
+        {
+            if (cboJobCategory.SelectedIndex > -1 || tbxJobInfoNew.Text != "")
+            {
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to cancel editing Job information?",
+                "Cancel Job Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Clear New Job Information
+                    clearJobAndMaterialBoxes();
+                }
+            }
+        }
+
+        private void btnJobDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                DialogResult result =
+                    MessageBox.Show("Are you sure you want to delete the selected Job?",
+                    "Delete Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Deletes Selected Job
+                    OwnerProgOps.DeleteJob(JobID);
+
+                    OwnerProgOps.JobCommand(dgvJobs);
+
+                    clearJobAndMaterialBoxes();
+                }
+            }
+            else
+            {
+                //If there are no Jobs available
+                MessageBox.Show("There are currently no Jobs available",
+                    "Error With Deleting Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAddNewJob_Click(object sender, EventArgs e)
+        {
+            string JobType = tbxJobType.Text;
+            string Address = tbxJobAddress.Text;
+            string BeginDate = tbxJobBeginDate.Text;
+            string EndDate = tbxJobEndDate.Text;
+            double Price = 0;
+            float JobSize;
+
+            if (tbxJobPrice.Text != "" && tbxJobPrice.Text != " ")
+            {
+                if (!double.TryParse(tbxJobPrice.Text, out Price))
+                {
+                    //Makes User Enter Only A Double Value For Job Price
+                    MessageBox.Show("Job Price can only contain a double value",
+                        "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Price = double.Parse(tbxJobPrice.Text);
+                }
+            }
+            
+
+            if (JobType != "" && JobType != " ")
+            {
+                if (Address != "" && Address != " ")
+                {
+                    if (BeginDate != "" && BeginDate != " ")
+                    {                       
+                       if (tbxJobSize.Text != "" && tbxJobSize.Text != " ")
+                       {
+                            if (!float.TryParse(tbxJobSize.Text, out JobSize))
+                            {
+                                //Makes User Enter Only A Float Value For Job Price
+                                MessageBox.Show("Job Size can only contain a float value",
+                                    "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                OwnerProgOps.AddJob(JobType, Address, BeginDate, EndDate, Price, JobSize);
+
+                                clearJobAndMaterialBoxes();
+
+                                OwnerProgOps.JobCommand(dgvJobs);
+                            }                          
+                       }
+                       else
+                       {
+                            //Makes User Enter New Information before trying to submit
+                            MessageBox.Show("You must enter a Job Size before submitting a new Job",
+                                "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                       }                                                   
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter a Begin Date before submitting a new Job",
+                            "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    //Makes User Enter New Information before trying to submit
+                    MessageBox.Show("You must enter an Address before submitting a new Job",
+                        "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //Makes User Enter New Information before trying to submit
+                MessageBox.Show("You must enter a Job Type before submitting a new Job",
+                    "Error With Adding Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelNewJob_Click(object sender, EventArgs e)
+        {
+            clearJobAndMaterialBoxes();
+        }
+
+        private void MaterialsAndWorkersForJobs()
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+                OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+                OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Loading Workers", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
 
-        private void btnEmployeeCancel_Click(object sender, EventArgs e)
+        private void btnRemoveContractorFromJob_Click(object sender, EventArgs e)
         {
-            if (cboEmployeeCategory.SelectedIndex > -1 || tbxEmployeeInfoNew.Text != "")
+            if (dgvJobs.RowCount > 0)
             {
-                DialogResult result =
-                MessageBox.Show("Are you want to cancel editing employee information?",
-                "Cancel Employee Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (result == DialogResult.Yes)
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                string contractorName;
+
+                if (lbxJobContractors.SelectedIndex > -1)
                 {
-                    //Clear New Employee Information
-                    clearEmployeeBoxes();
+                    DialogResult result =
+                    MessageBox.Show("Are you sure you want to remove selected contractor from the selected job?",
+                    "Remove Contractor From Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.Yes)
+                    {
+                        contractorName = lbxJobContractors.SelectedItem.ToString();
+                        OwnerProgOps.RemoveContractorsFromJobs(contractorName, JobID);
+
+                        OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The process for removing the selected contractor for the selected job has been cancelled.",
+                            "Remove Contractor From Job Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                 }
+                else
+                {
+                    MessageBox.Show("No Contractor selected.", "Error With Removing Contractor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Removing Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }           
+        }
+
+        private void btnRemoveEmployeeFromJob_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                string employeeName;
+
+                if (lbxJobEmployees.SelectedIndex > -1)
+                {
+                    DialogResult result =
+                    MessageBox.Show("Are you sure you want to remove selected employee from the selected job?",
+                    "Remove Employee From Job", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.Yes)
+                    {
+                        employeeName = lbxJobEmployees.SelectedItem.ToString();
+                        OwnerProgOps.RemoveEmployeesFromJobs(employeeName, JobID);
+
+                        OwnerProgOps.EmployeeAndContractorJobs(lbxJobEmployees, lbxJobContractors, JobID);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The process for removing the selected employee for the selected job has been cancelled.",
+                           "Remove Employee From Job Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Employee selected.", "Error With Removing Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Removing Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }           
+        }
+
+        private void btnMaterialSubmit_Click(object sender, EventArgs e)
+        {
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                if (dgvJobMaterials.RowCount > 0)
+                {
+                    int selectedMaterial = dgvJobMaterials.CurrentRow.Index;
+                    int materialID = (int)dgvJobMaterials.Rows[selectedMaterial].Cells[0].Value;
+
+                    if (cboMaterialCategory.SelectedIndex > -1)
+                    {
+                        string selectedCategory = (string)cboMaterialCategory.SelectedItem;
+
+                        if (tbxMaterialInfoNew.Text != "" && tbxMaterialInfoNew.Text != " ")
+                        {
+                            string newInformation = tbxMaterialInfoNew.Text;
+
+                            OwnerProgOps.UpdateMaterials(selectedCategory, newInformation, materialID);
+
+                            clearJobAndMaterialBoxes();
+
+                            OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+                        }
+                        else
+                        {
+                            //Makes User Enter New Information before trying to submit
+                            MessageBox.Show("You must enter new information before submitting any changes.",
+                                "Error With Updating Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        //Makes User Select a Category before trying to submit
+                        MessageBox.Show("Category must be selected before submitting any changes.",
+                            "Error With Updating Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    //If User tries to make changes with no materials available
+                    MessageBox.Show("There are no materials for this current job",
+                        "Error With Updating Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Updating Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }            
         }
 
-        private void btnEmployeeDelete_Click(object sender, EventArgs e)
+        private void btnMaterialCancel_Click(object sender, EventArgs e)
         {
-            int selectedEmployee = dgvEmployees.CurrentRow.Index;
-            int employeeID = (int)dgvEmployees.Rows[selectedEmployee].Cells[0].Value;
-
-            DialogResult result =
-                MessageBox.Show("Are you want to delete the selected employee?",
-                "Delete Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            if (cboMaterialCategory.SelectedIndex > -1 || tbxMaterialInfoNew.Text != "")
             {
-                //Deletes Selected Employee
-                OwnerProgOps.DeleteEmployee(employeeID);
-
-                MessageBox.Show("Successfully deleted the selected employee.", 
-                    "Delete Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                OwnerProgOps.EmployeesCommand(dgvEmployees);
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to cancel editing material information?",
+                "Cancel Material Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Clear New Employee Information
+                    clearJobAndMaterialBoxes();
+                }
             }
         }
 
-        private void btnAddNewEmployee_Click(object sender, EventArgs e)
+        private void btnMaterialDelete_Click(object sender, EventArgs e)
         {
-            string Fname = tbxEmployeeFirstName.Text;
-            string Lname = tbxEmployeeLastName.Text;
-            string Address = tbxEmployeeAddress.Text;
-            string City = tbxEmployeeCity.Text;
-            string Zip = tbxEmployeeZip.Text;
-            string Email = tbxEmployeeEmail.Text;
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                if (dgvJobMaterials.RowCount > 0)
+                {
+                    int selectedMaterial = dgvJobMaterials.CurrentRow.Index;
+                    int materialID = (int)dgvJobMaterials.Rows[selectedMaterial].Cells[0].Value;
+
+                    DialogResult result =
+                        MessageBox.Show("Are you sure you want to delete the selected material?",
+                        "Delete Material", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.Yes)
+                    {
+                        //Deletes Selected Employee
+                        OwnerProgOps.DeleteMaterial(materialID, JobID);
+
+                        OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+
+                        clearJobAndMaterialBoxes();
+                    }
+                }
+                else
+                {
+                    //If User tries to delete with no materials available
+                    MessageBox.Show("There are no materials for this current job",
+                        "Error With Deleting Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Deleting Materials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }                       
+        }
+
+        private void clearJobAndMaterialBoxes()
+        {
+            cboMaterialCategory.SelectedIndex = -1;
+            cboMaterialCategory.Text = "";
+            cboJobCategory.SelectedIndex = -1;
+            cboJobCategory.Text = "";
+            tbxJobInfoNew.Text = "";
+            tbxMaterialInfoNew.Text = "";
+            tbxJobType.Text = "";
+            tbxJobAddress.Text = "";
+            tbxJobBeginDate.Text = "";
+            tbxJobEndDate.Text = "";
+            tbxJobPrice.Text = "";
+            tbxJobSize.Text = "";
+        }
+
+        //-----------------------------------------------------------------------------------------------------------
+
+        //Customer Functions-----------------------------------------------------------------------------------------
+
+        private void btnCustomerSubmit_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.RowCount > 0)
+            {
+                int selectedCustomer = dgvCustomers.CurrentRow.Index;
+                int CustomerID = (int)dgvCustomers.Rows[selectedCustomer].Cells[0].Value;
+
+
+                if (cboCustomerCategory.SelectedIndex > -1)
+                {
+                    string selectedCategory = (string)cboCustomerCategory.SelectedItem;
+
+                    if (tbxCustomerInfoNew.Text != "" && tbxCustomerInfoNew.Text != " ")
+                    {
+                        string newInformation = tbxCustomerInfoNew.Text;
+
+                        OwnerProgOps.UpdateCustomer(selectedCategory, newInformation, CustomerID);
+
+                        clearCustomerBoxes();
+
+                        OwnerProgOps.CustomerCommand(dgvCustomers);
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter new information before submitting any changes.",
+                            "Error With Updating Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    //Makes User Select a Category before trying to submit
+                    MessageBox.Show("Category must be selected before submitting any changes.",
+                        "Error With Updating Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //If there are no customers available
+                MessageBox.Show("There are currently no customers available",
+                    "Error With Updating Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCustomerCancel_Click(object sender, EventArgs e)
+        {
+            if (cboCustomerCategory.SelectedIndex > -1 || tbxCustomerInfoNew.Text != "")
+            {
+                DialogResult result =
+                MessageBox.Show("Are you sure you want to cancel editing Customer information?",
+                "Cancel Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Clear New Customer Information
+                    clearCustomerBoxes();
+                }
+            }
+        }
+
+        private void btnCustomerDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.RowCount > 0)
+            {
+                int selectedCustomer = dgvCustomers.CurrentRow.Index;
+                int CustomerID = (int)dgvCustomers.Rows[selectedCustomer].Cells[0].Value;
+
+                DialogResult result =
+                    MessageBox.Show("Are you sure you want to delete the selected Customer?",
+                    "Delete Customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Deletes Selected Customer
+                    OwnerProgOps.DeleteCustomer(CustomerID);
+
+                    OwnerProgOps.CustomerCommand(dgvCustomers);
+
+                    clearCustomerBoxes();
+                }
+            }
+            else
+            {
+                //If there are no customers available
+                MessageBox.Show("There are currently no customers available",
+                    "Error With Deleting Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
+        }
+
+        private void btnAddNewCustomer_Click(object sender, EventArgs e)
+        {
+            string Fname = tbxCustomerFirstName.Text;
+            string Lname = tbxCustomerLastName.Text;
+            string Address = tbxCustomerAddress.Text;
+            string City = tbxCustomerCity.Text;
+            string Zip = tbxCustomerZip.Text;
+            string Email = tbxCustomerEmail.Text;
 
             if (Fname != "" && Fname != " ")
             {
@@ -147,73 +571,71 @@ namespace LandscapeProject
                             {
                                 if (Email != "" && Email != " ")
                                 {
-                                    OwnerProgOps.AddEmployee(Fname, Lname, Address, Email, City, Zip);
+                                    OwnerProgOps.AddCustomer(Fname, Lname, Address, Email, City, Zip);
 
-                                    MessageBox.Show("Successfully added a new employee.", 
-                                        "Adding Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    clearCustomerBoxes();
 
-                                    clearEmployeeBoxes();
-
-                                    OwnerProgOps.EmployeesCommand(dgvEmployees);
+                                    OwnerProgOps.CustomerCommand(dgvCustomers);
                                 }
                                 else
                                 {
                                     //Makes User Enter New Information before trying to submit
-                                    MessageBox.Show("You must enter an Email before submitting a new employee",
-                                        "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("You must enter an Email before submitting a new Customer",
+                                        "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
                                 //Makes User Enter New Information before trying to submit
-                                MessageBox.Show("You must enter a Zip Code before submitting a new employee",
-                                    "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("You must enter a Zip Code before submitting a new Customer",
+                                    "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                         else
                         {
                             //Makes User Enter New Information before trying to submit
-                            MessageBox.Show("You must enter a City before submitting a new employee",
-                                "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("You must enter a City before submitting a new Customer",
+                                "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
                         //Makes User Enter New Information before trying to submit
-                        MessageBox.Show("You must enter an Address before submitting a new employee",
-                            "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("You must enter an Address before submitting a new Customer",
+                            "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
                     //Makes User Enter New Information before trying to submit
-                    MessageBox.Show("You must enter a Last Name before submitting a new employee",
-                        "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You must enter a Last Name before submitting a new Customer",
+                        "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 //Makes User Enter New Information before trying to submit
-                MessageBox.Show("You must enter a First Name before submitting a new employee",
-                    "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You must enter a First Name before submitting a new Customer",
+                    "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnCancelNewEmployee_Click(object sender, EventArgs e)
+        private void btnCancelNewCustomer_Click(object sender, EventArgs e)
         {
-            clearEmployeeBoxes();
+            clearCustomerBoxes();
         }
 
-        private void clearEmployeeBoxes()
+        private void clearCustomerBoxes()
         {
-            cboEmployeeCategory.SelectedIndex = -1;
-            tbxEmployeeInfoNew.Text = "";
-            tbxEmployeeFirstName.Text = "";
-            tbxEmployeeLastName.Text = "";
-            tbxEmployeeAddress.Text = "";
-            tbxEmployeeCity.Text = "";
-            tbxEmployeeZip.Text = "";
-            tbxEmployeeEmail.Text = "";
+            cboCustomerCategory.SelectedIndex = -1;
+            cboCustomerCategory.Text = "";
+            tbxCustomerInfoNew.Text = "";
+            tbxCustomerFirstName.Text = "";
+            tbxCustomerLastName.Text = "";
+            tbxCustomerAddress.Text = "";
+            tbxCustomerCity.Text = "";
+            tbxCustomerZip.Text = "";
+            tbxCustomerEmail.Text = "";
         }
 
         //-----------------------------------------------------------------------------------------------------------
@@ -222,41 +644,46 @@ namespace LandscapeProject
 
         private void btnContractorSubmit_Click(object sender, EventArgs e)
         {
-            int selectedContractor = dgvContractors.CurrentRow.Index;
-            int ContractorID = (int)dgvContractors.Rows[selectedContractor].Cells[0].Value;
-
-
-            if (cboContractorCategory.SelectedIndex > -1)
+            if (dgvContractors.RowCount > 0)
             {
-                string selectedCategory = (string)cboContractorCategory.SelectedItem;
+                int selectedContractor = dgvContractors.CurrentRow.Index;
+                int ContractorID = (int)dgvContractors.Rows[selectedContractor].Cells[0].Value;
 
-                if (tbxContractorInfoNew.Text != "" && tbxContractorInfoNew.Text != " ")
+
+                if (cboContractorCategory.SelectedIndex > -1)
                 {
-                    string newInformation = tbxContractorInfoNew.Text;
+                    string selectedCategory = (string)cboContractorCategory.SelectedItem;
 
-                    OwnerProgOps.UpdateContractor(selectedCategory, newInformation, ContractorID);
+                    if (tbxContractorInfoNew.Text != "" && tbxContractorInfoNew.Text != " ")
+                    {
+                        string newInformation = tbxContractorInfoNew.Text;
 
-                    MessageBox.Show("Successfully updated Contractor information with the new information entered.",
-                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        OwnerProgOps.UpdateContractor(selectedCategory, newInformation, ContractorID);
 
-                    clearContractorBoxes();
+                        clearContractorBoxes();
 
-                    OwnerProgOps.ContractorCommand(dgvContractors);
+                        OwnerProgOps.ContractorCommand(dgvContractors);
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter new information before submitting any changes.",
+                            "Error With Updating Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    //Makes User Enter New Information before trying to submit
-                    MessageBox.Show("You must enter new information before submitting any changes.",
+                    //Makes User Select a Category before trying to submit
+                    MessageBox.Show("Category must be selected before submitting any changes.",
                         "Error With Updating Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                //Makes User Select a Category before trying to submit
-                MessageBox.Show("Category must be selected before submitting any changes.",
+                //If there are no contractors available
+                MessageBox.Show("There are currently no contractors available",
                     "Error With Updating Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            }                        
         }
 
         private void btnContractorCancel_Click(object sender, EventArgs e)
@@ -264,7 +691,7 @@ namespace LandscapeProject
             if (cboContractorCategory.SelectedIndex > -1 || tbxContractorInfoNew.Text != "")
             {
                 DialogResult result =
-                MessageBox.Show("Are you want to cancel editing Contractor information?",
+                MessageBox.Show("Are you sure you want to cancel editing Contractor information?",
                 "Cancel Contractor Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
@@ -276,22 +703,30 @@ namespace LandscapeProject
 
         private void btnContractorDelete_Click(object sender, EventArgs e)
         {
-            int selectedContractor = dgvContractors.CurrentRow.Index;
-            int ContractorID = (int)dgvContractors.Rows[selectedContractor].Cells[0].Value;
-
-            DialogResult result =
-                MessageBox.Show("Are you want to delete the selected Contractor?",
-                "Delete Contractor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            if (dgvContractors.RowCount > 0)
             {
-                //Deletes Selected Contractor
-                OwnerProgOps.DeleteContractor(ContractorID);
+                int selectedContractor = dgvContractors.CurrentRow.Index;
+                int ContractorID = (int)dgvContractors.Rows[selectedContractor].Cells[0].Value;
 
-                MessageBox.Show("Successfully deleted the selected Contractor.",
-                    "Delete Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result =
+                    MessageBox.Show("Are you sure you want to delete the selected Contractor?",
+                    "Delete Contractor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Deletes Selected Contractor
+                    OwnerProgOps.DeleteContractor(ContractorID);
 
-                OwnerProgOps.ContractorCommand(dgvContractors);
+                    OwnerProgOps.ContractorCommand(dgvContractors);
+
+                    clearContractorBoxes();
+                }
             }
+            else
+            {
+                //If there are no contractors available
+                MessageBox.Show("There are currently no contractors available",
+                    "Error With Deleting Contractor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }           
         }
 
         private void btnAddNewContractor_Click(object sender, EventArgs e)
@@ -319,9 +754,6 @@ namespace LandscapeProject
                                     if (Zip != "" && Zip != " ")
                                     {
                                         OwnerProgOps.AddContractor(Fname, Lname, Email, Phone, Address, City, Zip);
-
-                                        MessageBox.Show("Successfully added a new Contractor.",
-                                            "Adding Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                         clearContractorBoxes();
 
@@ -385,6 +817,7 @@ namespace LandscapeProject
         private void clearContractorBoxes()
         {
             cboContractorCategory.SelectedIndex = -1;
+            cboContractorCategory.Text = "";
             tbxContractorInfoNew.Text = "";
             tbxContractorFirstName.Text = "";
             tbxContractorLastName.Text = "";
@@ -397,90 +830,103 @@ namespace LandscapeProject
 
         //-----------------------------------------------------------------------------------------------------------
 
-        //Customer Functions-----------------------------------------------------------------------------------------
+        //Employee Functions-----------------------------------------------------------------------------------------
 
-        private void btnCustomerSubmit_Click(object sender, EventArgs e)
+        private void btnEmployeeSubmit_Click(object sender, EventArgs e)
         {
-            int selectedCustomer = dgvCustomers.CurrentRow.Index;
-            int CustomerID = (int)dgvCustomers.Rows[selectedCustomer].Cells[0].Value;
-
-
-            if (cboCustomerCategory.SelectedIndex > -1)
+            if (dgvEmployees.RowCount > 0)
             {
-                string selectedCategory = (string)cboCustomerCategory.SelectedItem;
+                int selectedEmployee = dgvEmployees.CurrentRow.Index;
+                int employeeID = (int)dgvEmployees.Rows[selectedEmployee].Cells[0].Value;
 
-                if (tbxCustomerInfoNew.Text != "" && tbxCustomerInfoNew.Text != " ")
+
+                if (cboEmployeeCategory.SelectedIndex > -1)
                 {
-                    string newInformation = tbxCustomerInfoNew.Text;
+                    string selectedCategory = (string)cboEmployeeCategory.SelectedItem;
 
-                    OwnerProgOps.UpdateCustomer(selectedCategory, newInformation, CustomerID);
+                    if (tbxEmployeeInfoNew.Text != "" && tbxEmployeeInfoNew.Text != " ")
+                    {
+                        string newInformation = tbxEmployeeInfoNew.Text;
 
-                    MessageBox.Show("Successfully updated Customer information with the new information entered.",
-                        "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        OwnerProgOps.UpdateEmployee(selectedCategory, newInformation, employeeID);
 
-                    clearCustomerBoxes();
+                        clearEmployeeBoxes();
 
-                    OwnerProgOps.CustomerCommand(dgvCustomers);
+                        OwnerProgOps.EmployeesCommand(dgvEmployees);
+                    }
+                    else
+                    {
+                        //Makes User Enter New Information before trying to submit
+                        MessageBox.Show("You must enter new information before submitting any changes.",
+                            "Error With Updating Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    //Makes User Enter New Information before trying to submit
-                    MessageBox.Show("You must enter new information before submitting any changes.",
-                        "Error With Updating Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //Makes User Select a Category before trying to submit
+                    MessageBox.Show("Category must be selected before submitting any changes.",
+                        "Error With Updating Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                //Makes User Select a Category before trying to submit
-                MessageBox.Show("Category must be selected before submitting any changes.",
-                    "Error With Updating Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //If there are no employees available
+                MessageBox.Show("There are currently no employees available",
+                    "Error With Updating Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private void btnCustomerCancel_Click(object sender, EventArgs e)
+        private void btnEmployeeCancel_Click(object sender, EventArgs e)
         {
-            if (cboCustomerCategory.SelectedIndex > -1 || tbxCustomerInfoNew.Text != "")
+            if (cboEmployeeCategory.SelectedIndex > -1 || tbxEmployeeInfoNew.Text != "")
             {
                 DialogResult result =
-                MessageBox.Show("Are you want to cancel editing Customer information?",
-                "Cancel Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                MessageBox.Show("Are you sure you want to cancel editing employee information?",
+                "Cancel Employee Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
-                    //Clear New Customer Information
-                    clearCustomerBoxes();
+                    //Clear New Employee Information
+                    clearEmployeeBoxes();
+                }
+            }            
+        }
+
+        private void btnEmployeeDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvEmployees.RowCount > 0)
+            {
+                int selectedEmployee = dgvEmployees.CurrentRow.Index;
+                int employeeID = (int)dgvEmployees.Rows[selectedEmployee].Cells[0].Value;
+
+                DialogResult result =
+                    MessageBox.Show("Are you sure you want to delete the selected employee?",
+                    "Delete Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    //Deletes Selected Employee
+                    OwnerProgOps.DeleteEmployee(employeeID);
+
+                    OwnerProgOps.EmployeesCommand(dgvEmployees);
+
+                    clearEmployeeBoxes();
                 }
             }
-        }
-
-        private void btnCustomerDelete_Click(object sender, EventArgs e)
-        {
-            int selectedCustomer = dgvCustomers.CurrentRow.Index;
-            int CustomerID = (int)dgvCustomers.Rows[selectedCustomer].Cells[0].Value;
-
-            DialogResult result =
-                MessageBox.Show("Are you want to delete the selected Customer?",
-                "Delete Customer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            else
             {
-                //Deletes Selected Customer
-                OwnerProgOps.DeleteCustomer(CustomerID);
-
-                MessageBox.Show("Successfully deleted the selected Customer.",
-                    "Delete Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                OwnerProgOps.CustomerCommand(dgvCustomers);
-            }
+                //If there are no employees available
+                MessageBox.Show("There are currently no employees available",
+                    "Error With Deleting Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
-        private void btnAddNewCustomer_Click(object sender, EventArgs e)
+        private void btnAddNewEmployee_Click(object sender, EventArgs e)
         {
-            string Fname = tbxCustomerFirstName.Text;
-            string Lname = tbxCustomerLastName.Text;
-            string Address = tbxCustomerAddress.Text;
-            string City = tbxCustomerCity.Text;
-            string Zip = tbxCustomerZip.Text;
-            string Email = tbxCustomerEmail.Text;
+            string Fname = tbxEmployeeFirstName.Text;
+            string Lname = tbxEmployeeLastName.Text;
+            string Address = tbxEmployeeAddress.Text;
+            string City = tbxEmployeeCity.Text;
+            string Zip = tbxEmployeeZip.Text;
+            string Email = tbxEmployeeEmail.Text;
 
             if (Fname != "" && Fname != " ")
             {
@@ -494,75 +940,73 @@ namespace LandscapeProject
                             {
                                 if (Email != "" && Email != " ")
                                 {
-                                    OwnerProgOps.AddCustomer(Fname, Lname, Address, Email, City, Zip);
+                                    OwnerProgOps.AddEmployee(Fname, Lname, Address, Email, City, Zip);                                   ;
 
-                                    MessageBox.Show("Successfully added a new Customer.",
-                                        "Adding Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    clearEmployeeBoxes();
 
-                                    clearCustomerBoxes();
-
-                                    OwnerProgOps.CustomerCommand(dgvCustomers);
+                                    OwnerProgOps.EmployeesCommand(dgvEmployees);
                                 }
                                 else
                                 {
                                     //Makes User Enter New Information before trying to submit
-                                    MessageBox.Show("You must enter an Email before submitting a new Customer",
-                                        "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("You must enter an Email before submitting a new employee",
+                                        "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
                                 //Makes User Enter New Information before trying to submit
-                                MessageBox.Show("You must enter a Zip Code before submitting a new Customer",
-                                    "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("You must enter a Zip Code before submitting a new employee",
+                                    "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                         else
                         {
                             //Makes User Enter New Information before trying to submit
-                            MessageBox.Show("You must enter a City before submitting a new Customer",
-                                "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("You must enter a City before submitting a new employee",
+                                "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
                         //Makes User Enter New Information before trying to submit
-                        MessageBox.Show("You must enter an Address before submitting a new Customer",
-                            "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("You must enter an Address before submitting a new employee",
+                            "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
                     //Makes User Enter New Information before trying to submit
-                    MessageBox.Show("You must enter a Last Name before submitting a new Customer",
-                        "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You must enter a Last Name before submitting a new employee",
+                        "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 //Makes User Enter New Information before trying to submit
-                MessageBox.Show("You must enter a First Name before submitting a new Customer",
-                    "Error With Adding Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You must enter a First Name before submitting a new employee",
+                    "Error With Adding Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnCancelNewCustomer_Click(object sender, EventArgs e)
+        private void btnCancelNewEmployee_Click(object sender, EventArgs e)
         {
-            clearCustomerBoxes();
+            clearEmployeeBoxes();
         }
 
-        private void clearCustomerBoxes()
+        private void clearEmployeeBoxes()
         {
-            cboCustomerCategory.SelectedIndex = -1;
-            tbxCustomerInfoNew.Text = "";
-            tbxCustomerFirstName.Text = "";
-            tbxCustomerLastName.Text = "";
-            tbxCustomerAddress.Text = "";
-            tbxCustomerCity.Text = "";
-            tbxCustomerZip.Text = "";
-            tbxCustomerEmail.Text = "";
+            cboEmployeeCategory.SelectedIndex = -1;
+            cboEmployeeCategory.Text = "";
+            tbxEmployeeInfoNew.Text = "";
+            tbxEmployeeFirstName.Text = "";
+            tbxEmployeeLastName.Text = "";
+            tbxEmployeeAddress.Text = "";
+            tbxEmployeeCity.Text = "";
+            tbxEmployeeZip.Text = "";
+            tbxEmployeeEmail.Text = "";
         }
 
-        //-----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------       
     }
 }
