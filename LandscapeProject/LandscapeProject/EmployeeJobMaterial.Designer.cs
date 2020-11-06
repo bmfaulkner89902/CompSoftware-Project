@@ -47,6 +47,8 @@
             this.txtCustFirst = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tpgCreateJob = new System.Windows.Forms.TabPage();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.price = new System.Windows.Forms.Label();
             this.btnConfirmJob = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.txtEnd = new System.Windows.Forms.TextBox();
@@ -61,6 +63,10 @@
             this.txtJobID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tpgAssignMaterials = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtMaterialID = new System.Windows.Forms.TextBox();
+            this.txtMaterialDate = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnConfirmMaterials = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtMaterialJobID = new System.Windows.Forms.TextBox();
@@ -75,19 +81,11 @@
             this.txtWorkerJobID = new System.Windows.Forms.TextBox();
             this.cklAssignWorkers = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvcustomers = new System.Windows.Forms.DataGridView();
-            this.txtPrice = new System.Windows.Forms.TextBox();
-            this.price = new System.Windows.Forms.Label();
-            this.txtMaterialDate = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtMaterialID = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tpgCreateCustomer.SuspendLayout();
             this.tpgCreateJob.SuspendLayout();
             this.tpgAssignMaterials.SuspendLayout();
             this.tpgAssignWorkers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvcustomers)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -284,6 +282,22 @@
             this.tpgCreateJob.Text = "Create Job";
             this.tpgCreateJob.UseVisualStyleBackColor = true;
             // 
+            // txtPrice
+            // 
+            this.txtPrice.Location = new System.Drawing.Point(576, 175);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(77, 20);
+            this.txtPrice.TabIndex = 51;
+            // 
+            // price
+            // 
+            this.price.AutoSize = true;
+            this.price.Location = new System.Drawing.Point(527, 179);
+            this.price.Name = "price";
+            this.price.Size = new System.Drawing.Size(31, 13);
+            this.price.TabIndex = 50;
+            this.price.Text = "Price";
+            // 
             // btnConfirmJob
             // 
             this.btnConfirmJob.Location = new System.Drawing.Point(312, 219);
@@ -412,6 +426,38 @@
             this.tpgAssignMaterials.Text = "Assign Materials";
             this.tpgAssignMaterials.UseVisualStyleBackColor = true;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 81);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(55, 13);
+            this.label20.TabIndex = 51;
+            this.label20.Text = "MaterialID";
+            // 
+            // txtMaterialID
+            // 
+            this.txtMaterialID.Location = new System.Drawing.Point(75, 78);
+            this.txtMaterialID.Name = "txtMaterialID";
+            this.txtMaterialID.Size = new System.Drawing.Size(100, 20);
+            this.txtMaterialID.TabIndex = 52;
+            // 
+            // txtMaterialDate
+            // 
+            this.txtMaterialDate.Location = new System.Drawing.Point(347, 114);
+            this.txtMaterialDate.Name = "txtMaterialDate";
+            this.txtMaterialDate.Size = new System.Drawing.Size(128, 20);
+            this.txtMaterialDate.TabIndex = 50;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(266, 117);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(71, 13);
+            this.label19.TabIndex = 49;
+            this.label19.Text = "Date Ordered";
+            // 
             // btnConfirmMaterials
             // 
             this.btnConfirmMaterials.Location = new System.Drawing.Point(291, 194);
@@ -533,68 +579,11 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Workers";
             // 
-            // dgvcustomers
-            // 
-            this.dgvcustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvcustomers.Location = new System.Drawing.Point(56, 320);
-            this.dgvcustomers.Name = "dgvcustomers";
-            this.dgvcustomers.Size = new System.Drawing.Size(240, 150);
-            this.dgvcustomers.TabIndex = 34;
-            // 
-            // txtPrice
-            // 
-            this.txtPrice.Location = new System.Drawing.Point(576, 175);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(77, 20);
-            this.txtPrice.TabIndex = 51;
-            // 
-            // price
-            // 
-            this.price.AutoSize = true;
-            this.price.Location = new System.Drawing.Point(527, 179);
-            this.price.Name = "price";
-            this.price.Size = new System.Drawing.Size(31, 13);
-            this.price.TabIndex = 50;
-            this.price.Text = "Price";
-            // 
-            // txtMaterialDate
-            // 
-            this.txtMaterialDate.Location = new System.Drawing.Point(347, 114);
-            this.txtMaterialDate.Name = "txtMaterialDate";
-            this.txtMaterialDate.Size = new System.Drawing.Size(128, 20);
-            this.txtMaterialDate.TabIndex = 50;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(266, 117);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(71, 13);
-            this.label19.TabIndex = 49;
-            this.label19.Text = "Date Ordered";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 81);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 13);
-            this.label20.TabIndex = 51;
-            this.label20.Text = "MaterialID";
-            // 
-            // txtMaterialID
-            // 
-            this.txtMaterialID.Location = new System.Drawing.Point(75, 78);
-            this.txtMaterialID.Name = "txtMaterialID";
-            this.txtMaterialID.Size = new System.Drawing.Size(100, 20);
-            this.txtMaterialID.TabIndex = 52;
-            // 
             // EmployeeJobMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 518);
-            this.Controls.Add(this.dgvcustomers);
+            this.ClientSize = new System.Drawing.Size(800, 384);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Name = "EmployeeJobMaterial";
@@ -609,7 +598,6 @@
             this.tpgAssignMaterials.PerformLayout();
             this.tpgAssignWorkers.ResumeLayout(false);
             this.tpgAssignWorkers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvcustomers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -662,7 +650,6 @@
         private System.Windows.Forms.Button btnConfirmJob;
         private System.Windows.Forms.Button btnConfirmMaterials;
         private System.Windows.Forms.TextBox txtID;
-        private System.Windows.Forms.DataGridView dgvcustomers;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label price;
         private System.Windows.Forms.Label label20;
