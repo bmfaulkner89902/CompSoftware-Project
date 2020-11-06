@@ -68,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(185, 119);
+            this.label2.Location = new System.Drawing.Point(185, 116);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 4;
@@ -102,13 +102,13 @@
             this.rdoSearchName.Name = "rdoSearchName";
             this.rdoSearchName.Size = new System.Drawing.Size(100, 17);
             this.rdoSearchName.TabIndex = 1;
-            this.rdoSearchName.TabStop = true;
             this.rdoSearchName.Text = "Customer Name";
             this.rdoSearchName.UseVisualStyleBackColor = true;
             // 
             // rdoSearchID
             // 
             this.rdoSearchID.AutoSize = true;
+            this.rdoSearchID.Checked = true;
             this.rdoSearchID.Location = new System.Drawing.Point(9, 19);
             this.rdoSearchID.Name = "rdoSearchID";
             this.rdoSearchID.Size = new System.Drawing.Size(83, 17);
