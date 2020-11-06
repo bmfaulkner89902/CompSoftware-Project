@@ -88,8 +88,7 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip, txtID)
-                    ;
+                ProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip, txtID);
                 ProgOps.CloseAll(); 
                  
             }
