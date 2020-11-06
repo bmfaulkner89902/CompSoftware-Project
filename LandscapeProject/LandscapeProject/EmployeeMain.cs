@@ -97,7 +97,7 @@ namespace LandscapeProject
 
         private void btnEmpLogOut_Click(object sender, EventArgs e)
         {
-
+            //to do..
         }
     }
 }
