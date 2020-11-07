@@ -22,7 +22,7 @@ namespace LandscapeProject
             //open connection 
             ProgOps.Open();
 
-            ProgOps.LoadCheckList(cklAssignWorkers); 
+           // ProgOps.LoadCheckList(cklAssignWorkers); 
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {

@@ -39,8 +39,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startEmpLogin(tbxEmpUsername, tbxEmpPassword);
-                ProgOps.CloseAllLog();
+                LoginProgOps.startEmpLogin(tbxEmpUsername, tbxEmpPassword);
+                LoginProgOps.CloseAllLog();
 
             }
             catch (Exception ex)
@@ -54,8 +54,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startOwnLogin(tbxOwnUsername, tbxOwnPassword);
-                ProgOps.CloseAllLog();
+                LoginProgOps.startOwnLogin(tbxOwnUsername, tbxOwnPassword);
+                LoginProgOps.CloseAllLog();
 
             }
             catch (Exception ex)
@@ -69,8 +69,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startCustLogin(tbxCustUsername, tbxCustPassword);
-                ProgOps.CloseAllLog();
+                LoginProgOps.startCustLogin(tbxCustUsername, tbxCustPassword);
+                LoginProgOps.CloseAllLog();
                 
 
             }

@@ -31,8 +31,8 @@ namespace LandscapeProject
                 try
                 {
                     
-                    ProgOps.startCreateCustomer(tbxUsername, tbxUserPassword, tbxConfirmUserPassword, tbxUserFname, tbxUserLname, tbxUserAddress, tbxUserEmail, tbxUserCity, tbxUserZip);
-                    ProgOps.CloseAll();
+                    CustomerProgOps.startCreateCustomer(tbxUsername, tbxUserPassword, tbxConfirmUserPassword, tbxUserFname, tbxUserLname, tbxUserAddress, tbxUserEmail, tbxUserCity, tbxUserZip);
+                    CustomerProgOps.CloseAllCust();
 
                 }
                 catch (Exception ex)

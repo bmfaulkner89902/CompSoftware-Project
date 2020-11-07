@@ -27,13 +27,13 @@ namespace LandscapeProject
             lblUserGreeting.Text = ("Hello " + cust + "(user#: " + custID.ToString() + "), request a job, contact a contractor, or make a payment below.");
             //load datagridview - 
             //open connection 
-            ProgOps.Open();
+            CustomerProgOps.Open();
             //get information to fill datagridview Job information . 
-            ProgOps.cCommand = new SqlCommand("SELECT JobID AS 'Job Number', JobType AS 'Job',Address, BeginDate AS 'Start Date', EndDate AS 'End Date', Price AS 'Payment Due:' FROM group1fa202330.JobSites; ", ProgOps.cConnection);
-            ProgOps.cAdapter.SelectCommand = ProgOps.cCommand;
-            ProgOps.cAdapter.Fill(ProgOps.cJobSitesDT);
+            CustomerProgOps.cCommand = new SqlCommand("SELECT JobID AS 'Job Number', JobType AS 'Job',Address, BeginDate AS 'Start Date', EndDate AS 'End Date', Price AS 'Payment Due:' FROM group1fa202330.JobSites; ", CustomerProgOps.cConnection);
+            CustomerProgOps.cAdapter.SelectCommand = CustomerProgOps.cCommand;
+            CustomerProgOps.cAdapter.Fill(CustomerProgOps.cJobSitesDT);
             //start data grid viewer
-            dgvJobInfo.DataSource = ProgOps.cJobSitesDT;
+            dgvJobInfo.DataSource = CustomerProgOps.cJobSitesDT;
 
         }
 
@@ -56,8 +56,8 @@ namespace LandscapeProject
                     }
                     else
                     {
-                        ProgOps.startCreateCustomerJob(1, tbxJobType, tbxJobAddress, dtpBegDate, dtpEndDate);
-                        ProgOps.CloseAllCust();
+                        CustomerProgOps.startCreateCustomerJob(custID,1, tbxJobType, tbxJobAddress, dtpBegDate, dtpEndDate);
+                        CustomerProgOps.CloseAllCust();
                     }
 
                 }

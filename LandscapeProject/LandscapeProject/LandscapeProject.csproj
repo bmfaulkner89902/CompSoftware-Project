@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerProgOps.cs" />
     <Compile Include="EmployeeJobMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,7 @@
     <Compile Include="LoginCreateUser.Designer.cs">
       <DependentUpon>LoginCreateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginProgOps.cs" />
     <Compile Include="LoginScreen.cs">
       <SubType>Form</SubType>
     </Compile>
