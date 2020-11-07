@@ -57,6 +57,7 @@
             this.dgvEmpCustomer.Name = "dgvEmpCustomer";
             this.dgvEmpCustomer.Size = new System.Drawing.Size(642, 199);
             this.dgvEmpCustomer.TabIndex = 1;
+
             // 
             // txtSearch
             // 
