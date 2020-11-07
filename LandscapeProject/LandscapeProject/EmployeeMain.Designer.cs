@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvEmpJobInfo = new System.Windows.Forms.DataGridView();
             this.btnAssign = new System.Windows.Forms.Button();
             this.btnCustomer = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dgvEmpWorkerSch = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearchSchedule = new System.Windows.Forms.Button();
             this.txtSearchSchedule = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.btnEmpLogOut = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpJobInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpWorkerSch)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -51,17 +53,17 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Job Information";
             // 
-            // dataGridView1
+            // dgvEmpJobInfo
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 163);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(747, 210);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvEmpJobInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmpJobInfo.Location = new System.Drawing.Point(22, 163);
+            this.dgvEmpJobInfo.Name = "dgvEmpJobInfo";
+            this.dgvEmpJobInfo.Size = new System.Drawing.Size(747, 210);
+            this.dgvEmpJobInfo.TabIndex = 4;
             // 
             // btnAssign
             // 
-            this.btnAssign.Location = new System.Drawing.Point(520, 25);
+            this.btnAssign.Location = new System.Drawing.Point(278, 24);
             this.btnAssign.Name = "btnAssign";
             this.btnAssign.Size = new System.Drawing.Size(227, 37);
             this.btnAssign.TabIndex = 7;
@@ -71,7 +73,7 @@
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(37, 25);
+            this.btnCustomer.Location = new System.Drawing.Point(22, 24);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(222, 37);
             this.btnCustomer.TabIndex = 8;
@@ -79,13 +81,13 @@
             this.btnCustomer.UseVisualStyleBackColor = true;
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
-            // dataGridView2
+            // dgvEmpWorkerSch
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(22, 516);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(747, 150);
-            this.dataGridView2.TabIndex = 9;
+            this.dgvEmpWorkerSch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmpWorkerSch.Location = new System.Drawing.Point(22, 516);
+            this.dgvEmpWorkerSch.Name = "dgvEmpWorkerSch";
+            this.dgvEmpWorkerSch.Size = new System.Drawing.Size(747, 150);
+            this.dgvEmpWorkerSch.TabIndex = 9;
             // 
             // label1
             // 
@@ -123,20 +125,42 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "WorkerID: ";
             // 
+            // btnEmpLogOut
+            // 
+            this.btnEmpLogOut.Location = new System.Drawing.Point(726, 12);
+            this.btnEmpLogOut.Name = "btnEmpLogOut";
+            this.btnEmpLogOut.Size = new System.Drawing.Size(75, 28);
+            this.btnEmpLogOut.TabIndex = 15;
+            this.btnEmpLogOut.Text = "Log out";
+            this.btnEmpLogOut.UseVisualStyleBackColor = true;
+            this.btnEmpLogOut.Click += new System.EventHandler(this.btnEmpLogOut_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(645, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 28);
+            this.btnExit.TabIndex = 16;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // EmployeeMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 731);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnEmpLogOut);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSearchSchedule);
             this.Controls.Add(this.btnSearchSchedule);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.dgvEmpWorkerSch);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.btnAssign);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvEmpJobInfo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -144,8 +168,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EmployeeMain";
             this.Load += new System.EventHandler(this.EmployeeMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpJobInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpWorkerSch)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,14 +177,16 @@
 
         #endregion
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvEmpJobInfo;
         private System.Windows.Forms.Button btnAssign;
         private System.Windows.Forms.Button btnCustomer;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dgvEmpWorkerSch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearchSchedule;
         private System.Windows.Forms.TextBox txtSearchSchedule;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnEmpLogOut;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 

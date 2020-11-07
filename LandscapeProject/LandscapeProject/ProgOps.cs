@@ -9,105 +9,103 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using LandscapeProject.Properties;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LandscapeProject
 {
     class ProgOps
     {
-        const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id = group1fa202330; password=1524152";
-        //Customer
-        public static SqlConnection cConnection = new SqlConnection(connectionString);
-        public static SqlDataAdapter cAdapter = new SqlDataAdapter();
-        public static SqlCommand cCommand;
-        public static SqlCommandBuilder cCommBuilder = new SqlCommandBuilder();
-        public static DataTable cCreateCustomerCredDT = new DataTable();
-        public static DataTable cJobSitesDT = new DataTable();
-        public static DataTable cJobContactDT = new DataTable();
+        //Connection String
+        private const string CONNECT_STRING = @"Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id=group1fa202330;password=1524152";
+        //Build A Connection To MovieStore Tables In The Database
+        private static SqlConnection _cntDatabase = new SqlConnection(CONNECT_STRING);
+        //Add The Command Object
+        private static SqlCommand _sqlLandscapeCommand;
+        //Add The Data Adapter
+        private static SqlDataAdapter _daLandscape = new SqlDataAdapter();
+        //Add The Data Table
+        private static DataTable _dtLandscape = new DataTable();
 
 
+        public static void OpenDataBase()
+        {
+            //Method To Open Database And To Allow Use Of Data
+            //Open The Connection To Database
+            _cntDatabase.Open();
+        }
 
-        //Login
-        public static SqlConnection logConnection = new SqlConnection(connectionString);
-        public static SqlDataAdapter logAdapter = new SqlDataAdapter();
-        public static DataTable logUserInfoDT = new DataTable();
-        public static DataTable logEmpInfoDT = new DataTable();
-        public static DataTable logOwnInfoDT = new DataTable();
-        public static SqlCommand logCommand;
-        public static SqlCommandBuilder logCommBuilder = new SqlCommandBuilder();
-
-        //Employee
-        public static SqlConnection empConnection = new SqlConnection(connectionString);
+        public static void CloseDataBase()
+        {
+            //Method To Close And Dispose Of Objects
+            //Close The Database
+            _cntDatabase.Close();
+            //Dispose Of The Connection 
+            _cntDatabase.Dispose();
+        }
+        public static SqlConnection empConnection = new SqlConnection(CONNECT_STRING); 
         public static SqlDataAdapter empAdapter = new SqlDataAdapter();
         public static DataTable empJobInfoDT = new DataTable();
         public static DataTable empTimeTableDt = new DataTable();
         public static DataTable empCustomersDT = new DataTable();
         //EMployeeJobMaterial 
-        public static DataTable empCreateCustomerDT = new DataTable(); 
+        public static DataTable empCreateCustomerDT = new DataTable();
         public static DataTable empCreateJobDT = new DataTable();
         public static DataTable empAssignWorkersDT = new DataTable();
         public static DataTable empGetMaterialsDT = new DataTable();
-        public static DataTable empWorkerIDDT = new DataTable(); 
+        public static DataTable empWorkerIDDT = new DataTable();
         public static SqlCommand empCommand;
-        public static SqlCommandBuilder empCommBuilder = new SqlCommandBuilder(); 
+        public static SqlCommandBuilder empCommBuilder = new SqlCommandBuilder();
         public static void Open()
         {
-            empConnection.Open();
+            _cntDatabase.Open();
         }
-        public static void startCustomers(TextBox fName, TextBox lName, TextBox address, TextBox email, TextBox city, TextBox zipCode, TextBox CustID)
+        public static void startCustomers(TextBox fName, TextBox lName, TextBox address, TextBox email, TextBox city, TextBox zipCode)
         {
-            string[] customerRow = { CustID.Text,fName.Text, lName.Text, address.Text, email.Text, city.Text, zipCode.Text};
-            //take info from text boxes + put into array 
-            empCommand = new SqlCommand("SELECT * FROM group1fa202330.Customers;",  empConnection);
-             empAdapter.SelectCommand =  empCommand;
-             empAdapter.Fill( empCreateCustomerDT);
-            //add array into datatable. 
-            empCreateCustomerDT.Rows.Add(customerRow); 
-
-            empCommBuilder = new SqlCommandBuilder(empAdapter);
-            empCommBuilder.GetUpdateCommand();
-            empAdapter.Update(empCreateCustomerDT);
-
-        }
-        public static void startJobs(TextBox ID, TextBox address, TextBox type, TextBox begin, TextBox end, TextBox size, TextBox price )
-        {
-            //take info from text boxes + put into array 
-            empCommand = new SqlCommand("SELECT * FROM group1fa202330.JobSites;", empConnection);
+            empCommand = new SqlCommand($"INSERT INTO group1fa202330.Customers(FirstName, LastName, Address, Email, City, ZipCode) VALUES('{fName.Text}', '{lName.Text}', '{address.Text}', '{email.Text}', '{city.Text}', '{zipCode.Text}');", _cntDatabase); 
             empAdapter.SelectCommand = empCommand;
-            empAdapter.Fill(empCreateJobDT);
-            //add array into datatable. 
-            DataRow jobRow = empCreateJobDT.NewRow();
+            empCommand.ExecuteNonQuery(); 
+        }
+        public static void startJobs(TextBox ID, TextBox address, TextBox type, TextBox begin, TextBox end, TextBox size, TextBox price)
+        {
+            //cannot find column 0. maybe use startcustomers way. (INSERT INTO)
+            empCreateJobDT = new DataTable();
 
-            jobRow[0] = Convert.ToInt32(ID.Text);
-            jobRow[1] = address.Text;
-            jobRow[2] = type.Text;
-            jobRow[3] = begin.Text;
-            jobRow[4] = end.Text;
-            jobRow[5] = Convert.ToInt32( price.Text);
-            jobRow[6] = Convert.ToInt32(size.Text);
 
-            empCreateJobDT.Rows.Add(jobRow); 
+            //get new jobID. 
+            empCommand = new SqlCommand("Select JobId FROM group1fa202330.JobSites ORDER BY JobId DESC", _cntDatabase);
+            empCommand.ExecuteNonQuery(); 
+            int jobId = (int)empCommand.ExecuteScalar() + 1;
+         
+            //fills table --- JobSites ---
 
-            empCommBuilder = new SqlCommandBuilder(empAdapter);
-            empCommBuilder.GetUpdateCommand();
-            empAdapter.Update(empCreateJobDT);
+            empCommand = new SqlCommand($"INSERT INTO group1fa202330.JobSites(JobType, Address, BeginDate, EndDate, Price, JobSize_In_Yards) VALUES ('{type.Text}', '{address.Text}', '{begin.Text}', '{end.Text}', '{price.Text}', '{size.Text}');", _cntDatabase);
+            //take info from text boxes + put into array 
+            empAdapter = new SqlDataAdapter(); 
+            empAdapter.SelectCommand = empCommand;
+            //INCORRECT SYNTAX NEAR    ';'.'
+            empCommand.ExecuteNonQuery();
+
+            empCommand = new SqlCommand($"INSERT INTO group1fa202330.CustomerJobs(CustomerId, JobId) VALUES('{ID.Text}', '{jobId}')", _cntDatabase);
+            empAdapter = new SqlDataAdapter(); 
+            empAdapter.SelectCommand = empCommand;
+            empCommand.ExecuteNonQuery(); 
+            
 
         }
-        public static void startMaterials(TextBox materialID, TextBox Units, TextBox Type, TextBox price, TextBox date, TextBox jobId)
+        public static void startMaterials(TextBox Units, TextBox Type, TextBox price, TextBox date, TextBox jobId)
         {
             //take info from text boxes + put into array 
-            empCommand = new SqlCommand("SELECT * FROM group1fa202330.Materials;", empConnection);
+            empCommand = new SqlCommand("SELECT * FROM group1fa202330.Materials;", _cntDatabase);
             empAdapter.SelectCommand = empCommand;
             empAdapter.Fill(empGetMaterialsDT);
             //add array into datatable. 
             DataRow materialRow = empGetMaterialsDT.NewRow();
 
-            materialRow[0] = Convert.ToInt32(materialID.Text);
+            
             materialRow[1] = date.Text;
             materialRow[2] = Units.Text;
             materialRow[3] = Type.Text;
-            materialRow[4] = price.Text; 
-            
+            materialRow[4] = price.Text;
+
 
             empGetMaterialsDT.Rows.Add(materialRow);
 
@@ -116,248 +114,63 @@ namespace LandscapeProject
             empAdapter.Update(empGetMaterialsDT);
 
         }
-        public static void assignMaterialsToJob(TextBox MaterialID,TextBoxBase JobId)
-        {
-            empCommand = new SqlCommand("SELECT * FROM group1fa202330.JobMaterials; ", empConnection);
-            empAdapter.SelectCommand = empCommand;
-            empAdapter.Fill(empGetMaterialsDT);
+        public static void assignMaterialsToJob(TextBoxBase JobId)
+        {//get MaterialId & put into materialJobs. 
+            //get materialId. 
+            empCommand = new SqlCommand("SELECT MaterialID FROM group1fa202330.Materials ORDER BY MaterialID DESC;", _cntDatabase);
+            empCommand.ExecuteNonQuery(); 
+            int materialId =(int) empCommand.ExecuteScalar();
+            MessageBox.Show(materialId.ToString()); 
+            //inserts jobid & materialId into jobMaterials. 
+            empCommand = new SqlCommand($"INSERT INTO group1fa202330.JobMaterials(JobID, MaterialID) VALUES('{JobId.Text}', '{materialId}');", _cntDatabase);
+            empCommand.ExecuteNonQuery(); 
 
-            DataRow materialRelations = empGetMaterialsDT.NewRow();
-            materialRelations[0] = Convert.ToInt32(JobId.Text);
-            materialRelations[1] =Convert.ToInt32( MaterialID.Text);
 
-            empGetMaterialsDT.Rows.Add(materialRelations);
-            empCommBuilder = new SqlCommandBuilder(empAdapter);
-            empCommBuilder.GetUpdateCommand();
-            empAdapter.Update(empGetMaterialsDT);
         }
         public static void startAssign(TextBox JobID, CheckedListBox workerIDs)
         {
-            //take info from text boxes 
-            empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs;", empConnection);
-            empAdapter.SelectCommand = empCommand;
-            empAdapter.Fill(empAssignWorkersDT);
-            //add array into datatable. 
-            DataRow workerJobsRow = empAssignWorkersDT.NewRow();
-
-            for (int i = 0; i < workerIDs.CheckedItems.Count; i++)
+            //get workerid/jobid. 
+            foreach (object checkedItem in workerIDs.CheckedItems)
             {
-                workerJobsRow[1] = Convert.ToInt32(workerIDs.CheckedItems[i].ToString());
-                workerJobsRow[0] = Convert.ToInt32(JobID.Text);
+                MessageBox.Show(checkedItem.ToString()); 
+                empCommand = new SqlCommand($"INSERT INTO group1fa202330.WorkerJobs(WorkerID, JobId) VALUES('{checkedItem.ToString()}', '{JobID.Text}');", _cntDatabase);
+                empCommand.ExecuteNonQuery(); 
             }
-           
+        }
+        //populates the datagrid for the "assign workers" tab from database. 
+        public static void LoadCheckList(CheckedListBox workerIDs)
+        {
+            //get information to fill workerID checklist. . 
+            empCommand = new SqlCommand("SELECT WorkerID FROM group1fa202330.Workers; ", _cntDatabase);
+            empAdapter.SelectCommand = empCommand;
+            empWorkerIDDT = new DataTable();
+            empAdapter.Fill(empWorkerIDDT);
 
-            empAssignWorkersDT.Rows.Add(workerJobsRow);
+            //fill the checklist with workerIDs. 
 
-            empCommBuilder = new SqlCommandBuilder(empAdapter);
-            empCommBuilder.GetUpdateCommand();
-            empAdapter.Update(empAssignWorkersDT);
-
-
-            
-            
+            for (int worker = 0; worker < empWorkerIDDT.Rows.Count; worker++)
+            { 
+                workerIDs.Items.Add(empWorkerIDDT.Rows[worker][0].ToString());
+            }
+            //get workerJobs table 
+            empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs; ", _cntDatabase);
+            empAdapter.SelectCommand = empCommand;
+            empAssignWorkersDT = new DataTable();
+            empAdapter.Fill(empAssignWorkersDT);
         }
         public static void CloseAll()
         {
             //close connection. 
-            empConnection.Close();
+            _cntDatabase.Close();
             //dispose of all emp
-            empConnection.Dispose();
-            empAdapter.Dispose();
-            empCommBuilder.Dispose();
             empJobInfoDT.Dispose();
             empCommand.Dispose();
-
-
-        }
-        //Creates a customer directed from LoginScreen > LoginCreateUser
-        public static void startCreateCustomer(TextBox uName, TextBox pWord, TextBox pWord_test, TextBox fName, TextBox lName, TextBox address, TextBox email, TextBox city, TextBox zipCode)
-        {
-            if (pWord.Text.Equals(pWord_test.Text))
-
-            {//Create the Customers information
-                int custID = 0;
-                string name = fName.Text + " " + lName.Text;
-                string[] customerRow = {custID.ToString(), fName.Text, lName.Text, address.Text, email.Text, city.Text, zipCode.Text };
-                //get data
-                cCommand = new SqlCommand("SELECT * FROM group1fa202330.Customers;", cConnection);
-                cAdapter.SelectCommand = cCommand;
-                cAdapter.Fill(empCreateCustomerDT);
-                //add data
-                empCreateCustomerDT.Rows.Add(customerRow);
-
-                cCommBuilder = new SqlCommandBuilder(cAdapter);
-                cCommBuilder.GetUpdateCommand();
-                cAdapter.Update(empCreateCustomerDT);
-
-                //Link Customers to CustomerLogin
-                cCommand = new SqlCommand("SELECT CustomerID FROM group1fa202330.Customers WHERE FirstName + ' ' + LastName LIKE @Name ", cConnection);
-                cCommand.Parameters.AddWithValue("@Name", name);
-                cConnection.Open();
-                custID = (int)cCommand.ExecuteScalar();
-                if (custID>0)
-                { //Create customers login credentials
-                    string[] customerCredentials = { uName.Text, pWord.Text, custID.ToString() };
-                    //get data
-                    cCommand = new SqlCommand("SELECT * FROM group1fa202330.CustomerLogin;", cConnection);
-                    cAdapter.SelectCommand = cCommand;
-                    cAdapter.Fill(cCreateCustomerCredDT);
-                    //add data 
-                    cCreateCustomerCredDT.Rows.Add(customerCredentials);
-                    cCommBuilder = new SqlCommandBuilder(cAdapter);
-                    cCommBuilder.GetUpdateCommand();
-                    cAdapter.Update(cCreateCustomerCredDT);
-                }
-             else
-               MessageBox.Show("Error Results not found");
-
-            }
-            else
-                MessageBox.Show("Passwords do not match try again!");
-        }
-//Creates a job requests and sends to databse from UserMain
-        public static void startCreateCustomerJob(int jobID ,TextBox jobType, TextBox Address, DateTimePicker jobBegin, DateTimePicker jobEnd)
-        {
-            //get data
-            cCommand = new SqlCommand("SELECT * FROM group1fa202330.JobSites;", cConnection);
-            cAdapter.SelectCommand = cCommand;
-            cAdapter.Fill(cJobSitesDT);
-            //add data
-            cJobSitesDT.Rows.Add(new string[] { jobID.ToString(), jobType.Text, Address.Text, jobBegin.Value.Date.Date.ToString(), jobBegin.Value.Date.ToString() });
-
-            cCommBuilder = new SqlCommandBuilder(cAdapter);
-            cCommBuilder.GetUpdateCommand();
-            cAdapter.Update(cJobSitesDT);
-
+            _cntDatabase.Dispose();
+            empAdapter.Dispose();
+            empCommBuilder.Dispose();
 
         }
-//Customer login code
-        public static void startCustLogin(TextBox username, TextBox password)
-        {
-            int custID;
-            //get data
-            logCommand = new SqlCommand("SELECT CustomerID, Username, Password FROM group1fa202330.CustomerLogin WHERE UserName=@UserName and Password =@Password;", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logUserInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            custID = (int)logCommand.ExecuteScalar();
-            logConnection.Close();
-            if (logUserInfoDT.Rows.Count > 0)//redirects to next page
-            {
-                MessageBox.Show("Access Granted User: " + username.Text + " ID#: " + custID);
-                LoginScreen form1 = new LoginScreen();
-                UserMain form2 = new UserMain();
-                form2.cust = username.Text;
-                form2.custID = custID;
-                form1.Hide();
-                form2.Show();
-            }
-            else
-            {
-                MessageBox.Show("Please enter Correct Username and Password");
-            }
-        }
-//Employee login code
-        public static void startEmpLogin(TextBox username, TextBox password)
-        {
-            //get data
-            logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logEmpInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            logConnection.Close();
-            if (logEmpInfoDT.Rows.Count > 0)//redirects to next page
-            {
-                MessageBox.Show("Access Granted");
-                LoginScreen form1 = new LoginScreen();
-                EmployeeMain form2 = new EmployeeMain();
-                //form2.user = username.Text;
-                //form2.pass = password.Text;
-                form1.Hide();
-                form2.Show();
-
-            }
-            else
-            {
-                MessageBox.Show("Please enter Correct Username and Password");
-
-            }
-        }
-
-//Owner login code
-        public static void startOwnLogin(TextBox username, TextBox password)
-        {
-            
-            //get data
-            logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logOwnInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            logConnection.Close();
-            if (logOwnInfoDT.Rows.Count > 0)//redirects to next page
-            {
-                MessageBox.Show("Access Granted");
-                LoginScreen form1 = new LoginScreen();
-                OwnerMain form2 = new OwnerMain();
-                //form2.user = username.Text;
-                //form2.pass = password.Text;
-
-                form1.Hide();
-                form2.Show();
-
-            }
-            else
-            {
-                MessageBox.Show("Please enter Correct Username and Password");
-
-            }
-        }
-
-//Close and dispose of database connections (customer)
-        public static void CloseAllCust()
-        {
-            //wipe connection
-            cConnection.Dispose();
-            //close connection. 
-            cConnection.Close();
-            //dispose of all c
-            
-            cAdapter.Dispose();
-            cCommBuilder.Dispose();
-            cCommand.Dispose();
-            cCreateCustomerCredDT.Dispose();
-
-        }
-//Close and dispose of database connections (login portal)
-        public static void CloseAllLog()
-        {
-            //wipe connection
-            logConnection.Dispose();
-            //close connection. 
-            logConnection.Close();
-            //dispose of all log
-            logAdapter.Dispose();
-            logCommBuilder.Dispose();
-            logCommand.Dispose();
-           
-            logEmpInfoDT.Dispose();
-            logOwnInfoDT.Dispose();
-            logUserInfoDT.Dispose();
-
-        }
-
-
-
-
+        //fix naming? 
 
     }
 }
