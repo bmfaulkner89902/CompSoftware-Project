@@ -51,3 +51,11 @@ C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeP
 C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\stdole.dll
 C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.CopyComplete
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csprojAssemblyReference.cache
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeCustomer.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeJobMaterial.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeMain.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.LoginCreateUser.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.LoginScreen.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.OwnerMain.resources
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.UserMain.resources
