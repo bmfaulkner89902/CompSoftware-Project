@@ -32,7 +32,6 @@
             this.btnConfirmWorkers = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgCreateCustomer = new System.Windows.Forms.TabPage();
-            this.txtID = new System.Windows.Forms.TextBox();
             this.btnConfirmCustomer = new System.Windows.Forms.Button();
             this.txtCustZip = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -60,11 +59,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtJobAddress = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtJobID = new System.Windows.Forms.TextBox();
+            this.txtJobCustId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tpgAssignMaterials = new System.Windows.Forms.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtMaterialID = new System.Windows.Forms.TextBox();
             this.txtMaterialDate = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.btnConfirmMaterials = new System.Windows.Forms.Button();
@@ -81,6 +78,7 @@
             this.txtWorkerJobID = new System.Windows.Forms.TextBox();
             this.cklAssignWorkers = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblUpdated = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpgCreateCustomer.SuspendLayout();
             this.tpgCreateJob.SuspendLayout();
@@ -122,7 +120,6 @@
             // 
             // tpgCreateCustomer
             // 
-            this.tpgCreateCustomer.Controls.Add(this.txtID);
             this.tpgCreateCustomer.Controls.Add(this.btnConfirmCustomer);
             this.tpgCreateCustomer.Controls.Add(this.txtCustZip);
             this.tpgCreateCustomer.Controls.Add(this.label18);
@@ -143,13 +140,6 @@
             this.tpgCreateCustomer.TabIndex = 0;
             this.tpgCreateCustomer.Text = "Create Customer";
             this.tpgCreateCustomer.UseVisualStyleBackColor = true;
-            // 
-            // txtID
-            // 
-            this.txtID.Location = new System.Drawing.Point(63, 217);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(100, 20);
-            this.txtID.TabIndex = 34;
             // 
             // btnConfirmCustomer
             // 
@@ -247,6 +237,7 @@
             this.txtCustFirst.Name = "txtCustFirst";
             this.txtCustFirst.Size = new System.Drawing.Size(124, 20);
             this.txtCustFirst.TabIndex = 40;
+            this.txtCustFirst.TextChanged += new System.EventHandler(this.txtCustFirst_TextChanged);
             // 
             // label3
             // 
@@ -272,7 +263,7 @@
             this.tpgCreateJob.Controls.Add(this.label8);
             this.tpgCreateJob.Controls.Add(this.txtJobAddress);
             this.tpgCreateJob.Controls.Add(this.label5);
-            this.tpgCreateJob.Controls.Add(this.txtJobID);
+            this.tpgCreateJob.Controls.Add(this.txtJobCustId);
             this.tpgCreateJob.Controls.Add(this.label2);
             this.tpgCreateJob.Location = new System.Drawing.Point(4, 22);
             this.tpgCreateJob.Name = "tpgCreateJob";
@@ -388,12 +379,13 @@
             this.label5.TabIndex = 39;
             this.label5.Text = "Job Address";
             // 
-            // txtJobID
+            // txtJobCustId
             // 
-            this.txtJobID.Location = new System.Drawing.Point(308, 30);
-            this.txtJobID.Name = "txtJobID";
-            this.txtJobID.Size = new System.Drawing.Size(100, 20);
-            this.txtJobID.TabIndex = 34;
+            this.txtJobCustId.Location = new System.Drawing.Point(308, 30);
+            this.txtJobCustId.Name = "txtJobCustId";
+            this.txtJobCustId.Size = new System.Drawing.Size(100, 20);
+            this.txtJobCustId.TabIndex = 34;
+            this.txtJobCustId.TextChanged += new System.EventHandler(this.txtJobCustId_TextChanged);
             // 
             // label2
             // 
@@ -406,8 +398,6 @@
             // 
             // tpgAssignMaterials
             // 
-            this.tpgAssignMaterials.Controls.Add(this.label20);
-            this.tpgAssignMaterials.Controls.Add(this.txtMaterialID);
             this.tpgAssignMaterials.Controls.Add(this.txtMaterialDate);
             this.tpgAssignMaterials.Controls.Add(this.label19);
             this.tpgAssignMaterials.Controls.Add(this.btnConfirmMaterials);
@@ -425,22 +415,6 @@
             this.tpgAssignMaterials.TabIndex = 2;
             this.tpgAssignMaterials.Text = "Assign Materials";
             this.tpgAssignMaterials.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 81);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 13);
-            this.label20.TabIndex = 51;
-            this.label20.Text = "MaterialID";
-            // 
-            // txtMaterialID
-            // 
-            this.txtMaterialID.Location = new System.Drawing.Point(75, 78);
-            this.txtMaterialID.Name = "txtMaterialID";
-            this.txtMaterialID.Size = new System.Drawing.Size(100, 20);
-            this.txtMaterialID.TabIndex = 52;
             // 
             // txtMaterialDate
             // 
@@ -502,7 +476,7 @@
             // 
             // txtMaterialUnit
             // 
-            this.txtMaterialUnit.Location = new System.Drawing.Point(577, 75);
+            this.txtMaterialUnit.Location = new System.Drawing.Point(577, 71);
             this.txtMaterialUnit.Name = "txtMaterialUnit";
             this.txtMaterialUnit.Size = new System.Drawing.Size(100, 20);
             this.txtMaterialUnit.TabIndex = 43;
@@ -510,7 +484,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(545, 78);
+            this.label12.Location = new System.Drawing.Point(545, 74);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(26, 13);
             this.label12.TabIndex = 42;
@@ -518,15 +492,16 @@
             // 
             // txtMaterialName
             // 
-            this.txtMaterialName.Location = new System.Drawing.Point(269, 78);
+            this.txtMaterialName.Location = new System.Drawing.Point(105, 71);
             this.txtMaterialName.Name = "txtMaterialName";
-            this.txtMaterialName.Size = new System.Drawing.Size(270, 20);
+            this.txtMaterialName.Size = new System.Drawing.Size(408, 20);
             this.txtMaterialName.TabIndex = 40;
+            this.txtMaterialName.TextChanged += new System.EventHandler(this.txtMaterialName_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(188, 81);
+            this.label11.Location = new System.Drawing.Point(14, 78);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(75, 13);
             this.label11.TabIndex = 39;
@@ -561,6 +536,7 @@
             this.txtWorkerJobID.Name = "txtWorkerJobID";
             this.txtWorkerJobID.Size = new System.Drawing.Size(100, 20);
             this.txtWorkerJobID.TabIndex = 35;
+            this.txtWorkerJobID.TextChanged += new System.EventHandler(this.txtWorkerJobID_TextChanged);
             // 
             // cklAssignWorkers
             // 
@@ -579,11 +555,23 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Workers";
             // 
+            // lblUpdated
+            // 
+            this.lblUpdated.AutoSize = true;
+            this.lblUpdated.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUpdated.Location = new System.Drawing.Point(43, 300);
+            this.lblUpdated.Name = "lblUpdated";
+            this.lblUpdated.Size = new System.Drawing.Size(233, 20);
+            this.lblUpdated.TabIndex = 35;
+            this.lblUpdated.Text = "The changes have been saved. ";
+            this.lblUpdated.Visible = false;
+            // 
             // EmployeeJobMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 384);
+            this.Controls.Add(this.lblUpdated);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Name = "EmployeeJobMaterial";
@@ -599,6 +587,7 @@
             this.tpgAssignWorkers.ResumeLayout(false);
             this.tpgAssignWorkers.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -622,7 +611,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtJobAddress;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtJobID;
+        private System.Windows.Forms.TextBox txtJobCustId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tpgAssignMaterials;
         private System.Windows.Forms.Label label9;
@@ -649,12 +638,10 @@
         private System.Windows.Forms.Button btnConfirmCustomer;
         private System.Windows.Forms.Button btnConfirmJob;
         private System.Windows.Forms.Button btnConfirmMaterials;
-        private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label price;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox txtMaterialID;
         private System.Windows.Forms.TextBox txtMaterialDate;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lblUpdated;
     }
 }
