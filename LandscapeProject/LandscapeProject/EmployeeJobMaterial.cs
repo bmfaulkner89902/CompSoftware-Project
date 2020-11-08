@@ -19,10 +19,9 @@ namespace LandscapeProject
         }
         private void EmployeeJobMaterial_Load(object sender, EventArgs e)
         {
-            //open connection 
-            ProgOps.Open();
+            
 
-            ProgOps.LoadCheckList(cklAssignWorkers); 
+            EmployeeProgOps.LoadCheckList(cklAssignWorkers); 
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -33,8 +32,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startJobs(txtJobID, txtJobAddress, txtJobType, txtStart, txtEnd, txtJobSize, txtPrice);
-                ProgOps.empConnection.Close();
+                EmployeeProgOps.startJobs(txtJobCustId, txtJobAddress, txtJobType, txtStart, txtEnd, txtJobSize, txtPrice);
+                lblUpdated.Visible = true; 
             }
             catch (Exception ex)
             {
@@ -46,11 +45,10 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.assignMaterialsToJob(txtMaterialID, txtMaterialJobID);
-                ProgOps.startMaterials(txtMaterialID, txtMaterialUnit, txtMaterialName, txtMaterialPrice, txtMaterialDate, txtMaterialJobID);
-               
+                EmployeeProgOps.startMaterials( txtMaterialUnit, txtMaterialName, txtMaterialPrice, txtMaterialDate, txtMaterialJobID);
+                EmployeeProgOps.assignMaterialsToJob(txtMaterialJobID);
 
-            ProgOps.empConnection.Close();
+                lblUpdated.Visible = true; 
         }
             catch (Exception ex)
             {
@@ -62,8 +60,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip, txtID);
-                ProgOps.CloseAll(); 
+                EmployeeProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip);
+                lblUpdated.Visible = true; 
                  
             }
             catch (Exception ex)
@@ -76,8 +74,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startAssign(txtWorkerJobID, cklAssignWorkers);
-                ProgOps.empConnection.Close();
+                EmployeeProgOps.startAssign(txtWorkerJobID, cklAssignWorkers);
+                lblUpdated.Visible = true; 
             }
             catch (Exception ex)
             {
@@ -85,6 +83,29 @@ namespace LandscapeProject
             }
         }
 
-        
+        private void tpgAssignMaterials_TextChanged(object sender, EventArgs e)
+        {
+            lblUpdated.Visible = false; 
+        }
+
+        private void txtCustFirst_TextChanged(object sender, EventArgs e)
+        {
+            lblUpdated.Visible = false; 
+        }
+
+        private void txtJobCustId_TextChanged(object sender, EventArgs e)
+        {
+            lblUpdated.Visible = false; 
+        }
+
+        private void txtMaterialName_TextChanged(object sender, EventArgs e)
+        {
+            lblUpdated.Visible = false; 
+        }
+
+        private void txtWorkerJobID_TextChanged(object sender, EventArgs e)
+        {
+            lblUpdated.Visible = false; 
+        }
     }
 }

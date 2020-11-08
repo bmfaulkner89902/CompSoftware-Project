@@ -18,57 +18,59 @@ namespace LandscapeProject
         {
             InitializeComponent();
         }
-        //const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id=group1fa202330;password=1524152"; 
-
-        
+       
         private void btnSearchSchedule_Click(object sender, EventArgs e)
         {
-            string searchItem = txtSearchSchedule.Text;
-            //ID = term searched for, column = workerid/jobid. 
-            //ProgOps.Open();
-            ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.TimeTables.WorkerID, Clock_in, Clock_out FROM group1fa202330.TimeTables WHERE WorkerID = " + searchItem + " ORDER BY WorkerID; ", ProgOps.empConnection);
-            ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-            ProgOps.empAdapter.Fill(ProgOps.empTimeTableDt);
-
-            dataGridView2.DataSource = ProgOps.empTimeTableDt;
-            ProgOps.empConnection.Close();
+            try
+            {
+                EmployeeProgOps.ScheduleSearch(txtSearchSchedule.Text, dgvEmpWorkerSch); 
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
             
         }
 
         private void EmployeeMain_Load(object sender, EventArgs e)
         {
-            //open connection 
-            ProgOps.Open();
-            //get information to fill datagridview Job information . 
-            ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.JobSites.JobID, group1fa202330.Customers.FirstName, JobType, group1fa202330.Customers.Address, BeginDate, EndDate, Price FROM group1fa202330.Customers JOIN group1fa202330.CustomerJobs ON group1fa202330.Customers.CustomerID = CustomerJobs.CustomerID JOIN group1fa202330.JobSites ON group1fa202330.CustomerJobs.JobID = group1fa202330.JobSites.JobID ORDER BY BeginDate; ", ProgOps.empConnection);
-            ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-            ProgOps.empAdapter.Fill(ProgOps.empJobInfoDT);
-
-            //fill datagrid view. 
-            dataGridView1.DataSource = ProgOps.empJobInfoDT;
-
-            //fill the worker schedule. 
-            ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.TimeTables.WorkerID, Clock_in, Clock_out FROM group1fa202330.TimeTables ORDER BY WorkerID, Clock_In; ", ProgOps.empConnection);
-            ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-            ProgOps.empAdapter.Fill(ProgOps.empTimeTableDt);
-
-            //fill datagrid view. 
-            dataGridView2.DataSource = ProgOps.empTimeTableDt;
-
+            try
+            {
+                EmployeeProgOps.mainLoad(dgvEmpJobInfo, dgvEmpWorkerSch); 
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("The connection to the database may be down. Please check your internet connection. If the problem persists then please contact support.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            ProgOps.empConnection.Close(); 
+            
             EmployeeCustomer form1 = new EmployeeCustomer();
-            form1.Show(); 
+            form1.ShowDialog(); 
         }
 
         private void btnAssign_Click(object sender, EventArgs e)
         {
-            ProgOps.empConnection.Close();
+            
             EmployeeJobMaterial form2 = new EmployeeJobMaterial();
-            form2.Show(); 
+            form2.ShowDialog(); 
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            EmployeeProgOps.CloseAll(); 
+            this.Close(); 
+        }
+
+        private void btnEmpLogOut_Click(object sender, EventArgs e)
+        {
+            //to do..
         }
     }
 }
