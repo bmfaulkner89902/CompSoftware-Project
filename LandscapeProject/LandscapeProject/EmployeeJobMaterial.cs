@@ -21,7 +21,7 @@ namespace LandscapeProject
         {
             
 
-            ProgOps.LoadCheckList(cklAssignWorkers); 
+            EmployeeProgOps.LoadCheckList(cklAssignWorkers); 
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -32,7 +32,7 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startJobs(txtJobCustId, txtJobAddress, txtJobType, txtStart, txtEnd, txtJobSize, txtPrice);
+                EmployeeProgOps.startJobs(txtJobCustId, txtJobAddress, txtJobType, txtStart, txtEnd, txtJobSize, txtPrice);
                 lblUpdated.Visible = true; 
             }
             catch (Exception ex)
@@ -45,8 +45,8 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startMaterials( txtMaterialUnit, txtMaterialName, txtMaterialPrice, txtMaterialDate, txtMaterialJobID);
-                ProgOps.assignMaterialsToJob(txtMaterialJobID);
+                EmployeeProgOps.startMaterials( txtMaterialUnit, txtMaterialName, txtMaterialPrice, txtMaterialDate, txtMaterialJobID);
+                EmployeeProgOps.assignMaterialsToJob(txtMaterialJobID);
 
                 lblUpdated.Visible = true; 
         }
@@ -60,7 +60,7 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip);
+                EmployeeProgOps.startCustomers(txtCustFirst, txtCustLast, txtCustAddress, txtCustEmail, txtCustCity, txtCustZip);
                 lblUpdated.Visible = true; 
                  
             }
@@ -74,7 +74,7 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.startAssign(txtWorkerJobID, cklAssignWorkers);
+                EmployeeProgOps.startAssign(txtWorkerJobID, cklAssignWorkers);
                 lblUpdated.Visible = true; 
             }
             catch (Exception ex)
