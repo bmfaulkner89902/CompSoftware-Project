@@ -16,7 +16,7 @@ namespace LandscapeProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EmployeeMain());
+            Application.Run(new LoginScreen());
         }
     }
 }
