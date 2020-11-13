@@ -108,8 +108,8 @@
     <Compile Include="OwnerMain.Designer.cs">
       <DependentUpon>OwnerMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeProgOps.cs" />
     <Compile Include="OwnerProgOps.cs" />
-    <Compile Include="ProgOps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserMain.cs">
