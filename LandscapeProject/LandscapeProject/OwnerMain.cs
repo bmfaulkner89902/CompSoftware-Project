@@ -13,6 +13,8 @@ namespace LandscapeProject
 {
     public partial class OwnerMain : Form
     {
+        bool isSQLSuccessful;
+
         public OwnerMain()
         {
             InitializeComponent();
@@ -47,9 +49,8 @@ namespace LandscapeProject
                     OwnerProgOps.EmployeesCommand(dgvEmployees);
                     break;
                 case 4:
-                    //Shows the Crystal Reports -- Do Last
+                    crvViewer.ReportSource = null;
                     break;
-
             }
         }
 
@@ -82,11 +83,14 @@ namespace LandscapeProject
                     {
                         string newInformation = tbxJobInfoNew.Text;
 
-                        OwnerProgOps.UpdateJob(selectedCategory, newInformation, JobID);
+                        isSQLSuccessful = OwnerProgOps.UpdateJob(selectedCategory, newInformation, JobID);
 
-                        clearJobAndMaterialBoxes();
+                        if (isSQLSuccessful)
+                        {
+                            clearJobAndMaterialBoxes();
 
-                        OwnerProgOps.JobCommand(dgvJobs);
+                            OwnerProgOps.JobCommand(dgvJobs);
+                        }                        
                     }
                     else
                     {
@@ -153,6 +157,87 @@ namespace LandscapeProject
             }
         }
 
+        private void btnAddNewMaterial_Click(object sender, EventArgs e)
+        {
+            int selectedJob = dgvJobs.CurrentRow.Index;
+            int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+            string MaterialType = tbxMaterialType.Text;
+            string Date = tbxMaterialDate.Text;            
+            double Price = 0;
+            float UnitsInYards;
+
+            if (MaterialType != "" && MaterialType != " ")
+            {
+                if (tbxMaterialPrice.Text != "" && tbxMaterialPrice.Text != " ")
+                {
+                    if (!double.TryParse(tbxMaterialPrice.Text, out Price))
+                    {
+                        //Makes User Enter Only A Double Value For Material Price
+                        MessageBox.Show("Material Price can only contain a double value",
+                            "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        Price = double.Parse(tbxMaterialPrice.Text);
+
+                        if (Date != "" && Date != " ")
+                        {
+                            if (tbxMaterialUnitsInYards.Text != "" && tbxMaterialUnitsInYards.Text != " ")
+                            {
+                                if (!float.TryParse(tbxMaterialUnitsInYards.Text, out UnitsInYards))
+                                {
+                                    //Makes User Enter Only A Float Value For Material Price
+                                    MessageBox.Show("Units In Yards can only contain a float value",
+                                        "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                {
+                                    isSQLSuccessful = OwnerProgOps.AddMaterial(MaterialType, Date, Price, UnitsInYards, JobID);
+
+                                    if (isSQLSuccessful)
+                                    {
+                                        clearJobAndMaterialBoxes();
+
+                                        OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+                                    }                                    
+                                }
+                            }
+                            else
+                            {
+                                //Makes User Enter New Information before trying to submit
+                                MessageBox.Show("You must enter Units In Yards before submitting a new Material",
+                                    "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            //Makes User Enter New Information before trying to submit
+                            MessageBox.Show("You must enter a Date before submitting a new Material",
+                                "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    //Makes User Enter New Information before trying to submit
+                    MessageBox.Show("You must enter a Price before submitting a new Material",
+                        "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //Makes User Enter New Information before trying to submit
+                MessageBox.Show("You must enter a Material Type before submitting a new Material",
+                    "Error With Adding Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelNewMaterial_Click(object sender, EventArgs e)
+        {
+            clearJobAndMaterialBoxes();
+        }
+
         private void btnAddNewJob_Click(object sender, EventArgs e)
         {
             string JobType = tbxJobType.Text;
@@ -193,11 +278,14 @@ namespace LandscapeProject
                             }
                             else
                             {
-                                OwnerProgOps.AddJob(JobType, Address, BeginDate, EndDate, Price, JobSize);
+                                isSQLSuccessful = OwnerProgOps.AddJob(JobType, Address, BeginDate, EndDate, Price, JobSize);
 
-                                clearJobAndMaterialBoxes();
+                                if (isSQLSuccessful)
+                                {
+                                    clearJobAndMaterialBoxes();
 
-                                OwnerProgOps.JobCommand(dgvJobs);
+                                    OwnerProgOps.JobCommand(dgvJobs);
+                                }                               
                             }                          
                        }
                        else
@@ -353,11 +441,14 @@ namespace LandscapeProject
                         {
                             string newInformation = tbxMaterialInfoNew.Text;
 
-                            OwnerProgOps.UpdateMaterials(selectedCategory, newInformation, materialID);
+                            isSQLSuccessful = OwnerProgOps.UpdateMaterials(selectedCategory, newInformation, materialID);
 
-                            clearJobAndMaterialBoxes();
+                            if (isSQLSuccessful)
+                            {
+                                clearJobAndMaterialBoxes();
 
-                            OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+                                OwnerProgOps.MaterialCommand(dgvJobMaterials, JobID);
+                            }
                         }
                         else
                         {
@@ -449,6 +540,10 @@ namespace LandscapeProject
             cboMaterialCategory.Text = "";
             cboJobCategory.SelectedIndex = -1;
             cboJobCategory.Text = "";
+            tbxMaterialType.Text = "";
+            tbxMaterialUnitsInYards.Text = "";
+            tbxMaterialDate.Text = "";
+            tbxMaterialPrice.Text = "";
             tbxJobInfoNew.Text = "";
             tbxMaterialInfoNew.Text = "";
             tbxJobType.Text = "";
@@ -479,11 +574,14 @@ namespace LandscapeProject
                     {
                         string newInformation = tbxCustomerInfoNew.Text;
 
-                        OwnerProgOps.UpdateCustomer(selectedCategory, newInformation, CustomerID);
+                        isSQLSuccessful = OwnerProgOps.UpdateCustomer(selectedCategory, newInformation, CustomerID);
 
-                        clearCustomerBoxes();
+                        if (isSQLSuccessful)
+                        {
+                            clearCustomerBoxes();
 
-                        OwnerProgOps.CustomerCommand(dgvCustomers);
+                            OwnerProgOps.CustomerCommand(dgvCustomers);
+                        }
                     }
                     else
                     {
@@ -571,11 +669,14 @@ namespace LandscapeProject
                             {
                                 if (Email != "" && Email != " ")
                                 {
-                                    OwnerProgOps.AddCustomer(Fname, Lname, Address, Email, City, Zip);
+                                    isSQLSuccessful = OwnerProgOps.AddCustomer(Fname, Lname, Address, Email, City, Zip);
 
-                                    clearCustomerBoxes();
+                                    if (isSQLSuccessful)
+                                    {
+                                        clearCustomerBoxes();
 
-                                    OwnerProgOps.CustomerCommand(dgvCustomers);
+                                        OwnerProgOps.CustomerCommand(dgvCustomers);
+                                    }
                                 }
                                 else
                                 {
@@ -658,11 +759,14 @@ namespace LandscapeProject
                     {
                         string newInformation = tbxContractorInfoNew.Text;
 
-                        OwnerProgOps.UpdateContractor(selectedCategory, newInformation, ContractorID);
+                        isSQLSuccessful = OwnerProgOps.UpdateContractor(selectedCategory, newInformation, ContractorID);
 
-                        clearContractorBoxes();
+                        if (isSQLSuccessful)
+                        {
+                            clearContractorBoxes();
 
-                        OwnerProgOps.ContractorCommand(dgvContractors);
+                            OwnerProgOps.ContractorCommand(dgvContractors);
+                        }
                     }
                     else
                     {
@@ -753,11 +857,14 @@ namespace LandscapeProject
                                 {
                                     if (Zip != "" && Zip != " ")
                                     {
-                                        OwnerProgOps.AddContractor(Fname, Lname, Email, Phone, Address, City, Zip);
+                                        isSQLSuccessful = OwnerProgOps.AddContractor(Fname, Lname, Email, Phone, Address, City, Zip);
 
-                                        clearContractorBoxes();
+                                        if (isSQLSuccessful)
+                                        {
+                                            clearContractorBoxes();
 
-                                        OwnerProgOps.ContractorCommand(dgvContractors);
+                                            OwnerProgOps.ContractorCommand(dgvContractors);
+                                        }
                                     }
                                     else
                                     {
@@ -848,11 +955,14 @@ namespace LandscapeProject
                     {
                         string newInformation = tbxEmployeeInfoNew.Text;
 
-                        OwnerProgOps.UpdateEmployee(selectedCategory, newInformation, employeeID);
+                        isSQLSuccessful = OwnerProgOps.UpdateEmployee(selectedCategory, newInformation, employeeID);
 
-                        clearEmployeeBoxes();
+                        if (isSQLSuccessful)
+                        {
+                            clearEmployeeBoxes();
 
-                        OwnerProgOps.EmployeesCommand(dgvEmployees);
+                            OwnerProgOps.EmployeesCommand(dgvEmployees);
+                        }
                     }
                     else
                     {
@@ -940,11 +1050,14 @@ namespace LandscapeProject
                             {
                                 if (Email != "" && Email != " ")
                                 {
-                                    OwnerProgOps.AddEmployee(Fname, Lname, Address, Email, City, Zip);                                   ;
+                                    isSQLSuccessful = OwnerProgOps.AddEmployee(Fname, Lname, Address, Email, City, Zip);                                   ;
 
-                                    clearEmployeeBoxes();
+                                    if (isSQLSuccessful)
+                                    {
+                                        clearEmployeeBoxes();
 
-                                    OwnerProgOps.EmployeesCommand(dgvEmployees);
+                                        OwnerProgOps.EmployeesCommand(dgvEmployees);
+                                    }
                                 }
                                 else
                                 {
@@ -1007,6 +1120,56 @@ namespace LandscapeProject
             tbxEmployeeEmail.Text = "";
         }
 
-        //-----------------------------------------------------------------------------------------------------------       
+        //-----------------------------------------------------------------------------------------------------------    
+
+        //Reports----------------------------------------------------------------------------------------------------
+
+        private void btnJobFinancialReport_Click(object sender, EventArgs e)
+        {
+            pgbReports.Visible = true;
+
+            //Create an object of the report
+            CrystalReports.crptJobFinancial jobFinancial = new CrystalReports.crptJobFinancial();
+
+            //Set the database login for the report
+            jobFinancial.SetDatabaseLogon("group1fa202330", "1524152");
+
+            pgbReports.Value = 50;
+
+            //Set to null first to clear the crvViewer
+            crvViewer.ReportSource = null;
+
+            pgbReports.Value = 100;
+
+            //Then set the crvViewer to the report object
+            crvViewer.ReportSource = jobFinancial;
+
+            pgbReports.Visible = false;             
+        }
+
+        private void btnEmployeeSchedulesReport_Click(object sender, EventArgs e)
+        {
+            pgbReports.Visible = true;
+
+            //Create an object of the report
+            CrystalReports.crptEmployeeTimeTable employeeTimeTable = new CrystalReports.crptEmployeeTimeTable();
+
+            //Set the database login for the report
+            employeeTimeTable.SetDatabaseLogon("group1fa202330", "1524152");
+
+            pgbReports.Value = 50;
+
+            //Set to null first to clear the crvViewer
+            crvViewer.ReportSource = null;
+
+            pgbReports.Value = 100;
+
+            //Then set the crvViewer to the report object
+            crvViewer.ReportSource = employeeTimeTable;
+
+            pgbReports.Visible = false;
+        }
+
+        //-----------------------------------------------------------------------------------------------------------
     }
 }

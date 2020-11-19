@@ -62,6 +62,7 @@ C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bi
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\stdole.dll
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csprojAssemblyReference.cache
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeCustomer.resources
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeJobMaterial.resources
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeMain.resources
@@ -75,3 +76,6 @@ C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\ob
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.CopyComplete
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.exe
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.pdb
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\AxShockwaveFlashObjects.dll
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\bin\Debug\ShockwaveFlashObjects.dll
