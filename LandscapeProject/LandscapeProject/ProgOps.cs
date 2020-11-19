@@ -9,15 +9,12 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using LandscapeProject.Properties;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LandscapeProject
 {
     class ProgOps
     {
-        //Connection
-        const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id = group1fa202330; password=1524152";
-        //Employee
+        const string connectionString = "Server=cstnt.tstc.edu;Database=INEW2330fa20;User Id=group1fa202330;password=1524152";
         public static SqlConnection empConnection = new SqlConnection(connectionString);
         public static SqlDataAdapter empAdapter = new SqlDataAdapter();
         public static DataTable empJobInfoDT = new DataTable();
@@ -30,13 +27,13 @@ namespace LandscapeProject
         public static DataTable empGetMaterialsDT = new DataTable();
         public static DataTable empWorkerIDDT = new DataTable(); 
         public static SqlCommand empCommand;
-        public static SqlCommandBuilder empCommBuilder = new SqlCommandBuilder();
-
+        public static SqlCommandBuilder empCommBuilder = new SqlCommandBuilder(); 
 
         public static void Open()
         {
             empConnection.Open();
         }
+
         public static void startCustomers(TextBox fName, TextBox lName, TextBox address, TextBox email, TextBox city, TextBox zipCode, TextBox CustID)
         {
             string[] customerRow = { CustID.Text,fName.Text, lName.Text, address.Text, email.Text, city.Text, zipCode.Text};
@@ -52,6 +49,7 @@ namespace LandscapeProject
             empAdapter.Update(empCreateCustomerDT);
 
         }
+
         public static void startJobs(TextBox ID, TextBox address, TextBox type, TextBox begin, TextBox end, TextBox size, TextBox price )
         {
             //take info from text boxes + put into array 
@@ -76,6 +74,7 @@ namespace LandscapeProject
             empAdapter.Update(empCreateJobDT);
 
         }
+
         public static void startMaterials(TextBox materialID, TextBox Units, TextBox Type, TextBox price, TextBox date, TextBox jobId)
         {
             //take info from text boxes + put into array 
@@ -99,6 +98,7 @@ namespace LandscapeProject
             empAdapter.Update(empGetMaterialsDT);
 
         }
+
         public static void assignMaterialsToJob(TextBox MaterialID,TextBoxBase JobId)
         {
             empCommand = new SqlCommand("SELECT * FROM group1fa202330.JobMaterials; ", empConnection);
@@ -107,26 +107,38 @@ namespace LandscapeProject
 
             DataRow materialRelations = empGetMaterialsDT.NewRow();
             materialRelations[0] = Convert.ToInt32(JobId.Text);
-            materialRelations[1] =Convert.ToInt32( MaterialID.Text);
+            materialRelations[1] = Convert.ToInt32( MaterialID.Text);
 
             empGetMaterialsDT.Rows.Add(materialRelations);
             empCommBuilder = new SqlCommandBuilder(empAdapter);
             empCommBuilder.GetUpdateCommand();
             empAdapter.Update(empGetMaterialsDT);
         }
+
         public static void startAssign(TextBox JobID, CheckedListBox workerIDs)
         {
-            //take info from text boxes 
+           
+            //take info from text boxes (jobid); 
+            
+
+            //add array into datatable. 
+            //take info from text boxes (jobid); 
             empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs;", empConnection);
             empAdapter.SelectCommand = empCommand;
             empAdapter.Fill(empAssignWorkersDT);
-            //add array into datatable. 
+            //add workerIds into datatable. 
             DataRow workerJobsRow = empAssignWorkersDT.NewRow();
 
-            for (int i = 0; i < workerIDs.CheckedItems.Count; i++)
+            empCommand = new SqlCommand("SELECT WorkerID FROM group1fa202330.Workers;", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empAdapter.Fill(empWorkerIDDT);
+
+            
+            foreach (int indexChecked in workerIDs.CheckedIndices)
             {
-                workerJobsRow[1] = Convert.ToInt32(workerIDs.CheckedItems[i].ToString());
-                workerJobsRow[0] = Convert.ToInt32(JobID.Text);
+                workerJobsRow[0] = empWorkerIDDT.Rows[0][indexChecked]; 
+                workerJobsRow[1] = Convert.ToInt32(JobID.Text);
+                MessageBox.Show(workerJobsRow[0].ToString()); 
             }
            
 
@@ -137,29 +149,41 @@ namespace LandscapeProject
             empAdapter.Update(empAssignWorkersDT);
 
 
-            
-            
+
+
         }
+        public static void LoadCheckList(CheckedListBox workerIDs)
+        {
+            //get information to fill workerID checklist. . 
+            empCommand = new SqlCommand("SELECT WorkerID FROM group1fa202330.Workers; ", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empWorkerIDDT = new DataTable();
+            empAdapter.Fill(empWorkerIDDT);
+
+            workerIDs.DataBindings.Add("Text", empWorkerIDDT, "WorkerID");
+            workerIDs.DataSource = empWorkerIDDT;
+            workerIDs.DisplayMember = "WorkerID";
+
+            //get workerJobs table 
+            empCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerJobs; ", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empAssignWorkersDT = new DataTable();
+            empAdapter.Fill(empAssignWorkersDT);
+        }
+
         public static void CloseAll()
         {
             //close connection. 
             empConnection.Close();
             //dispose of all emp
-            empConnection.Dispose();
-            empAdapter.Dispose();
-            empCommBuilder.Dispose();
             empJobInfoDT.Dispose();
             empCommand.Dispose();
-
-
+            empConnection.Dispose();
+            empAdapter.Dispose();
+            empCommBuilder.Dispose(); 
+            
         }
-       
-
-
-
-
-
-
+        
 
     }
 }

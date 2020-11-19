@@ -23,18 +23,7 @@ namespace LandscapeProject
         {
             try
             {
-                ProgOps.empTimeTableDt = new DataTable(); 
-                string searchItem = txtSearchSchedule.Text;
-                //ID = term searched for, column = workerid/jobid. 
-                if (searchItem == null || searchItem == "")
-                {
-                    ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.TimeTables.WorkerID, Clock_in, Clock_out FROM group1fa202330.TimeTables;", ProgOps.empConnection);
-                }
-                ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.TimeTables.WorkerID, Clock_in, Clock_out FROM group1fa202330.TimeTables WHERE WorkerID = " + searchItem + " ORDER BY WorkerID; ", ProgOps.empConnection);
-                ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-                ProgOps.empAdapter.Fill(ProgOps.empTimeTableDt);
-
-                dgvEmpWorkerSch.DataSource = ProgOps.empTimeTableDt;
+                EmployeeProgOps.ScheduleSearch(txtSearchSchedule.Text, dgvEmpWorkerSch); 
             }
             catch(Exception ex)
             {
@@ -47,23 +36,7 @@ namespace LandscapeProject
         {
             try
             {
-                //open connection 
-                ProgOps.Open();
-                //get information to fill datagridview Job information . 
-                ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.JobSites.JobID, group1fa202330.Customers.FirstName, JobType, group1fa202330.Customers.Address, BeginDate, EndDate, Price FROM group1fa202330.Customers JOIN group1fa202330.CustomerJobs ON group1fa202330.Customers.CustomerID = CustomerJobs.CustomerID JOIN group1fa202330.JobSites ON group1fa202330.CustomerJobs.JobID = group1fa202330.JobSites.JobID ORDER BY BeginDate; ", ProgOps.empConnection);
-                ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-                ProgOps.empAdapter.Fill(ProgOps.empJobInfoDT);
-
-                //fill datagrid view. 
-                dgvEmpJobInfo.DataSource = ProgOps.empJobInfoDT;
-
-                //fill the worker schedule. 
-                ProgOps.empCommand = new SqlCommand("SELECT group1fa202330.TimeTables.WorkerID, Clock_in, Clock_out FROM group1fa202330.TimeTables ORDER BY WorkerID, Clock_In; ", ProgOps.empConnection);
-                ProgOps.empAdapter.SelectCommand = ProgOps.empCommand;
-                ProgOps.empAdapter.Fill(ProgOps.empTimeTableDt);
-
-                //fill datagrid view. 
-                dgvEmpWorkerSch.DataSource = ProgOps.empTimeTableDt;
+                EmployeeProgOps.mainLoad(dgvEmpJobInfo, dgvEmpWorkerSch); 
             }
             catch (SqlException)
             {
@@ -91,7 +64,7 @@ namespace LandscapeProject
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            ProgOps.CloseAll(); 
+            EmployeeProgOps.CloseAll(); 
             this.Close(); 
         }
 
