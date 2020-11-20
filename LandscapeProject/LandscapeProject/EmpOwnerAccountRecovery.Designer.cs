@@ -31,6 +31,7 @@
             this.btnConfirm = new System.Windows.Forms.Button();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblEmailOutput = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnConfirm
@@ -59,11 +60,20 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Enter your E-mail";
             // 
+            // lblEmailOutput
+            // 
+            this.lblEmailOutput.AutoSize = true;
+            this.lblEmailOutput.Location = new System.Drawing.Point(12, 73);
+            this.lblEmailOutput.Name = "lblEmailOutput";
+            this.lblEmailOutput.Size = new System.Drawing.Size(0, 13);
+            this.lblEmailOutput.TabIndex = 6;
+            // 
             // EmpOwnerAccountRecovery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(305, 112);
+            this.Controls.Add(this.lblEmailOutput);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.tbxEmail);
             this.Controls.Add(this.label1);
@@ -79,5 +89,6 @@
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.TextBox tbxEmail;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblEmailOutput;
     }
 }

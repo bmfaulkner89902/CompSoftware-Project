@@ -21,7 +21,7 @@ namespace LandscapeProject
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            string custEmail = tbxEmail.ToString().Trim();
+            string custEmail = tbxEmail.Text.ToString();
             LoginProgOps.custAccountRecovery(custEmail);
             lblEmailOutput.Text = "Check your inbox for account recovery information.";
 

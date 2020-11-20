@@ -21,15 +21,9 @@ namespace LandscapeProject
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            string custEmail = tbxEmail.ToString();
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send("lansdcapeaccrec1@gmail.com", custEmail, "Password Recovery", "test");
+            string custEmail = tbxEmail.Text.ToString();
+            LoginProgOps.empAccountRecovery(custEmail);
+            lblEmailOutput.Text = "Check your inbox for account recovery information.";
         }
     }
 }

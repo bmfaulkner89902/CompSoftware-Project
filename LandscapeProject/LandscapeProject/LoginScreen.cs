@@ -26,7 +26,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Logging in. Make sure your credentials are correct.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -43,7 +43,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Logging in. Make sure your credentials are correct.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnEmpSubmit_Click(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Logging in. Make sure your credentials are correct.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -75,7 +75,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Logging in. Make sure your credentials are correct.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -91,18 +91,26 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Logging in. Make sure your credentials are correct.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
         private void linkUserRecover_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();
-            ClearForm();
-            CustomerAccountRecovery form1 = new CustomerAccountRecovery();
-            form1.ShowDialog();
-            this.Show();
+            try
+            {
+                this.Hide();
+                ClearForm();
+                CustomerAccountRecovery form1 = new CustomerAccountRecovery();
+                form1.ShowDialog();
+                this.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Opening Link", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
         }
 

@@ -90,7 +90,7 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(219, 141);
+            this.btnCreate.Location = new System.Drawing.Point(229, 141);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(75, 23);
             this.btnCreate.TabIndex = 7;
@@ -100,7 +100,7 @@
             // 
             // btnGuest
             // 
-            this.btnGuest.Location = new System.Drawing.Point(75, 141);
+            this.btnGuest.Location = new System.Drawing.Point(66, 141);
             this.btnGuest.Name = "btnGuest";
             this.btnGuest.Size = new System.Drawing.Size(75, 23);
             this.btnGuest.TabIndex = 6;
@@ -121,7 +121,7 @@
             // 
             // btnCustSubmit
             // 
-            this.btnCustSubmit.Location = new System.Drawing.Point(148, 170);
+            this.btnCustSubmit.Location = new System.Drawing.Point(147, 167);
             this.btnCustSubmit.Name = "btnCustSubmit";
             this.btnCustSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnCustSubmit.TabIndex = 4;

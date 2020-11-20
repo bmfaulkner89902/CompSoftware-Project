@@ -71,9 +71,9 @@ namespace LandscapeProject
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message, "Error Creating Job. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
         }
 //Updates output label on click so the user can find the payment due and the contractor contact info
@@ -101,7 +101,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Finding Job Info. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

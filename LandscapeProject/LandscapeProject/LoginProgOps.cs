@@ -41,7 +41,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error In Opening Connection, MessageBoxButtons.OK, MessageBoxIcon.Error");
             }
         }
 //Customer login code
@@ -77,7 +77,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Employee login code
@@ -110,7 +110,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -143,7 +143,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Takes Custoemr email finds username and password
@@ -152,54 +152,97 @@ namespace LandscapeProject
             try
             {
                 custEmail.Trim();
+                string hardEmail = "coltonchrane@gmail.com";
                 string username;
                 string password;
                 //uses email to find login
-                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Username, group1fa202330.CustomerLogin.Password," +
-                    " group1fa202330.CustomerLogin.CustomerID, group1fa202330.Customers.Email FROM group1fa202330.CustomerLogin LEFT JOIN" +
+                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Username FROM group1fa202330.CustomerLogin JOIN" +
                     " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
                     " group1fa202330.Customers.Email LIKE @email;", logConnection);
                 logCommand.Parameters.AddWithValue("@email",custEmail);
-                logAdapter.SelectCommand = logCommand;
-                username =(string) logCommand.ExecuteScalar();
-                logAdapter.Dispose();
+                username = (string) logCommand.ExecuteScalar();
                 logCommand.Dispose();
-                logUserInfoDT.Dispose();
-                logCommand = new SqlCommand("SELECT  group1fa202330.CustomerLogin.Password,group1fa202330.CustomerLogin.Username," +
-                    " group1fa202330.CustomerLogin.CustomerID, group1fa202330.Customers.Email FROM group1fa202330.CustomerLogin LEFT JOIN" +
-                    " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
-                    " group1fa202330.Customers.Email LIKE @email ;", logConnection);
-                logCommand.Parameters.AddWithValue("@email", custEmail);
-                logAdapter.SelectCommand = logCommand;
-                password=(string) logCommand.ExecuteScalar();
-                logAdapter.Dispose();
-                logCommand.Dispose();
-                logUserInfoDT.Dispose();
-                MessageBox.Show(username+ "  "+ password);
-                
-                //var smtpClient = new SmtpClient("smtp.gmail.com")
-                //{
-                //    Port = 587,
-                //    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
-                //    EnableSsl = true,
-                //};
-                //var mailMessage = new MailMessage
-                //{
-                //    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
-                //    Subject = "Account Recovery",
-                //    Body = "<h1>Hello</h1>",
-                //    IsBodyHtml = true,
-                //};
-                //mailMessage.To.Add(custEmail);
 
-                //smtpClient.Send(mailMessage);
+                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Password FROM group1fa202330.CustomerLogin JOIN" +
+                   " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
+                   " group1fa202330.Customers.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", custEmail);
+                password = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                MessageBox.Show(username+" "+ password);
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
+                    EnableSsl = true,
+                };
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
+                    Subject = "Account Recovery",
+                    Body = "Hello Username: " + username + " Password: " + password,
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(hardEmail);
+
+                smtpClient.Send(mailMessage);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error In Account Recovery", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-//Close and dispose of database connections
+//Takes Custoemr email finds username and password
+        public static void empAccountRecovery(string empEmail)
+        {
+            try
+            {
+                //custEmail.Trim();
+                empEmail = "coltonchrane@gmail.com";
+                string username;
+                string password;
+                //uses email to find login
+                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Username FROM group1fa202330.EmployeeLogin JOIN" +
+                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
+                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", empEmail);
+                username = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Password FROM group1fa202330.EmployeeLogin JOIN" +
+                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
+                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", empEmail);
+                password = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                MessageBox.Show(username + " " + password);
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
+                    EnableSsl = true,
+                };
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
+                    Subject = "Account Recovery",
+                    Body = "Hello Username: " + username + " Password: " + password,
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(empEmail);
+
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Account Recovery", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Close and dispose of database connections
         public static void CloseAllLog()
         {
             //wipe connection

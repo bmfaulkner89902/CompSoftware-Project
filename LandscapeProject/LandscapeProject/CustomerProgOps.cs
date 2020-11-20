@@ -40,7 +40,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error opening connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Creates a customer directed from LoginScreen > LoginCreateUser
@@ -100,9 +100,9 @@ namespace LandscapeProject
                 cCreateCustomerCredDT.Dispose();
                 cCreateCustomerDT.Dispose();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message, "Error Creating Customer. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);               
             }
         }
 //Creates a job requests and sends to databse from UserMain
@@ -126,9 +126,9 @@ namespace LandscapeProject
                 cCommand.Dispose();
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message, "Error Creating Job. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Loads a DGV based on the custID: Loads custoemr jobs depending on there login info
@@ -156,7 +156,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Loading Jobs. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //dispose of data
             cCommand.Dispose();
@@ -186,7 +186,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error Loading Workers. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //dispose of data
             cCommand.Dispose();
