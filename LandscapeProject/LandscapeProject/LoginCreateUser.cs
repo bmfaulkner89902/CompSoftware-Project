@@ -49,7 +49,7 @@ namespace LandscapeProject
             ClearForm();
             this.Hide();
             LoginScreen form1 = new LoginScreen();
-            form1.Show();
+            form1.ShowDialog();
         }
         public void ClearForm()
         {

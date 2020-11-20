@@ -160,7 +160,7 @@ namespace LandscapeProject
             cAdapter.Dispose();
             cJobSitesDT.Dispose();
         }
-        public static void LoadContractorView(DataGridView custJobContractorInfo, string jobID)
+        public static void LoadWorkerView(DataGridView custJobWorkerInfo, string jobID)
         {
 
             //clear out objects
@@ -172,12 +172,12 @@ namespace LandscapeProject
             {
 
                 //connect to dgv
-                cCommand = new SqlCommand("SELECT group1fa202330.ContractedJobs.JobID, group1fa202330.Contractors.FirstName, group1fa202330.Contractors.LastName, group1fa202330.Contractors.Email, group1fa202330.Contractors.Phone FROM group1fa202330.Contractors LEFT JOIN group1fa202330.ContractedJobs ON group1fa202330.Contractors.ContractorID = group1fa202330.ContractedJobs.ContractorID WHERE group1fa202330.ContractedJobs.JobID " +
+                cCommand = new SqlCommand("SELECT group1fa202330.WorkerJobs.JobID, group1fa202330.Workers.FirstName, group1fa202330.Workers.LastName, group1fa202330.Workers.Email FROM group1fa202330.Workers LEFT JOIN group1fa202330.WorkerJobs ON group1fa202330.Workers.WorkerID = group1fa202330.WorkerJobs.WorkerID WHERE group1fa202330.WorkerJobs.JobID " +
                     "LIKE @jobID;", cConnection);//JOIN COMMAND to make new table
                 cCommand.Parameters.AddWithValue("@jobID", jobID);
                 cAdapter.SelectCommand = cCommand;
                 cAdapter.Fill(cJobSitesDT);
-                custJobContractorInfo.DataSource = cJobSitesDT;
+                custJobWorkerInfo.DataSource = cJobSitesDT;
             }
             catch (Exception ex)
             {

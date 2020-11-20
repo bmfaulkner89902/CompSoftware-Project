@@ -29,6 +29,7 @@ namespace LandscapeProject
             //personalized jobs request            
             CustomerProgOps.Open();          
             CustomerProgOps.LoadJobView(dgvJobInfo,custID);
+           
 
         }
 //Requests a job: Writes job to databse linked to customer who wrote it. Also sends new users to create account
@@ -95,7 +96,8 @@ namespace LandscapeProject
                 //Retrieves Jobs Contractor and contact info
                 DataGridViewRow job = dgvJobInfo.Rows[e.RowIndex];
                 string jobID = job.Cells[1].Value.ToString();
-                CustomerProgOps.LoadContractorView(dgvCustJobContractorInfo, jobID);
+               
+                CustomerProgOps.LoadWorkerView(dgvCustJobWorkerInfo, jobID);
 
             }
             catch (Exception ex)
@@ -111,12 +113,21 @@ namespace LandscapeProject
             LoginScreen form1 = new LoginScreen();
             form1.ShowDialog();
             this.Close();
-
         }
         public void ClearForm()
         {
             tbxJobAddress.Text = "";
             tbxJobType.Text = "";
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

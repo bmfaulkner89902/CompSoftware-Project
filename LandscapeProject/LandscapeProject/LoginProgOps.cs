@@ -54,20 +54,15 @@ namespace LandscapeProject
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
                 logAdapter.Fill(logUserInfoDT);
-                logConnection.Open();
                 int i = logCommand.ExecuteNonQuery();
                 custID = (int)logCommand.ExecuteScalar();
-                logConnection.Close();
                 if (logUserInfoDT.Rows.Count > 0)//redirects to next page
                 {
                     MessageBox.Show("Access Granted User: " + username.Text + " ID#: " + custID);
-                    LoginScreen form1 = new LoginScreen();
-                    form1.Hide();
                     UserMain form2 = new UserMain();
                     form2.cust = username.Text;
                     form2.custID = custID;
                     form2.ShowDialog();
-                    form1.Close();
                 }
                 else
                 {
@@ -93,19 +88,12 @@ namespace LandscapeProject
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
                 logAdapter.Fill(logEmpInfoDT);
-                logConnection.Open();
                 int i = logCommand.ExecuteNonQuery();
-                logConnection.Close();
                 if (logEmpInfoDT.Rows.Count > 0)//redirects to next page
                 {
                     MessageBox.Show("Access Granted");
-                    LoginScreen form1 = new LoginScreen();
                     EmployeeMain form2 = new EmployeeMain();
-                    //form2.user = username.Text;
-                    //form2.pass = password.Text;
-                    form1.Hide();
                     form2.ShowDialog();
-                    form1.Close();
 
                 }
                 else
@@ -129,26 +117,17 @@ namespace LandscapeProject
             try
             {
                 //get data
-                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
+                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password;", logConnection);
                 logCommand.Parameters.AddWithValue("@UserName", username.Text);
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
                 logAdapter.Fill(logOwnInfoDT);
-                logConnection.Open();
                 int i = logCommand.ExecuteNonQuery();
-                logConnection.Close();
                 if (logOwnInfoDT.Rows.Count > 0)//redirects to next page
                 {
                     MessageBox.Show("Access Granted");
-                    LoginScreen form1 = new LoginScreen();
                     OwnerMain form2 = new OwnerMain();
-                    //form2.user = username.Text;
-                    //form2.pass = password.Text;
-
-                    form1.Hide();
                     form2.ShowDialog();
-                    form1.Close();
-
                 }
                 else
                 {
