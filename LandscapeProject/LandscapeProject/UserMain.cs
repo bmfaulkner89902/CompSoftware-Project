@@ -47,10 +47,9 @@ namespace LandscapeProject
                     if (cust.Equals("Guest"))
                     {
                         MessageBox.Show("Make an account before requesting job");
-                        this.Hide();
                         LoginCreateUser form1 = new LoginCreateUser();
                         form1.ShowDialog();
-                        this.Close();
+                        this.Hide();
                     }
                     else
                     {
@@ -109,9 +108,6 @@ namespace LandscapeProject
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             ClearForm();
-            this.Hide();
-            LoginScreen form1 = new LoginScreen();
-            form1.ShowDialog();
             this.Close();
         }
         public void ClearForm()

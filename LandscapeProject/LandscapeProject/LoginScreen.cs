@@ -22,9 +22,7 @@ namespace LandscapeProject
                 UserMain form1 = new UserMain();
                 form1.cust = "Guest";
                 form1.ShowDialog();
-                this.Close();
-
-
+                this.Show();
             }
             catch (Exception ex)
             {
@@ -36,11 +34,11 @@ namespace LandscapeProject
         {
             try
             {
-                ClearForm();
                 this.Hide();
+                ClearForm();
                 LoginCreateUser form1 = new LoginCreateUser();
                 form1.ShowDialog();
-                this.Close();
+                this.Show();
 
             }
             catch (Exception ex)
@@ -54,7 +52,6 @@ namespace LandscapeProject
             {
                 this.Hide();
                 LoginProgOps.startEmpLogin(tbxEmpUsername, tbxEmpPassword);
-                LoginProgOps.CloseAllLog();
                 ClearForm();
                 this.Show();
 
@@ -72,7 +69,6 @@ namespace LandscapeProject
             {
                 this.Hide();
                 LoginProgOps.startOwnLogin(tbxOwnUsername, tbxOwnPassword);
-                LoginProgOps.CloseAllLog();
                 ClearForm();
                 this.Show();
 
@@ -90,7 +86,6 @@ namespace LandscapeProject
             {
                 this.Hide();
                 LoginProgOps.startCustLogin(tbxCustUsername, tbxCustPassword);
-                LoginProgOps.CloseAllLog();
                 ClearForm();
                 this.Show();
             }
@@ -103,15 +98,11 @@ namespace LandscapeProject
 
         private void linkUserRecover_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string custEmail="";
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send("lansdcapeaccrec1@gmail.com", custEmail, "Password Recovery", "body");
+            this.Hide();
+            ClearForm();
+            CustomerAccountRecovery form1 = new CustomerAccountRecovery();
+            form1.ShowDialog();
+            this.Show();
 
         }
 

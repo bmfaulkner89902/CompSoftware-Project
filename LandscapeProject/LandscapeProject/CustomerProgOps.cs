@@ -144,7 +144,10 @@ namespace LandscapeProject
             {
 
                 //connect to dgv
-                cCommand = new SqlCommand("SELECT group1fa202330.CustomerJobs.CustomerID, group1fa202330.JobSites.JobID, group1fa202330.JobSites.JobType, group1fa202330.JobSites.Address, group1fa202330.JobSites.BeginDate, group1fa202330.JobSites.EndDate, group1fa202330.JobSites.Price FROM group1fa202330.JobSites LEFT JOIN group1fa202330.CustomerJobs ON group1fa202330.JobSites.JobID = group1fa202330.CustomerJobs.JobID WHERE group1fa202330.CustomerJobs.CustomerID " +
+                cCommand = new SqlCommand("SELECT group1fa202330.CustomerJobs.CustomerID, group1fa202330.JobSites.JobID, group1fa202330.JobSites.JobType," +
+                    " group1fa202330.JobSites.Address, group1fa202330.JobSites.BeginDate, group1fa202330.JobSites.EndDate, group1fa202330.JobSites.Price" +
+                    " FROM group1fa202330.JobSites LEFT JOIN group1fa202330.CustomerJobs ON group1fa202330.JobSites.JobID = group1fa202330.CustomerJobs.JobID" +
+                    " WHERE group1fa202330.CustomerJobs.CustomerID " +
                     "LIKE @custID;", cConnection);//JOIN COMMAND to make new table
                 cCommand.Parameters.AddWithValue("@custID", custID);
                 cAdapter.SelectCommand = cCommand;
@@ -172,7 +175,9 @@ namespace LandscapeProject
             {
 
                 //connect to dgv
-                cCommand = new SqlCommand("SELECT group1fa202330.WorkerJobs.JobID, group1fa202330.Workers.FirstName, group1fa202330.Workers.LastName, group1fa202330.Workers.Email FROM group1fa202330.Workers LEFT JOIN group1fa202330.WorkerJobs ON group1fa202330.Workers.WorkerID = group1fa202330.WorkerJobs.WorkerID WHERE group1fa202330.WorkerJobs.JobID " +
+                cCommand = new SqlCommand("SELECT group1fa202330.WorkerJobs.JobID, group1fa202330.Workers.FirstName, group1fa202330.Workers.LastName," +
+                    " group1fa202330.Workers.Email FROM group1fa202330.Workers LEFT JOIN group1fa202330.WorkerJobs ON group1fa202330.Workers.WorkerID =" +
+                    " group1fa202330.WorkerJobs.WorkerID WHERE group1fa202330.WorkerJobs.JobID " +
                     "LIKE @jobID;", cConnection);//JOIN COMMAND to make new table
                 cCommand.Parameters.AddWithValue("@jobID", jobID);
                 cAdapter.SelectCommand = cCommand;

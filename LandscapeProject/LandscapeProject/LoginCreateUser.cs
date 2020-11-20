@@ -40,16 +40,14 @@ namespace LandscapeProject
                     MessageBox.Show(ex.Message);
                 }
                 MessageBox.Show("Your account has been created!");
-                Application.Restart();
+                this.Close();
             }
         }
 
         private void btnReturn_Click(object sender, EventArgs e)
         {
             ClearForm();
-            this.Hide();
-            LoginScreen form1 = new LoginScreen();
-            form1.ShowDialog();
+            this.Close();
         }
         public void ClearForm()
         {

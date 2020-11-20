@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
 
 namespace LandscapeProject
 {
@@ -49,7 +51,8 @@ namespace LandscapeProject
             {
                 int custID;
                 //get data
-                logCommand = new SqlCommand("SELECT CustomerID, Username, Password FROM group1fa202330.CustomerLogin WHERE UserName=@UserName and Password =@Password;", logConnection);
+                logCommand = new SqlCommand("SELECT CustomerID, Username, Password FROM group1fa202330.CustomerLogin WHERE UserName=@UserName" +
+                    " and Password =@Password;", logConnection);
                 logCommand.Parameters.AddWithValue("@UserName", username.Text);
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
@@ -143,7 +146,59 @@ namespace LandscapeProject
                 MessageBox.Show(ex.Message);
             }
         }
+//Takes Custoemr email finds username and password
+        public static void custAccountRecovery(string custEmail)
+        {
+            try
+            {
+                custEmail.Trim();
+                string username;
+                string password;
+                //uses email to find login
+                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Username, group1fa202330.CustomerLogin.Password," +
+                    " group1fa202330.CustomerLogin.CustomerID, group1fa202330.Customers.Email FROM group1fa202330.CustomerLogin LEFT JOIN" +
+                    " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
+                    " group1fa202330.Customers.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email",custEmail);
+                logAdapter.SelectCommand = logCommand;
+                username =(string) logCommand.ExecuteScalar();
+                logAdapter.Dispose();
+                logCommand.Dispose();
+                logUserInfoDT.Dispose();
+                logCommand = new SqlCommand("SELECT  group1fa202330.CustomerLogin.Password,group1fa202330.CustomerLogin.Username," +
+                    " group1fa202330.CustomerLogin.CustomerID, group1fa202330.Customers.Email FROM group1fa202330.CustomerLogin LEFT JOIN" +
+                    " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
+                    " group1fa202330.Customers.Email LIKE @email ;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", custEmail);
+                logAdapter.SelectCommand = logCommand;
+                password=(string) logCommand.ExecuteScalar();
+                logAdapter.Dispose();
+                logCommand.Dispose();
+                logUserInfoDT.Dispose();
+                MessageBox.Show(username+ "  "+ password);
+                
+                //var smtpClient = new SmtpClient("smtp.gmail.com")
+                //{
+                //    Port = 587,
+                //    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
+                //    EnableSsl = true,
+                //};
+                //var mailMessage = new MailMessage
+                //{
+                //    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
+                //    Subject = "Account Recovery",
+                //    Body = "<h1>Hello</h1>",
+                //    IsBodyHtml = true,
+                //};
+                //mailMessage.To.Add(custEmail);
 
+                //smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 //Close and dispose of database connections
         public static void CloseAllLog()
         {

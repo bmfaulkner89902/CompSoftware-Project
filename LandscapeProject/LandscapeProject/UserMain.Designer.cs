@@ -147,6 +147,9 @@
             this.dgvJobInfo.AllowUserToAddRows = false;
             this.dgvJobInfo.AllowUserToDeleteRows = false;
             this.dgvJobInfo.AllowUserToResizeRows = false;
+            this.dgvJobInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvJobInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvJobInfo.BackgroundColor = System.Drawing.Color.Tan;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -222,6 +225,9 @@
             this.dgvCustJobWorkerInfo.AllowUserToAddRows = false;
             this.dgvCustJobWorkerInfo.AllowUserToDeleteRows = false;
             this.dgvCustJobWorkerInfo.AllowUserToResizeRows = false;
+            this.dgvCustJobWorkerInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCustJobWorkerInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvCustJobWorkerInfo.BackgroundColor = System.Drawing.Color.Tan;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -237,7 +243,7 @@
             this.dgvCustJobWorkerInfo.MultiSelect = false;
             this.dgvCustJobWorkerInfo.Name = "dgvCustJobWorkerInfo";
             this.dgvCustJobWorkerInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCustJobWorkerInfo.Size = new System.Drawing.Size(415, 64);
+            this.dgvCustJobWorkerInfo.Size = new System.Drawing.Size(408, 64);
             this.dgvCustJobWorkerInfo.TabIndex = 27;
             // 
             // label6

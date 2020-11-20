@@ -75,3 +75,5 @@ C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\ob
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.CopyComplete
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.exe
 C:\Users\faulk\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.pdb
+C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.CustomerAccountRecovery.resources
+C:\Users\colto\OneDrive\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmpOwnerAccountRecovery.resources
