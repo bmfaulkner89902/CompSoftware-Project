@@ -35,7 +35,7 @@ namespace LandscapeProject
         {
             try
             {
-                EmployeeProgOps.empCustSearch(dgvEmpCustomer, rdoSearchName, rdoSearchID, txtSearch.ToString()); 
+                EmployeeProgOps.empCustSearch(dgvEmpCustomer, rdoSearchName, rdoSearchID, txtSearch.Text); 
             }
             catch (Exception ex)
             {

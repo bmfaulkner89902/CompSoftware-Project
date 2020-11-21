@@ -189,12 +189,12 @@ namespace LandscapeProject
         public static void empCustSearch(DataGridView dgvEmpCustomer, RadioButton rdoSearchName, RadioButton rdoSearchID, string custSearch)
         {
             EmployeeProgOps.empCustomersDT = new DataTable();
-            if (custSearch == null || custSearch == "")
+            if (custSearch == null || custSearch == "")//reset grid view. 
                 EmployeeProgOps.empCommand = new SqlCommand("SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers;", EmployeeProgOps.empConnection);
-            else if (rdoSearchName.Checked == true)
+            else if (rdoSearchName.Checked == true)//Name
                 EmployeeProgOps.empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE FirstName LIKE '{custSearch}' OR LastName LIKE '{custSearch}'; ", EmployeeProgOps.empConnection);
-            else if (rdoSearchID.Checked == true)
-                EmployeeProgOps.empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE CustomerID = '{custSearch}'; ", EmployeeProgOps.empConnection);
+            else if (rdoSearchID.Checked == true)//ID. 
+                EmployeeProgOps.empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE CustomerID = '{Convert.ToInt32(custSearch)}'; ", EmployeeProgOps.empConnection);
 
             //fill datagrid view.
             EmployeeProgOps.empAdapter.SelectCommand = EmployeeProgOps.empCommand;

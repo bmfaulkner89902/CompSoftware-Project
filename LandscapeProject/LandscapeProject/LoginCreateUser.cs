@@ -31,35 +31,26 @@ namespace LandscapeProject
                 try
                 {
                     
-                    CustomerProgOps.startCreateCustomer(tbxUsername, tbxUserPassword, tbxConfirmUserPassword, tbxUserFname, tbxUserLname, tbxUserAddress, tbxUserEmail, tbxUserCity, tbxUserZip);
-                    CustomerProgOps.CloseAllCust();
-                    ClearForm();
+                    ProgOps.startCreateCustomer(tbxUsername, tbxUserPassword, tbxConfirmUserPassword, tbxUserFname, tbxUserLname, tbxUserAddress, tbxUserEmail, tbxUserCity, tbxUserZip);
+                    ProgOps.CloseAll();
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
                 MessageBox.Show("Your account has been created!");
-                this.Close();
+                this.Hide();
+                LoginScreen form1 = new LoginScreen();
+                form1.Show();
             }
         }
 
         private void btnReturn_Click(object sender, EventArgs e)
         {
-            ClearForm();
-            this.Close();
-        }
-        public void ClearForm()
-        {
-            tbxConfirmUserPassword.Text = "";
-            tbxUserAddress.Text = "";
-            tbxUserCity.Text = "";
-            tbxUserEmail.Text = "";
-            tbxUserFname.Text = "";
-            tbxUserLname.Text = "";
-            tbxUsername.Text = "";
-            tbxUserPassword.Text = "";
-            tbxUserZip.Text = "";
+            this.Hide();
+            LoginScreen form1 = new LoginScreen();
+            form1.Show();
         }
     }
 }
