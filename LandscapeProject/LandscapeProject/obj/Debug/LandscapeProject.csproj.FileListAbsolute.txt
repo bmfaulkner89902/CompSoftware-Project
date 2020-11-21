@@ -13,10 +13,8 @@ C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\ob
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeCustomer.resources
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeJobMaterial.resources
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.EmployeeMain.resources
-C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.LoginScreen.resources
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.OwnerMain.resources
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.Properties.Resources.resources
-C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.UserMain.resources
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.GenerateResource.cache
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.csproj.CoreCompileInputs.cache
 C:\Users\zldel\Desktop\CompSoftware-Project\LandscapeProject\LandscapeProject\obj\Debug\LandscapeProject.exe

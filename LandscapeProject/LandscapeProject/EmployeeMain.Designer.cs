@@ -37,7 +37,6 @@
             this.btnSearchSchedule = new System.Windows.Forms.Button();
             this.txtSearchSchedule = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnEmpLogOut = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpJobInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpWorkerSch)).BeginInit();
@@ -125,19 +124,9 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "WorkerID: ";
             // 
-            // btnEmpLogOut
-            // 
-            this.btnEmpLogOut.Location = new System.Drawing.Point(726, 12);
-            this.btnEmpLogOut.Name = "btnEmpLogOut";
-            this.btnEmpLogOut.Size = new System.Drawing.Size(75, 28);
-            this.btnEmpLogOut.TabIndex = 15;
-            this.btnEmpLogOut.Text = "Log out";
-            this.btnEmpLogOut.UseVisualStyleBackColor = true;
-            this.btnEmpLogOut.Click += new System.EventHandler(this.btnEmpLogOut_Click);
-            // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(645, 12);
+            this.btnExit.Location = new System.Drawing.Point(694, 12);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 28);
             this.btnExit.TabIndex = 16;
@@ -151,7 +140,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 731);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnEmpLogOut);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSearchSchedule);
             this.Controls.Add(this.btnSearchSchedule);
@@ -185,7 +173,6 @@
         private System.Windows.Forms.Button btnSearchSchedule;
         private System.Windows.Forms.TextBox txtSearchSchedule;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnEmpLogOut;
         private System.Windows.Forms.Button btnExit;
     }
 }
