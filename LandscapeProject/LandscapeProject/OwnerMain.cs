@@ -1128,13 +1128,13 @@ namespace LandscapeProject
         {
             pgbReports.Visible = true;
 
+            pgbReports.Value = 50;
+
             //Create an object of the report
             CrystalReports.crptJobFinancial jobFinancial = new CrystalReports.crptJobFinancial();
 
             //Set the database login for the report
-            jobFinancial.SetDatabaseLogon("group1fa202330", "1524152");
-
-            pgbReports.Value = 50;
+            jobFinancial.SetDatabaseLogon("group1fa202330", "1524152");           
 
             //Set to null first to clear the crvViewer
             crvViewer.ReportSource = null;
@@ -1151,13 +1151,13 @@ namespace LandscapeProject
         {
             pgbReports.Visible = true;
 
+            pgbReports.Value = 50;
+
             //Create an object of the report
             CrystalReports.crptEmployeeTimeTable employeeTimeTable = new CrystalReports.crptEmployeeTimeTable();
 
             //Set the database login for the report
             employeeTimeTable.SetDatabaseLogon("group1fa202330", "1524152");
-
-            pgbReports.Value = 50;
 
             //Set to null first to clear the crvViewer
             crvViewer.ReportSource = null;
