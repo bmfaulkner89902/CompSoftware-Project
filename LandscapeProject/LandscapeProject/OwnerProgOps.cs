@@ -182,6 +182,61 @@ namespace LandscapeProject
             }
         }
 
+        public static void LoadAllEmployeeAndContractorNames(ComboBox cboContractors, ComboBox cboEmployees)
+        {
+            SqlDataReader contractorNames = null;
+
+            try
+            {
+                cboContractors.Items.Clear();
+
+                //Establish Command Objects
+                _sqlLandscapeCommand = new SqlCommand("Select FirstName + ' ' + LastName as NAME From group1fa202330.Contractors;", _cntDatabase);
+
+
+                contractorNames = _sqlLandscapeCommand.ExecuteReader();
+
+                while (contractorNames.Read())
+                {
+                    cboContractors.Items.Add(contractorNames["NAME"]);
+                }
+
+                //Dispose Of Command and Reader
+                _sqlLandscapeCommand.Dispose();
+                contractorNames.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Loading Contractor Names", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            SqlDataReader employeeNames = null;
+
+            try
+            {
+                cboEmployees.Items.Clear();
+
+                //Establish Command Objects
+                _sqlLandscapeCommand = new SqlCommand("Select FirstName + ' ' + LastName as NAME From group1fa202330.Workers;", _cntDatabase);
+
+
+                employeeNames = _sqlLandscapeCommand.ExecuteReader();
+
+                while (employeeNames.Read())
+                {
+                    cboEmployees.Items.Add(employeeNames["NAME"]);
+                }
+
+                //Dispose Of Command and Reader
+                _sqlLandscapeCommand.Dispose();
+                employeeNames.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Loading employee Names", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public static void EmployeeAndContractorJobs(ListBox lbxEmployees, ListBox lbxContractors, int JobID)
         {
             SqlDataReader employeeNames = null;
@@ -202,15 +257,15 @@ namespace LandscapeProject
                 {
                     lbxEmployees.Items.Add(employeeNames["NAME"]);
                 }
+
+                //Dispose Of Command and Reader
+                _sqlLandscapeCommand.Dispose();
+                employeeNames.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //Dispose Of Command and Reader
-            _sqlLandscapeCommand.Dispose();
-            employeeNames.Close();
-
 
             SqlDataReader contractorNames = null;
 
@@ -229,14 +284,15 @@ namespace LandscapeProject
                 {
                     lbxContractors.Items.Add(contractorNames["NAME"]);
                 }
+
+                //Dispose Of Command and Reader
+                _sqlLandscapeCommand.Dispose();
+                contractorNames.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            //Dispose Of Command and Reader
-            _sqlLandscapeCommand.Dispose();
-            contractorNames.Close();           
+            }          
         }
 
         public static void RemoveEmployeesFromJobs(string fullName, int jobID)
@@ -287,6 +343,56 @@ namespace LandscapeProject
             }
         }
 
+        public static void AddContractorToJob(string ContractorName, int JobID)
+        {
+            int contractorID;
+
+            try
+            {
+                //Method for Adding Contractor To Job
+                SqlCommand ContractorIDCmd = new SqlCommand("Select ContractorID from group1fa202330.Contractors Where FirstName + ' ' + Lastname = '" + ContractorName + "';", _cntDatabase);
+                contractorID = (int)ContractorIDCmd.ExecuteScalar();
+                ContractorIDCmd.Dispose();
+
+                SqlCommand ContractorJobCmd = new SqlCommand("Begin IF NOT EXISTS (SELECT * FROM group1fa202330.ContractedJobs WHERE ContractorID = " + contractorID + " AND " +
+                    "JobID = " + JobID + ") Begin INSERT INTO group1fa202330.ContractedJobs Values (" + contractorID + ", " + JobID + ") End End;",_cntDatabase);
+                ContractorJobCmd.ExecuteNonQuery();
+                ContractorJobCmd.Dispose();
+
+                MessageBox.Show("Successfully added " + ContractorName + " to selected job",
+                    "Add Contractor To Job Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Adding Contractor To Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }           
+        }
+
+        public static void AddEmployeeToJob(string EmployeeName, int JobID)
+        {
+            int employeeID;
+
+            try
+            {
+                //Method for Adding Employee to Job
+                SqlCommand EmployeeIDCmd = new SqlCommand("Select WorkerID from group1fa202330.Workers Where FirstName + ' ' + Lastname = '" + EmployeeName + "';", _cntDatabase);
+                employeeID = (int)EmployeeIDCmd.ExecuteScalar();
+                EmployeeIDCmd.Dispose();
+
+                SqlCommand EmployeeJobCmd = new SqlCommand("Begin IF NOT EXISTS (SELECT * FROM group1fa202330.WorkerJobs WHERE WorkerID = " + employeeID + " AND " +
+                    "JobID = " + JobID + ") Begin INSERT INTO group1fa202330.WorkerJobs Values (" + employeeID + ", " + JobID + ") End End;", _cntDatabase);
+                EmployeeJobCmd.ExecuteNonQuery();
+                EmployeeJobCmd.Dispose();
+
+                MessageBox.Show("Successfully added " + EmployeeName + " to selected job",
+                    "Add Employee To Job Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Adding Employee To Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public static void MaterialCommand(DataGridView dgvMaterials, int JobID)
         {
             //Set Command Objects To Null To Begin With
@@ -332,7 +438,6 @@ namespace LandscapeProject
 
                 SqlCommand MaterialCmd = new SqlCommand("Select MaterialID from group1fa202330.Materials Order By 1 desc;", _cntDatabase);
                 MaterialID = (int)MaterialCmd.ExecuteScalar();
-                MessageBox.Show(MaterialID.ToString());
                 MaterialCmd.Dispose();
 
                 SqlCommand JobCmd = new SqlCommand("Insert Into group1fa202330.JobMaterials " +
@@ -486,6 +591,11 @@ namespace LandscapeProject
                 SqlCommand JobCmd = new SqlCommand("Delete From group1fa202330.CustomerJobs Where CustomerID = " + CustomerID + ";", _cntDatabase);
                 JobCmd.ExecuteNonQuery();
                 JobCmd.Dispose();
+
+                //Method for Deleting a Customer Login
+                SqlCommand CustomerLoginCmd = new SqlCommand("Delete From group1fa202330.CustomerLogin Where CustomerID=" + CustomerID + ";", _cntDatabase);
+                CustomerLoginCmd.ExecuteNonQuery();
+                CustomerLoginCmd.Dispose();
 
                 //Method for Deleting a Customer
                 SqlCommand CustomerCmd = new SqlCommand("Delete From group1fa202330.Customers Where CustomerID=" + CustomerID + ";", _cntDatabase);
@@ -691,11 +801,16 @@ namespace LandscapeProject
                 JobCmd.ExecuteNonQuery();
                 JobCmd.Dispose();
 
+                //Method for Deleting an Employee Login
+                SqlCommand EmployeeLoginCmd = new SqlCommand("Delete From group1fa202330.WorkerLogin Where WorkerID=" + EmployeeID + ";", _cntDatabase);
+                EmployeeLoginCmd.ExecuteNonQuery();
+                EmployeeLoginCmd.Dispose();
+
                 //Method for Deleting an Employee
                 SqlCommand EmployeeCmd = new SqlCommand("Delete From group1fa202330.Workers Where WorkerID="+ EmployeeID +";", _cntDatabase);
                 EmployeeCmd.ExecuteNonQuery();
                 EmployeeCmd.Dispose();
-
+                
                 MessageBox.Show("Successfully deleted the selected employee.",
                     "Delete Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Background" value="0x90ee90">
+	<param name="Window Styles" value="0x800025">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Basic Overview">
+		<param name="Local" value="BasicOverview_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Layout">
+			<param name="Local" value="BasicOverviewLTTopic.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Jobs Page">
+		<param name="Local" value="JobsPage_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Data Grid View">
+			<param name="Local" value="JobsPageDGVTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="First Box">
+			<param name="Local" value="JobsPageFBTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Second Box">
+			<param name="Local" value="JobsPageSBTopic.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Customer Page">
+		<param name="Local" value="CustomersPage_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Data Grid View">
+			<param name="Local" value="CustomersPageDGVTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="First Box">
+			<param name="Local" value="CustomersPageFBTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Second Box">
+			<param name="Local" value="CustomersPageSBTopic.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Contractors Page">
+		<param name="Local" value="ContractorsPage_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Data Grid View">
+			<param name="Local" value="ContractorsPageDGVTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="First Box">
+			<param name="Local" value="ContractorsPageFBTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Second Box">
+			<param name="Local" value="ContractorsPageSBTopic.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Employees Page">
+		<param name="Local" value="EmployeesPage_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Data Grid View">
+			<param name="Local" value="EmployeesPageDGVTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="First Box">
+			<param name="Local" value="EmployeesPageFBTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Second Box">
+			<param name="Local" value="EmployeesPageSBTopic.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Reports Page">
+		<param name="Local" value="ReportsPage_Heading.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Reports Viewer">
+			<param name="Local" value="ReportsPageRVTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Job Financials">
+			<param name="Local" value="ReportsPageJFTopic.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Employee Time Tables">
+			<param name="Local" value="ReportsPageETTTopic.htm">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>

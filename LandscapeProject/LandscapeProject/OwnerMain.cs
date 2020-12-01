@@ -20,12 +20,16 @@ namespace LandscapeProject
             InitializeComponent();
         }
 
-        private void OwnerMain_Load(object sender, EventArgs e)
+        private void OwnerMain_Load(object sender, EventArgs e) 
         {
             //Open Database then load JobCommand
             OwnerProgOps.OpenDatabase();
             OwnerProgOps.JobCommand(dgvJobs);
             MaterialsAndWorkersForJobs();
+            OwnerProgOps.LoadAllEmployeeAndContractorNames(cboAddContractor, cboAddEmployee);
+
+            //Point to Help File
+            hlpOwnerHelp.HelpNamespace = Application.StartupPath + "\\OwnerFormHelp.chm";
         }
 
         private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,7 +41,8 @@ namespace LandscapeProject
                 case 0:
                     OwnerProgOps.JobCommand(dgvJobs);
                     MaterialsAndWorkersForJobs();
-                    tcJobs.SelectedIndex = 0;
+                    OwnerProgOps.LoadAllEmployeeAndContractorNames(cboAddContractor, cboAddEmployee);
+                    tcJobs.SelectedIndex = 0;                    
                     break;
                 case 1:
                     OwnerProgOps.CustomerCommand(dgvCustomers);
@@ -419,6 +424,59 @@ namespace LandscapeProject
                 MessageBox.Show("There are currently no jobs available",
                     "Error With Removing Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }           
+        }
+
+        private void btnAddWorkers_Click(object sender, EventArgs e)
+        {
+            string ContractorName = "", EmployeeName = "";
+
+            if (dgvJobs.RowCount > 0)
+            {
+                int selectedJob = dgvJobs.CurrentRow.Index;
+                int JobID = (int)dgvJobs.Rows[selectedJob].Cells[0].Value;
+
+                if (cboAddContractor.SelectedIndex > -1 && cboAddEmployee.SelectedIndex > -1)
+                {
+                    ContractorName = cboAddContractor.Text;
+                    EmployeeName = cboAddEmployee.Text;
+
+                    OwnerProgOps.AddContractorToJob(ContractorName, JobID);
+                    OwnerProgOps.AddEmployeeToJob(EmployeeName, JobID);
+                    
+                }
+                else if (cboAddContractor.SelectedIndex > -1 && cboAddEmployee.SelectedIndex == -1)
+                {
+                    ContractorName = cboAddContractor.Text;
+
+                    OwnerProgOps.AddContractorToJob(ContractorName, JobID);
+                }
+                else if (cboAddContractor.SelectedIndex == -1 && cboAddEmployee.SelectedIndex > -1)
+                {
+                    EmployeeName = cboAddEmployee.Text;
+
+                    OwnerProgOps.AddEmployeeToJob(EmployeeName, JobID);
+                }
+                else
+                {
+                    //If no worker was selected 
+                    MessageBox.Show("You must select a Contractor or Employee before adding to Job",
+                        "Error With Adding Worker To Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                //If there are no jobs available
+                MessageBox.Show("There are currently no jobs available",
+                    "Error With Adding Worker To Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            MaterialsAndWorkersForJobs();
+        }
+
+        private void lblAddWorkersCancel_Click(object sender, EventArgs e)
+        {
+            cboAddContractor.SelectedIndex = -1;
+            cboAddEmployee.SelectedIndex = -1;
         }
 
         private void btnMaterialSubmit_Click(object sender, EventArgs e)
@@ -1127,6 +1185,7 @@ namespace LandscapeProject
         private void btnJobFinancialReport_Click(object sender, EventArgs e)
         {
             pgbReports.Visible = true;
+            lblProgressBar.Visible = true;
 
             pgbReports.Value = 50;
 
@@ -1144,12 +1203,14 @@ namespace LandscapeProject
             //Then set the crvViewer to the report object
             crvViewer.ReportSource = jobFinancial;
 
-            pgbReports.Visible = false;             
+            pgbReports.Visible = false;
+            lblProgressBar.Visible = false;
         }
 
         private void btnEmployeeSchedulesReport_Click(object sender, EventArgs e)
         {
             pgbReports.Visible = true;
+            lblProgressBar.Visible = true;
 
             pgbReports.Value = 50;
 
@@ -1168,6 +1229,12 @@ namespace LandscapeProject
             crvViewer.ReportSource = employeeTimeTable;
 
             pgbReports.Visible = false;
+            lblProgressBar.Visible = false;
+        }
+
+        private void OwnerMain_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpOwnerHelp.HelpNamespace);
         }
 
         //-----------------------------------------------------------------------------------------------------------
