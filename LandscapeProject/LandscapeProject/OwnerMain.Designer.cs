@@ -270,7 +270,7 @@
             this.tpJobWorkers.SelectedIndex = 0;
             this.tpJobWorkers.ShowToolTips = true;
             this.tpJobWorkers.Size = new System.Drawing.Size(517, 370);
-            this.tpJobWorkers.TabIndex = 3;
+            this.tpJobWorkers.TabIndex = 2;
             // 
             // tpRemoveWorker
             // 
@@ -332,7 +332,7 @@
             this.btnRemoveContractorFromJob.Location = new System.Drawing.Point(33, 254);
             this.btnRemoveContractorFromJob.Name = "btnRemoveContractorFromJob";
             this.btnRemoveContractorFromJob.Size = new System.Drawing.Size(186, 48);
-            this.btnRemoveContractorFromJob.TabIndex = 3;
+            this.btnRemoveContractorFromJob.TabIndex = 4;
             this.btnRemoveContractorFromJob.Text = "Remove Selected Contractor From Job";
             this.btnRemoveContractorFromJob.UseVisualStyleBackColor = false;
             this.btnRemoveContractorFromJob.Click += new System.EventHandler(this.btnRemoveContractorFromJob_Click);
@@ -358,7 +358,7 @@
             this.lbxJobEmployees.Location = new System.Drawing.Point(270, 58);
             this.lbxJobEmployees.Name = "lbxJobEmployees";
             this.lbxJobEmployees.Size = new System.Drawing.Size(224, 130);
-            this.lbxJobEmployees.TabIndex = 4;
+            this.lbxJobEmployees.TabIndex = 3;
             // 
             // tpAddWorker
             // 
@@ -589,10 +589,10 @@
             this.tpMaterialAdd.Controls.Add(this.lblMaterialType);
             this.tpMaterialAdd.Controls.Add(this.btnCancelNewMaterial);
             this.tpMaterialAdd.Controls.Add(this.btnAddNewMaterial);
-            this.tpMaterialAdd.Location = new System.Drawing.Point(4, 27);
+            this.tpMaterialAdd.Location = new System.Drawing.Point(4, 22);
             this.tpMaterialAdd.Name = "tpMaterialAdd";
             this.tpMaterialAdd.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMaterialAdd.Size = new System.Drawing.Size(497, 339);
+            this.tpMaterialAdd.Size = new System.Drawing.Size(497, 344);
             this.tpMaterialAdd.TabIndex = 3;
             this.tpMaterialAdd.Text = "Add Material";
             this.tpMaterialAdd.ToolTipText = "Add Material To Selected Job";
