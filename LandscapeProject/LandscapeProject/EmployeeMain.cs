@@ -34,9 +34,15 @@ namespace LandscapeProject
 
         private void EmployeeMain_Load(object sender, EventArgs e)
         {
+            MinimizeBox = false;
+            MaximizeBox = false;
+            this.HelpButton = true;
             try
             {
-                EmployeeProgOps.mainLoad(dgvEmpJobInfo, dgvEmpWorkerSch); 
+                hlpEmployees.HelpNamespace = Application.StartupPath + "\\landScapeEmployee.chm";
+
+                EmployeeProgOps.mainLoad(dgvEmpJobInfo, dgvEmpWorkerSch);
+                
             }
             catch (SqlException)
             {
@@ -68,9 +74,9 @@ namespace LandscapeProject
             this.Close(); 
         }
 
-        private void btnEmpLogOut_Click(object sender, EventArgs e)
+        private void EmployeeMain_HelpButtonClicked(object sender, CancelEventArgs e)
         {
-            //to do..
+            Help.ShowHelp(this, hlpEmployees.HelpNamespace);
         }
     }
 }

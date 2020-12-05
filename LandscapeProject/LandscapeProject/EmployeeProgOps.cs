@@ -104,7 +104,6 @@ namespace LandscapeProject
             empCommand = new SqlCommand("SELECT MaterialID FROM group1fa202330.Materials ORDER BY MaterialID DESC;", empConnection);
             empCommand.ExecuteNonQuery();
             int materialId = (int)empCommand.ExecuteScalar();
-            MessageBox.Show(materialId.ToString());
             //inserts jobid & materialId into jobMaterials. 
             empCommand = new SqlCommand($"INSERT INTO group1fa202330.JobMaterials(JobID, MaterialID) VALUES('{JobId.Text}', '{materialId}');", empConnection);
             empCommand.ExecuteNonQuery();
@@ -116,7 +115,6 @@ namespace LandscapeProject
             //get workerid/jobid. 
             foreach (object checkedItem in workerIDs.CheckedItems)
             {
-                MessageBox.Show(checkedItem.ToString());
                 empCommand = new SqlCommand($"INSERT INTO group1fa202330.WorkerJobs(WorkerID, JobId) VALUES('{checkedItem.ToString()}', '{JobID.Text}');", empConnection);
                 empCommand.ExecuteNonQuery();
             }
@@ -179,27 +177,27 @@ namespace LandscapeProject
         {
             //load datagridview - customerID, customerName, Address, Phone, email, Payment due.
             //get information to fill datagridview Job information . 
-            EmployeeProgOps.empCommand = new SqlCommand("SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers; ", EmployeeProgOps.empConnection);
-            EmployeeProgOps.empAdapter.SelectCommand = EmployeeProgOps.empCommand;
-            EmployeeProgOps.empAdapter.Fill(EmployeeProgOps.empCustomersDT);
+            empCommand = new SqlCommand("SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers; ", empConnection);
+            empAdapter.SelectCommand = empCommand;
+            empAdapter.Fill(empCustomersDT);
 
             //fill datagrid view. 
-            dgvEmpCustomer.DataSource = EmployeeProgOps.empCustomersDT;
+            dgvEmpCustomer.DataSource = empCustomersDT;
         }
         public static void empCustSearch(DataGridView dgvEmpCustomer, RadioButton rdoSearchName, RadioButton rdoSearchID, string custSearch)
         {
-            EmployeeProgOps.empCustomersDT = new DataTable();
-            if (custSearch == null || custSearch == "")
-                EmployeeProgOps.empCommand = new SqlCommand("SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers;", EmployeeProgOps.empConnection);
-            else if (rdoSearchName.Checked == true)
-                EmployeeProgOps.empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE FirstName LIKE '{custSearch}' OR LastName LIKE '{custSearch}'; ", EmployeeProgOps.empConnection);
-            else if (rdoSearchID.Checked == true)
-                EmployeeProgOps.empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE CustomerID = '{custSearch}'; ", EmployeeProgOps.empConnection);
+             empCustomersDT = new DataTable();
+            if (custSearch == null || custSearch == "")//reset grid view. 
+                 empCommand = new SqlCommand("SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers;",  empConnection);
+            else if (rdoSearchName.Checked == true)//Name
+                 empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE FirstName LIKE '{custSearch}' OR LastName LIKE '{custSearch}'; ",  empConnection);
+            else if (rdoSearchID.Checked == true)//ID. 
+                 empCommand = new SqlCommand($"SELECT group1fa202330.Customers.CustomerID, FirstName + ' ' + LastName AS CustomerName, address, Email FROM group1fa202330.Customers WHERE CustomerID = '{Convert.ToInt32(custSearch)}'; ", empConnection);
 
             //fill datagrid view.
-            EmployeeProgOps.empAdapter.SelectCommand = EmployeeProgOps.empCommand;
-            EmployeeProgOps.empAdapter.Fill(EmployeeProgOps.empCustomersDT);
-            dgvEmpCustomer.DataSource = EmployeeProgOps.empCustomersDT;
+            empAdapter.SelectCommand = empCommand;
+            empAdapter.Fill(empCustomersDT);
+            dgvEmpCustomer.DataSource = empCustomersDT;
         }
     }
 }

@@ -41,6 +41,18 @@
             this.btnMaterialCancel = new System.Windows.Forms.Button();
             this.btnMaterialDelete = new System.Windows.Forms.Button();
             this.tbxMaterialInfoNew = new System.Windows.Forms.TextBox();
+            this.tpMaterialAdd = new System.Windows.Forms.TabPage();
+            this.lblMaterialTitle = new System.Windows.Forms.Label();
+            this.tbxMaterialPrice = new System.Windows.Forms.TextBox();
+            this.tbxMaterialUnitsInYards = new System.Windows.Forms.TextBox();
+            this.tbxMaterialDate = new System.Windows.Forms.TextBox();
+            this.tbxMaterialType = new System.Windows.Forms.TextBox();
+            this.lblMaterialPrice = new System.Windows.Forms.Label();
+            this.lblMaterialUnitsInYards = new System.Windows.Forms.Label();
+            this.lblMaterialDate = new System.Windows.Forms.Label();
+            this.lblMaterialType = new System.Windows.Forms.Label();
+            this.btnCancelNewMaterial = new System.Windows.Forms.Button();
+            this.btnAddNewMaterial = new System.Windows.Forms.Button();
             this.tpJobAdd = new System.Windows.Forms.TabPage();
             this.lblJobAddNote = new System.Windows.Forms.Label();
             this.tbxJobPrice = new System.Windows.Forms.TextBox();
@@ -154,12 +166,17 @@
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.tpReports = new System.Windows.Forms.TabPage();
+            this.btnEmployeeTimeTableReport = new System.Windows.Forms.Button();
+            this.btnJobFinancialReport = new System.Windows.Forms.Button();
+            this.pgbReports = new System.Windows.Forms.ProgressBar();
+            this.crvViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpJobs.SuspendLayout();
             this.tcJobs.SuspendLayout();
             this.tpJobMaterials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobMaterials)).BeginInit();
+            this.tpMaterialAdd.SuspendLayout();
             this.tpJobAdd.SuspendLayout();
             this.tpEditJob.SuspendLayout();
             this.gbxJobAssignWorkers.SuspendLayout();
@@ -175,6 +192,7 @@
             this.gbxEmployeeInfo.SuspendLayout();
             this.gbxEmployeeAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
+            this.tpReports.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvJobs
@@ -230,6 +248,7 @@
             // tcJobs
             // 
             this.tcJobs.Controls.Add(this.tpJobMaterials);
+            this.tcJobs.Controls.Add(this.tpMaterialAdd);
             this.tcJobs.Controls.Add(this.tpJobAdd);
             this.tcJobs.Controls.Add(this.tpEditJob);
             this.tcJobs.Location = new System.Drawing.Point(7, 246);
@@ -346,6 +365,123 @@
             this.tbxMaterialInfoNew.Size = new System.Drawing.Size(210, 23);
             this.tbxMaterialInfoNew.TabIndex = 4;
             // 
+            // tpMaterialAdd
+            // 
+            this.tpMaterialAdd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpMaterialAdd.Controls.Add(this.lblMaterialTitle);
+            this.tpMaterialAdd.Controls.Add(this.tbxMaterialPrice);
+            this.tpMaterialAdd.Controls.Add(this.tbxMaterialUnitsInYards);
+            this.tpMaterialAdd.Controls.Add(this.tbxMaterialDate);
+            this.tpMaterialAdd.Controls.Add(this.tbxMaterialType);
+            this.tpMaterialAdd.Controls.Add(this.lblMaterialPrice);
+            this.tpMaterialAdd.Controls.Add(this.lblMaterialUnitsInYards);
+            this.tpMaterialAdd.Controls.Add(this.lblMaterialDate);
+            this.tpMaterialAdd.Controls.Add(this.lblMaterialType);
+            this.tpMaterialAdd.Controls.Add(this.btnCancelNewMaterial);
+            this.tpMaterialAdd.Controls.Add(this.btnAddNewMaterial);
+            this.tpMaterialAdd.Location = new System.Drawing.Point(4, 22);
+            this.tpMaterialAdd.Name = "tpMaterialAdd";
+            this.tpMaterialAdd.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMaterialAdd.Size = new System.Drawing.Size(497, 344);
+            this.tpMaterialAdd.TabIndex = 3;
+            this.tpMaterialAdd.Text = "Add Material";
+            this.tpMaterialAdd.ToolTipText = "Add Material To Selected Job";
+            this.tpMaterialAdd.UseVisualStyleBackColor = true;
+            // 
+            // lblMaterialTitle
+            // 
+            this.lblMaterialTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaterialTitle.Location = new System.Drawing.Point(70, 39);
+            this.lblMaterialTitle.Name = "lblMaterialTitle";
+            this.lblMaterialTitle.Size = new System.Drawing.Size(354, 44);
+            this.lblMaterialTitle.TabIndex = 30;
+            this.lblMaterialTitle.Text = "Select The Job You Want To Add Material To";
+            this.lblMaterialTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbxMaterialPrice
+            // 
+            this.tbxMaterialPrice.Location = new System.Drawing.Point(380, 114);
+            this.tbxMaterialPrice.Name = "tbxMaterialPrice";
+            this.tbxMaterialPrice.Size = new System.Drawing.Size(82, 23);
+            this.tbxMaterialPrice.TabIndex = 24;
+            // 
+            // tbxMaterialUnitsInYards
+            // 
+            this.tbxMaterialUnitsInYards.Location = new System.Drawing.Point(380, 160);
+            this.tbxMaterialUnitsInYards.Name = "tbxMaterialUnitsInYards";
+            this.tbxMaterialUnitsInYards.Size = new System.Drawing.Size(82, 23);
+            this.tbxMaterialUnitsInYards.TabIndex = 20;
+            // 
+            // tbxMaterialDate
+            // 
+            this.tbxMaterialDate.Location = new System.Drawing.Point(126, 160);
+            this.tbxMaterialDate.Name = "tbxMaterialDate";
+            this.tbxMaterialDate.Size = new System.Drawing.Size(137, 23);
+            this.tbxMaterialDate.TabIndex = 18;
+            // 
+            // tbxMaterialType
+            // 
+            this.tbxMaterialType.Location = new System.Drawing.Point(126, 114);
+            this.tbxMaterialType.Name = "tbxMaterialType";
+            this.tbxMaterialType.Size = new System.Drawing.Size(187, 23);
+            this.tbxMaterialType.TabIndex = 16;
+            // 
+            // lblMaterialPrice
+            // 
+            this.lblMaterialPrice.Location = new System.Drawing.Point(315, 113);
+            this.lblMaterialPrice.Name = "lblMaterialPrice";
+            this.lblMaterialPrice.Size = new System.Drawing.Size(59, 24);
+            this.lblMaterialPrice.TabIndex = 23;
+            this.lblMaterialPrice.Text = "Price:";
+            this.lblMaterialPrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblMaterialUnitsInYards
+            // 
+            this.lblMaterialUnitsInYards.Location = new System.Drawing.Point(274, 159);
+            this.lblMaterialUnitsInYards.Name = "lblMaterialUnitsInYards";
+            this.lblMaterialUnitsInYards.Size = new System.Drawing.Size(100, 24);
+            this.lblMaterialUnitsInYards.TabIndex = 19;
+            this.lblMaterialUnitsInYards.Text = "Units in Yards:";
+            this.lblMaterialUnitsInYards.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblMaterialDate
+            // 
+            this.lblMaterialDate.Location = new System.Drawing.Point(41, 159);
+            this.lblMaterialDate.Name = "lblMaterialDate";
+            this.lblMaterialDate.Size = new System.Drawing.Size(79, 24);
+            this.lblMaterialDate.TabIndex = 17;
+            this.lblMaterialDate.Text = "Date:";
+            this.lblMaterialDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblMaterialType
+            // 
+            this.lblMaterialType.Location = new System.Drawing.Point(20, 113);
+            this.lblMaterialType.Name = "lblMaterialType";
+            this.lblMaterialType.Size = new System.Drawing.Size(100, 24);
+            this.lblMaterialType.TabIndex = 15;
+            this.lblMaterialType.Text = "Material Type:";
+            this.lblMaterialType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnCancelNewMaterial
+            // 
+            this.btnCancelNewMaterial.Location = new System.Drawing.Point(255, 234);
+            this.btnCancelNewMaterial.Name = "btnCancelNewMaterial";
+            this.btnCancelNewMaterial.Size = new System.Drawing.Size(158, 49);
+            this.btnCancelNewMaterial.TabIndex = 29;
+            this.btnCancelNewMaterial.Text = "Cancel Adding Material";
+            this.btnCancelNewMaterial.UseVisualStyleBackColor = true;
+            this.btnCancelNewMaterial.Click += new System.EventHandler(this.btnCancelNewMaterial_Click);
+            // 
+            // btnAddNewMaterial
+            // 
+            this.btnAddNewMaterial.Location = new System.Drawing.Point(82, 234);
+            this.btnAddNewMaterial.Name = "btnAddNewMaterial";
+            this.btnAddNewMaterial.Size = new System.Drawing.Size(158, 49);
+            this.btnAddNewMaterial.TabIndex = 28;
+            this.btnAddNewMaterial.Text = "Add Material";
+            this.btnAddNewMaterial.UseVisualStyleBackColor = true;
+            this.btnAddNewMaterial.Click += new System.EventHandler(this.btnAddNewMaterial_Click);
+            // 
             // tpJobAdd
             // 
             this.tpJobAdd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -364,10 +500,10 @@
             this.tpJobAdd.Controls.Add(this.lblJobType);
             this.tpJobAdd.Controls.Add(this.btnCancelNewJob);
             this.tpJobAdd.Controls.Add(this.btnAddNewJob);
-            this.tpJobAdd.Location = new System.Drawing.Point(4, 26);
+            this.tpJobAdd.Location = new System.Drawing.Point(4, 22);
             this.tpJobAdd.Name = "tpJobAdd";
             this.tpJobAdd.Padding = new System.Windows.Forms.Padding(3);
-            this.tpJobAdd.Size = new System.Drawing.Size(497, 340);
+            this.tpJobAdd.Size = new System.Drawing.Size(497, 344);
             this.tpJobAdd.TabIndex = 1;
             this.tpJobAdd.Text = "Add Job";
             this.tpJobAdd.ToolTipText = "Add A New Job";
@@ -376,75 +512,75 @@
             // lblJobAddNote
             // 
             this.lblJobAddNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJobAddNote.Location = new System.Drawing.Point(45, 210);
+            this.lblJobAddNote.Location = new System.Drawing.Point(44, 221);
             this.lblJobAddNote.Name = "lblJobAddNote";
             this.lblJobAddNote.Size = new System.Drawing.Size(407, 24);
             this.lblJobAddNote.TabIndex = 12;
-            this.lblJobAddNote.Text = "End Date and Price can be left empty and added later*";
+            this.lblJobAddNote.Text = "*End Date and Price can be left empty and added later";
             // 
             // tbxJobPrice
             // 
-            this.tbxJobPrice.Location = new System.Drawing.Point(109, 158);
+            this.tbxJobPrice.Location = new System.Drawing.Point(108, 169);
             this.tbxJobPrice.Name = "tbxJobPrice";
             this.tbxJobPrice.Size = new System.Drawing.Size(137, 23);
             this.tbxJobPrice.TabIndex = 9;
             // 
             // tbxJobEndDate
             // 
-            this.tbxJobEndDate.Location = new System.Drawing.Point(343, 113);
+            this.tbxJobEndDate.Location = new System.Drawing.Point(342, 124);
             this.tbxJobEndDate.Name = "tbxJobEndDate";
             this.tbxJobEndDate.Size = new System.Drawing.Size(137, 23);
             this.tbxJobEndDate.TabIndex = 7;
             // 
             // tbxJobBeginDate
             // 
-            this.tbxJobBeginDate.Location = new System.Drawing.Point(109, 113);
+            this.tbxJobBeginDate.Location = new System.Drawing.Point(108, 124);
             this.tbxJobBeginDate.Name = "tbxJobBeginDate";
             this.tbxJobBeginDate.Size = new System.Drawing.Size(137, 23);
             this.tbxJobBeginDate.TabIndex = 5;
             // 
             // tbxJobAddress
             // 
-            this.tbxJobAddress.Location = new System.Drawing.Point(109, 64);
+            this.tbxJobAddress.Location = new System.Drawing.Point(108, 75);
             this.tbxJobAddress.Name = "tbxJobAddress";
             this.tbxJobAddress.Size = new System.Drawing.Size(371, 23);
             this.tbxJobAddress.TabIndex = 3;
             // 
             // tbxJobSize
             // 
-            this.tbxJobSize.Location = new System.Drawing.Point(373, 159);
+            this.tbxJobSize.Location = new System.Drawing.Point(372, 170);
             this.tbxJobSize.Name = "tbxJobSize";
             this.tbxJobSize.Size = new System.Drawing.Size(107, 23);
             this.tbxJobSize.TabIndex = 11;
             // 
             // tbxJobType
             // 
-            this.tbxJobType.Location = new System.Drawing.Point(109, 17);
+            this.tbxJobType.Location = new System.Drawing.Point(108, 28);
             this.tbxJobType.Name = "tbxJobType";
             this.tbxJobType.Size = new System.Drawing.Size(371, 23);
             this.tbxJobType.TabIndex = 1;
             // 
             // lblJobPrice
             // 
-            this.lblJobPrice.Location = new System.Drawing.Point(57, 158);
+            this.lblJobPrice.Location = new System.Drawing.Point(56, 169);
             this.lblJobPrice.Name = "lblJobPrice";
             this.lblJobPrice.Size = new System.Drawing.Size(59, 24);
             this.lblJobPrice.TabIndex = 8;
-            this.lblJobPrice.Text = "Price:";
+            this.lblJobPrice.Text = "*Price:";
             this.lblJobPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblJobEndDate
             // 
-            this.lblJobEndDate.Location = new System.Drawing.Point(262, 113);
+            this.lblJobEndDate.Location = new System.Drawing.Point(261, 124);
             this.lblJobEndDate.Name = "lblJobEndDate";
             this.lblJobEndDate.Size = new System.Drawing.Size(84, 24);
             this.lblJobEndDate.TabIndex = 6;
-            this.lblJobEndDate.Text = "End Date:";
+            this.lblJobEndDate.Text = "*End Date:";
             this.lblJobEndDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblJobBeginDate
             // 
-            this.lblJobBeginDate.Location = new System.Drawing.Point(16, 112);
+            this.lblJobBeginDate.Location = new System.Drawing.Point(15, 123);
             this.lblJobBeginDate.Name = "lblJobBeginDate";
             this.lblJobBeginDate.Size = new System.Drawing.Size(100, 24);
             this.lblJobBeginDate.TabIndex = 4;
@@ -453,7 +589,7 @@
             // 
             // lblJobAddress
             // 
-            this.lblJobAddress.Location = new System.Drawing.Point(37, 64);
+            this.lblJobAddress.Location = new System.Drawing.Point(36, 75);
             this.lblJobAddress.Name = "lblJobAddress";
             this.lblJobAddress.Size = new System.Drawing.Size(79, 24);
             this.lblJobAddress.TabIndex = 2;
@@ -462,7 +598,7 @@
             // 
             // lblJobSize
             // 
-            this.lblJobSize.Location = new System.Drawing.Point(252, 157);
+            this.lblJobSize.Location = new System.Drawing.Point(251, 168);
             this.lblJobSize.Name = "lblJobSize";
             this.lblJobSize.Size = new System.Drawing.Size(124, 24);
             this.lblJobSize.TabIndex = 10;
@@ -471,7 +607,7 @@
             // 
             // lblJobType
             // 
-            this.lblJobType.Location = new System.Drawing.Point(37, 16);
+            this.lblJobType.Location = new System.Drawing.Point(36, 27);
             this.lblJobType.Name = "lblJobType";
             this.lblJobType.Size = new System.Drawing.Size(100, 24);
             this.lblJobType.TabIndex = 0;
@@ -480,7 +616,7 @@
             // 
             // btnCancelNewJob
             // 
-            this.btnCancelNewJob.Location = new System.Drawing.Point(256, 261);
+            this.btnCancelNewJob.Location = new System.Drawing.Point(255, 272);
             this.btnCancelNewJob.Name = "btnCancelNewJob";
             this.btnCancelNewJob.Size = new System.Drawing.Size(158, 39);
             this.btnCancelNewJob.TabIndex = 14;
@@ -490,7 +626,7 @@
             // 
             // btnAddNewJob
             // 
-            this.btnAddNewJob.Location = new System.Drawing.Point(83, 261);
+            this.btnAddNewJob.Location = new System.Drawing.Point(82, 272);
             this.btnAddNewJob.Name = "btnAddNewJob";
             this.btnAddNewJob.Size = new System.Drawing.Size(158, 39);
             this.btnAddNewJob.TabIndex = 13;
@@ -509,10 +645,10 @@
             this.tpEditJob.Controls.Add(this.tbxJobInfoNew);
             this.tpEditJob.Controls.Add(this.btnJobSubmit);
             this.tpEditJob.Controls.Add(this.btnJobCancel);
-            this.tpEditJob.Location = new System.Drawing.Point(4, 26);
+            this.tpEditJob.Location = new System.Drawing.Point(4, 22);
             this.tpEditJob.Name = "tpEditJob";
             this.tpEditJob.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEditJob.Size = new System.Drawing.Size(497, 340);
+            this.tpEditJob.Size = new System.Drawing.Size(497, 344);
             this.tpEditJob.TabIndex = 2;
             this.tpEditJob.Text = "Edit Job Info";
             this.tpEditJob.ToolTipText = "Edit Selected Job Info";
@@ -530,7 +666,7 @@
             // 
             // lblJobInfoTitle
             // 
-            this.lblJobInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblJobInfoTitle.Location = new System.Drawing.Point(107, 32);
             this.lblJobInfoTitle.Name = "lblJobInfoTitle";
             this.lblJobInfoTitle.Size = new System.Drawing.Size(282, 24);
@@ -627,7 +763,7 @@
             // 
             // lblJobEmployees
             // 
-            this.lblJobEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblJobEmployees.Location = new System.Drawing.Point(260, 43);
             this.lblJobEmployees.Name = "lblJobEmployees";
             this.lblJobEmployees.Size = new System.Drawing.Size(245, 20);
@@ -637,7 +773,7 @@
             // 
             // lblJobContractors
             // 
-            this.lblJobContractors.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobContractors.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblJobContractors.Location = new System.Drawing.Point(2, 43);
             this.lblJobContractors.Name = "lblJobContractors";
             this.lblJobContractors.Size = new System.Drawing.Size(245, 20);
@@ -721,7 +857,7 @@
             // 
             // lblCustomerInfoTitle
             // 
-            this.lblCustomerInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustomerInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCustomerInfoTitle.Location = new System.Drawing.Point(117, 54);
             this.lblCustomerInfoTitle.Name = "lblCustomerInfoTitle";
             this.lblCustomerInfoTitle.Size = new System.Drawing.Size(282, 24);
@@ -990,7 +1126,7 @@
             // 
             // lblContractorInfoTitle
             // 
-            this.lblContractorInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContractorInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblContractorInfoTitle.Location = new System.Drawing.Point(110, 54);
             this.lblContractorInfoTitle.Name = "lblContractorInfoTitle";
             this.lblContractorInfoTitle.Size = new System.Drawing.Size(296, 24);
@@ -1278,7 +1414,7 @@
             // 
             // lblEmployeeInfoTitle
             // 
-            this.lblEmployeeInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmployeeInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmployeeInfoTitle.Location = new System.Drawing.Point(110, 54);
             this.lblEmployeeInfoTitle.Name = "lblEmployeeInfoTitle";
             this.lblEmployeeInfoTitle.Size = new System.Drawing.Size(296, 24);
@@ -1506,6 +1642,10 @@
             // tpReports
             // 
             this.tpReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tpReports.Controls.Add(this.btnEmployeeTimeTableReport);
+            this.tpReports.Controls.Add(this.btnJobFinancialReport);
+            this.tpReports.Controls.Add(this.pgbReports);
+            this.tpReports.Controls.Add(this.crvViewer);
             this.tpReports.Location = new System.Drawing.Point(4, 26);
             this.tpReports.Name = "tpReports";
             this.tpReports.Padding = new System.Windows.Forms.Padding(3);
@@ -1514,6 +1654,48 @@
             this.tpReports.Text = "Reports";
             this.tpReports.ToolTipText = "View and Manage Reports";
             this.tpReports.UseVisualStyleBackColor = true;
+            // 
+            // btnEmployeeTimeTableReport
+            // 
+            this.btnEmployeeTimeTableReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmployeeTimeTableReport.Location = new System.Drawing.Point(544, 577);
+            this.btnEmployeeTimeTableReport.Name = "btnEmployeeTimeTableReport";
+            this.btnEmployeeTimeTableReport.Size = new System.Drawing.Size(192, 39);
+            this.btnEmployeeTimeTableReport.TabIndex = 2;
+            this.btnEmployeeTimeTableReport.Text = "Employee Time Tables";
+            this.btnEmployeeTimeTableReport.UseVisualStyleBackColor = true;
+            this.btnEmployeeTimeTableReport.Click += new System.EventHandler(this.btnEmployeeSchedulesReport_Click);
+            // 
+            // btnJobFinancialReport
+            // 
+            this.btnJobFinancialReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobFinancialReport.Location = new System.Drawing.Point(306, 577);
+            this.btnJobFinancialReport.Name = "btnJobFinancialReport";
+            this.btnJobFinancialReport.Size = new System.Drawing.Size(192, 39);
+            this.btnJobFinancialReport.TabIndex = 1;
+            this.btnJobFinancialReport.Text = "Job Financials";
+            this.btnJobFinancialReport.UseVisualStyleBackColor = true;
+            this.btnJobFinancialReport.Click += new System.EventHandler(this.btnJobFinancialReport_Click);
+            // 
+            // pgbReports
+            // 
+            this.pgbReports.Location = new System.Drawing.Point(428, 300);
+            this.pgbReports.Name = "pgbReports";
+            this.pgbReports.Size = new System.Drawing.Size(186, 23);
+            this.pgbReports.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pgbReports.TabIndex = 3;
+            this.pgbReports.Visible = false;
+            // 
+            // crvViewer
+            // 
+            this.crvViewer.ActiveViewIndex = -1;
+            this.crvViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crvViewer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crvViewer.Location = new System.Drawing.Point(-1, -1);
+            this.crvViewer.Name = "crvViewer";
+            this.crvViewer.Size = new System.Drawing.Size(1044, 572);
+            this.crvViewer.TabIndex = 4;
+            this.crvViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
             // OwnerMain
             // 
@@ -1533,6 +1715,8 @@
             this.tpJobMaterials.ResumeLayout(false);
             this.tpJobMaterials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobMaterials)).EndInit();
+            this.tpMaterialAdd.ResumeLayout(false);
+            this.tpMaterialAdd.PerformLayout();
             this.tpJobAdd.ResumeLayout(false);
             this.tpJobAdd.PerformLayout();
             this.tpEditJob.ResumeLayout(false);
@@ -1556,6 +1740,7 @@
             this.gbxEmployeeAdd.ResumeLayout(false);
             this.gbxEmployeeAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
+            this.tpReports.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1687,5 +1872,21 @@
         private System.Windows.Forms.TextBox tbxJobInfoNew;
         private System.Windows.Forms.Button btnJobSubmit;
         private System.Windows.Forms.Button btnJobCancel;
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer crvViewer;
+        private System.Windows.Forms.TabPage tpMaterialAdd;
+        private System.Windows.Forms.TextBox tbxMaterialPrice;
+        private System.Windows.Forms.TextBox tbxMaterialUnitsInYards;
+        private System.Windows.Forms.TextBox tbxMaterialDate;
+        private System.Windows.Forms.TextBox tbxMaterialType;
+        private System.Windows.Forms.Label lblMaterialPrice;
+        private System.Windows.Forms.Label lblMaterialUnitsInYards;
+        private System.Windows.Forms.Label lblMaterialDate;
+        private System.Windows.Forms.Label lblMaterialType;
+        private System.Windows.Forms.Button btnCancelNewMaterial;
+        private System.Windows.Forms.Button btnAddNewMaterial;
+        private System.Windows.Forms.Label lblMaterialTitle;
+        private System.Windows.Forms.Button btnEmployeeTimeTableReport;
+        private System.Windows.Forms.Button btnJobFinancialReport;
+        private System.Windows.Forms.ProgressBar pgbReports;
     }
 }

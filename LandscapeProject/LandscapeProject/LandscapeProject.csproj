@@ -53,12 +53,16 @@
     <StartupObject>LandscapeProject.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,13 +74,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerAccountRecovery.cs">
-      <SubType>Form</SubType>
+    <Compile Include="CrystalReports\crptEmployeeTimeTable.cs" />
+    <Compile Include="CrystalReports\crptJobFinancial.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crptJobFinancial.rpt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerAccountRecovery.cs" />
     <Compile Include="CustomerAccountRecovery.Designer.cs">
       <DependentUpon>CustomerAccountRecovery.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomerProgOps.cs" />
+    <Compile Include="EmpOwnerAccountRecovery.cs" />
+    <Compile Include="EmpOwnerAccountRecovery.Designer.cs">
+      <DependentUpon>EmpOwnerAccountRecovery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginCreateUser.cs" />
+    <Compile Include="LoginCreateUser.Designer.cs">
+      <DependentUpon>LoginCreateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginProgOps.cs" />
+    <Compile Include="LoginScreen.cs" />
+    <Compile Include="LoginScreen.Designer.cs">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OwnerProgOps.cs" />
+    <Compile Include="ProgOps.cs" />
     <Compile Include="EmployeeJobMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,25 +118,6 @@
     <Compile Include="EmployeeCustomer.Designer.cs">
       <DependentUpon>EmployeeCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="EmpOwnerAccountRecovery.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmpOwnerAccountRecovery.Designer.cs">
-      <DependentUpon>EmpOwnerAccountRecovery.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginCreateUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginCreateUser.Designer.cs">
-      <DependentUpon>LoginCreateUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginProgOps.cs" />
-    <Compile Include="LoginScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginScreen.Designer.cs">
-      <DependentUpon>LoginScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="OwnerMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,15 +125,20 @@
       <DependentUpon>OwnerMain.cs</DependentUpon>
     </Compile>
     <Compile Include="EmployeeProgOps.cs" />
-    <Compile Include="OwnerProgOps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UserMain.cs" />
     <Compile Include="UserMain.Designer.cs">
       <DependentUpon>UserMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CrystalReports\crptEmployeeTimeTable.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crptEmployeeTimeTable1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\crptJobFinancial.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crptJobFinancial.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomerAccountRecovery.resx">
       <DependentUpon>CustomerAccountRecovery.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,9 +200,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CrystalReports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
