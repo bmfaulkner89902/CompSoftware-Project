@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
 
 namespace LandscapeProject
 {
@@ -21,121 +23,233 @@ namespace LandscapeProject
         public static DataTable logOwnInfoDT = new DataTable();
         public static SqlCommand logCommand;
         public static SqlCommandBuilder logCommBuilder = new SqlCommandBuilder();
-
+//open connection
         public static void Open()
         {
-            logConnection.Open();
+            try
+            {
+                //Checks to see if database is already open
+                if (logConnection.State == ConnectionState.Open)
+                {
+                    logConnection.Close();
+                }
+                else
+                {
+                    //Opens Database
+                    logConnection.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Opening Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        //Customer login code
+//Customer login code
         public static void startCustLogin(TextBox username, TextBox password)
         {
-
-           
-
-        int custID;
-//get data
-            logCommand = new SqlCommand("SELECT CustomerID, Username, Password FROM group1fa202330.CustomerLogin WHERE UserName=@UserName and Password =@Password;", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logUserInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            custID = (int)logCommand.ExecuteScalar();
-            logConnection.Close();
-            if (logUserInfoDT.Rows.Count > 0)//redirects to next page
+            try
             {
-                MessageBox.Show("Access Granted User: " + username.Text + " ID#: " + custID);
-                LoginScreen form1 = new LoginScreen();
-                UserMain form2 = new UserMain();
-                form2.cust = username.Text;
-                form2.custID = custID;
-                form1.Hide();
-                form2.Show();
+                int custID;
+                //get data
+                logCommand = new SqlCommand("SELECT CustomerID, Username, Password FROM group1fa202330.CustomerLogin WHERE UserName=@UserName" +
+                    " and Password =@Password;", logConnection);
+                logCommand.Parameters.AddWithValue("@UserName", username.Text);
+                logCommand.Parameters.AddWithValue("@Password", password.Text);
+                logAdapter.SelectCommand = logCommand;
+                logAdapter.Fill(logUserInfoDT);
+                int i = logCommand.ExecuteNonQuery();                
+                if (logUserInfoDT.Rows.Count > 0)//redirects to next page
+                {
+                    custID = (int)logCommand.ExecuteScalar();
+                    MessageBox.Show("Access Granted User: " + username.Text + " ID#: " + custID);
+                    UserMain form2 = new UserMain();
+                    form2.cust = username.Text;
+                    form2.custID = custID;
+                    form2.Text = "LandscaperZ - " + form2.cust;
+                    form2.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter Correct Username and Password");
+                }
+                logAdapter.Dispose();
+                logCommand.Dispose();
+                logUserInfoDT.Dispose();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter Correct Username and Password");
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Employee login code
         public static void startEmpLogin(TextBox username, TextBox password)
         {
-//get data
-            logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logEmpInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            logConnection.Close();
-            if (logEmpInfoDT.Rows.Count > 0)//redirects to next page
+            try
             {
-                MessageBox.Show("Access Granted");
-                LoginScreen form1 = new LoginScreen();
-                EmployeeMain form2 = new EmployeeMain();
-                //form2.user = username.Text;
-                //form2.pass = password.Text;
-                form1.Hide();
-                form2.Show();
+                //get data
+                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password and Position = 'Employee';", logConnection);
+                logCommand.Parameters.AddWithValue("@UserName", username.Text);
+                logCommand.Parameters.AddWithValue("@Password", password.Text);
+                logAdapter.SelectCommand = logCommand;
+                logAdapter.Fill(logEmpInfoDT);
+                int i = logCommand.ExecuteNonQuery();
+                if (logEmpInfoDT.Rows.Count > 0)//redirects to next page
+                {
+                    MessageBox.Show("Access Granted");
+                    EmployeeMain form2 = new EmployeeMain();
+                    form2.Text = "LandscaperZ - " + username.Text;
+                    form2.ShowDialog();
 
+                }
+                else
+                {
+                    MessageBox.Show("Please enter Correct Username and Password");
+
+                }
+                logAdapter.Dispose();
+                logCommand.Dispose();
+                logEmpInfoDT.Dispose();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter Correct Username and Password");
-
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 //Owner login code
         public static void startOwnLogin(TextBox username, TextBox password)
         {
-
-            //get data
-            logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
-            logCommand.Parameters.AddWithValue("@UserName", username.Text);
-            logCommand.Parameters.AddWithValue("@Password", password.Text);
-            logAdapter.SelectCommand = logCommand;
-            logAdapter.Fill(logOwnInfoDT);
-            logConnection.Open();
-            int i = logCommand.ExecuteNonQuery();
-            logConnection.Close();
-            if (logOwnInfoDT.Rows.Count > 0)//redirects to next page
+            try
             {
-                MessageBox.Show("Access Granted");
-                LoginScreen form1 = new LoginScreen();
-                OwnerMain form2 = new OwnerMain();
-                //form2.user = username.Text;
-                //form2.pass = password.Text;
+                //get data
+                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password and Position = 'Owner';", logConnection);
+                logCommand.Parameters.AddWithValue("@UserName", username.Text);
+                logCommand.Parameters.AddWithValue("@Password", password.Text);
+                logAdapter.SelectCommand = logCommand;
+                logAdapter.Fill(logOwnInfoDT);
+                int i = logCommand.ExecuteNonQuery();
+                if (logOwnInfoDT.Rows.Count > 0)//redirects to next page
+                {
+                    MessageBox.Show("Access Granted");
+                    OwnerMain form2 = new OwnerMain();
+                    form2.Text = "LandscaperZ - " + username.Text;
+                    form2.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter Correct Username and Password");
 
-                form1.Hide();
-                form2.Show();
-
+                }
+                logAdapter.Dispose();
+                logCommand.Dispose();
+                logOwnInfoDT.Dispose();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter Correct Username and Password");
-
+                MessageBox.Show(ex.Message, "Error In Logging In", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+//Takes Custoemr email finds username and password
+        public static void custAccountRecovery(string custEmail)
+        {
+            try
+            {
+                custEmail.Trim();
+                string username;
+                string password;
+                //uses email to find login
+                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Username FROM group1fa202330.CustomerLogin JOIN" +
+                    " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
+                    " group1fa202330.Customers.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email",custEmail);
+                username = (string) logCommand.ExecuteScalar();
+                logCommand.Dispose();
 
-//Close and dispose of database connections (login portal)
+                logCommand = new SqlCommand("SELECT group1fa202330.CustomerLogin.Password FROM group1fa202330.CustomerLogin JOIN" +
+                   " group1fa202330.Customers ON group1fa202330.Customers.CustomerID = group1fa202330.CustomerLogin.CustomerID WHERE" +
+                   " group1fa202330.Customers.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", custEmail);
+                password = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                MessageBox.Show(username+" "+ password);
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
+                    EnableSsl = true,
+                };
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
+                    Subject = "Account Recovery",
+                    Body = "Hello Username: " + username + " Password: " + password,
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(custEmail); 
+
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Account Recovery", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+//Takes Custoemr email finds username and password
+        public static void empAccountRecovery(string empEmail)
+        {
+            try
+            {
+                empEmail.Trim();
+                string username;
+                string password;
+                //uses email to find login
+                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Username FROM group1fa202330.EmployeeLogin JOIN" +
+                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
+                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", empEmail);
+                username = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Password FROM group1fa202330.EmployeeLogin JOIN" +
+                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
+                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand.Parameters.AddWithValue("@email", empEmail);
+                password = (string)logCommand.ExecuteScalar();
+                logCommand.Dispose();
+
+                MessageBox.Show(username + " " + password);
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("lansdcapeaccrec1@gmail.com", "Landscaperz"),
+                    EnableSsl = true,
+                };
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("lansdcapeaccrec1@gmail.com"),
+                    Subject = "Account Recovery",
+                    Body = "Hello Username: " + username + " Password: " + password,
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(empEmail);
+
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Account Recovery", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Close and dispose of database connections
         public static void CloseAllLog()
         {
             //wipe connection
             logConnection.Dispose();
             //close connection. 
             logConnection.Close();
-            //dispose of all log
-            logAdapter.Dispose();
-            logCommBuilder.Dispose();
-            logCommand.Dispose();
-
-            logEmpInfoDT.Dispose();
-            logOwnInfoDT.Dispose();
-            logUserInfoDT.Dispose();
-
         }
 
     }

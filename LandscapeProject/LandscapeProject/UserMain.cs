@@ -16,29 +16,28 @@ namespace LandscapeProject
     {
         public string cust = "";
         public int custID;
+        public int jobID;
         public UserMain()
         {
             InitializeComponent();
         }
-
+//On load Form takes in custID creates a personalized user experience
         private void UserMain_Load(object sender, EventArgs e)//*Find jobs depending on custID*
         {
+            //point to help file
+            hlpCustomer.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
             //Greeting
             lblUserGreeting.Text = ("Hello " + cust + "(user#: " + custID.ToString() + "), request a job, contact a contractor, or make a payment below.");
-            //load datagridview - 
-            //open connection 
-            CustomerProgOps.Open();
-            //get information to fill datagridview Job information . 
-            CustomerProgOps.cCommand = new SqlCommand("SELECT JobID AS 'Job Number', JobType AS 'Job',Address, BeginDate AS 'Start Date', EndDate AS 'End Date', Price AS 'Payment Due:' FROM group1fa202330.JobSites; ", CustomerProgOps.cConnection);
-            CustomerProgOps.cAdapter.SelectCommand = CustomerProgOps.cCommand;
-            CustomerProgOps.cAdapter.Fill(CustomerProgOps.cJobSitesDT);
-            //start data grid viewer
-            dgvJobInfo.DataSource = CustomerProgOps.cJobSitesDT;
+            //personalized jobs request            
+            CustomerProgOps.Open();          
+            CustomerProgOps.LoadJobView(dgvJobInfo,custID);
+           
 
         }
-
+//Requests a job: Writes job to databse linked to customer who wrote it. Also sends new users to create account
         private void btnRequest_Click(object sender, EventArgs e)
         {
+            
             if (tbxJobAddress.Text.Equals("") || tbxJobType.Text.Equals(""))
             {
                 MessageBox.Show("Please give us some more info about the job");
@@ -50,35 +49,77 @@ namespace LandscapeProject
                     if (cust.Equals("Guest"))
                     {
                         MessageBox.Show("Make an account before requesting job");
-                        this.Hide();
                         LoginCreateUser form1 = new LoginCreateUser();
-                        form1.Show();
+                        form1.ShowDialog();
+                        this.Hide();
                     }
                     else
                     {
-                        CustomerProgOps.startCreateCustomerJob(custID,1, tbxJobType, tbxJobAddress, dtpBegDate, dtpEndDate);
+                        string jobType = tbxJobType.Text;
+                        string jobAddress = tbxJobAddress.Text;
+                        string begDate = dtpBegDate.Value.ToString("yyyy-MM-dd");
+                        string endDate = dtpEndDate.Value.ToString("yyyy-MM-dd");
+                        if (endDate.Equals(""))
+                            endDate = "NULL";
+                        CustomerProgOps.Open();
+                        CustomerProgOps.startCreateCustomerJob(custID, jobType , jobAddress, begDate, endDate);
+                        lblTest.Text = "Success! Your job has been added. Make a payment on your job or contact your contractor";
+                        CustomerProgOps.Open();
+                        CustomerProgOps.LoadJobView(dgvJobInfo, custID);
                         CustomerProgOps.CloseAllCust();
+                        ClearForm();
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message, "Error Creating Job. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                lblTest.Text = "Success! Your job has been added. Make a payment on your job or contact your contractor";
+
+            }
+        }
+//Updates output label on click so the user can find the payment due and the contractor contact info
+        private void dgvJobInfo_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            try
+            {
+                CustomerProgOps.Open();
+            //Retreives payment due
+                DataGridViewRow pay = dgvJobInfo.Rows[e.RowIndex];
+                string payDue = pay.Cells[6].Value.ToString();
+                if (payDue.Equals(""))
+                    payDue = "Payment is not yet due";
+                else
+                    payDue = "$" + payDue;
+                lblOutput.Text = "Payment Due: " + payDue;
+
+                //Retrieves Jobs Contractor and contact info
+                DataGridViewRow job = dgvJobInfo.Rows[e.RowIndex];
+                string jobID = job.Cells[1].Value.ToString();
+               
+                CustomerProgOps.LoadWorkerView(dgvCustJobWorkerInfo, jobID);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Finding Job Info. Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnContact_Click(object sender, EventArgs e)
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
-            //Take what row is clicked on link job ID to contractor and display info
+            ClearForm();
+            this.Close();
         }
-
-        private void btnPay_Click(object sender, EventArgs e)
+        public void ClearForm()
         {
-            //Show price and take to payment portal?
+            tbxJobAddress.Text = "";
+            tbxJobType.Text = "";
         }
-
-       
+        private void UserMain_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpCustomer.HelpNamespace);
+        }
     }
 }
