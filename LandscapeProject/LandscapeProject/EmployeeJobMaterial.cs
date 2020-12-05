@@ -35,7 +35,7 @@ namespace LandscapeProject
             {
                 EmployeeProgOps.LoadCheckList(cklAssignWorkers);
             }
-            catch(SqlException ex)
+            catch(SqlException)
             {
                 MessageBox.Show("The program failed to connect to the database. Please check your internet connection. If the issue persists then contact the help desk.");
             }

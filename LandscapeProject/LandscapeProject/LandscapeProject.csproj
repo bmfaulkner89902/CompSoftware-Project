@@ -175,6 +175,12 @@
     <EmbeddedResource Include="UserMain.resx">
       <DependentUpon>UserMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Help\Login-Help.chm" />
+    <None Include="Help\Login-Help.hhp" />
+    <None Include="Help\Owner Help Files\OwnerFormHelp.hhp" />
+    <None Include="Help\Owner Help Files\tocOwnerFormHelp.hhc" />
+    <None Include="Help\OwnerFormHelp.chm" />
+    <None Include="Help\Table of Contents - Help.hhc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -200,7 +206,34 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Help\AccountRecovery-Help.htm" />
+    <Content Include="Help\Create-Help.htm" />
+    <Content Include="Help\CustomerMain-Help.htm" />
+    <Content Include="Help\Login-Help.htm" />
+    <Content Include="Help\Owner Help Files\BasicOverviewLTTopic.htm" />
+    <Content Include="Help\Owner Help Files\BasicOverview_Heading.htm" />
+    <Content Include="Help\Owner Help Files\ContractorsPageDGVTopic.htm" />
+    <Content Include="Help\Owner Help Files\ContractorsPageFBTopic.htm" />
+    <Content Include="Help\Owner Help Files\ContractorsPageSBTopic.htm" />
+    <Content Include="Help\Owner Help Files\ContractorsPage_Heading.htm" />
+    <Content Include="Help\Owner Help Files\CustomersPageDGVTopic.htm" />
+    <Content Include="Help\Owner Help Files\CustomersPageFBTopic.htm" />
+    <Content Include="Help\Owner Help Files\CustomersPageSBTopic.htm" />
+    <Content Include="Help\Owner Help Files\CustomersPage_Heading.htm" />
+    <Content Include="Help\Owner Help Files\EmployeesPageDGVTopic.htm" />
+    <Content Include="Help\Owner Help Files\EmployeesPageFBTopic.htm" />
+    <Content Include="Help\Owner Help Files\EmployeesPageSBTopic.htm" />
+    <Content Include="Help\Owner Help Files\EmployeesPage_Heading.htm" />
+    <Content Include="Help\Owner Help Files\JobsPageDGVTopic.htm" />
+    <Content Include="Help\Owner Help Files\JobsPageFBTopic.htm" />
+    <Content Include="Help\Owner Help Files\JobsPageSBTopic.htm" />
+    <Content Include="Help\Owner Help Files\JobsPage_Heading.htm" />
+    <Content Include="Help\Owner Help Files\ReportsPageETTTopic.htm" />
+    <Content Include="Help\Owner Help Files\ReportsPageJFTopic.htm" />
+    <Content Include="Help\Owner Help Files\ReportsPageRVTopic.htm" />
+    <Content Include="Help\Owner Help Files\ReportsPage_Heading.htm" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>

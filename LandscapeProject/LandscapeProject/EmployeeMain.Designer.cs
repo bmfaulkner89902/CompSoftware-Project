@@ -48,7 +48,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label2.Location = new System.Drawing.Point(275, 145);
+            this.label2.Location = new System.Drawing.Point(321, 145);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(273, 42);
             this.label2.TabIndex = 5;
@@ -56,6 +56,11 @@
             // 
             // dgvEmpJobInfo
             // 
+            this.dgvEmpJobInfo.AllowUserToAddRows = false;
+            this.dgvEmpJobInfo.AllowUserToDeleteRows = false;
+            this.dgvEmpJobInfo.AllowUserToOrderColumns = true;
+            this.dgvEmpJobInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvEmpJobInfo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvEmpJobInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmpJobInfo.Location = new System.Drawing.Point(25, 204);
             this.dgvEmpJobInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -87,6 +92,11 @@
             // 
             // dgvEmpWorkerSch
             // 
+            this.dgvEmpWorkerSch.AllowUserToAddRows = false;
+            this.dgvEmpWorkerSch.AllowUserToDeleteRows = false;
+            this.dgvEmpWorkerSch.AllowUserToOrderColumns = true;
+            this.dgvEmpWorkerSch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvEmpWorkerSch.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvEmpWorkerSch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmpWorkerSch.Location = new System.Drawing.Point(25, 645);
             this.dgvEmpWorkerSch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -99,7 +109,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(263, 556);
+            this.label1.Location = new System.Drawing.Point(305, 556);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(305, 42);
             this.label1.TabIndex = 10;
@@ -107,7 +117,7 @@
             // 
             // btnSearchSchedule
             // 
-            this.btnSearchSchedule.Location = new System.Drawing.Point(776, 594);
+            this.btnSearchSchedule.Location = new System.Drawing.Point(781, 611);
             this.btnSearchSchedule.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSearchSchedule.Name = "btnSearchSchedule";
             this.btnSearchSchedule.Size = new System.Drawing.Size(84, 29);
@@ -118,7 +128,7 @@
             // 
             // txtSearchSchedule
             // 
-            this.txtSearchSchedule.Location = new System.Drawing.Point(657, 594);
+            this.txtSearchSchedule.Location = new System.Drawing.Point(662, 611);
             this.txtSearchSchedule.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSearchSchedule.Name = "txtSearchSchedule";
             this.txtSearchSchedule.Size = new System.Drawing.Size(112, 26);
@@ -127,7 +137,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(572, 598);
+            this.label3.Location = new System.Drawing.Point(577, 615);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 20);
             this.label3.TabIndex = 14;

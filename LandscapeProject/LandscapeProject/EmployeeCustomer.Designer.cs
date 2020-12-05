@@ -56,6 +56,10 @@
             // 
             // dgvEmpCustomer
             // 
+            this.dgvEmpCustomer.AllowUserToAddRows = false;
+            this.dgvEmpCustomer.AllowUserToDeleteRows = false;
+            this.dgvEmpCustomer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvEmpCustomer.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvEmpCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmpCustomer.Location = new System.Drawing.Point(98, 234);
             this.dgvEmpCustomer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

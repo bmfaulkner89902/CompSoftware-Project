@@ -90,7 +90,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(478, 602);
+            this.btnCancel.Location = new System.Drawing.Point(531, 602);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(138, 35);
@@ -101,7 +101,7 @@
             // 
             // btnConfirmWorkers
             // 
-            this.btnConfirmWorkers.Location = new System.Drawing.Point(396, 326);
+            this.btnConfirmWorkers.Location = new System.Drawing.Point(471, 326);
             this.btnConfirmWorkers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfirmWorkers.Name = "btnConfirmWorkers";
             this.btnConfirmWorkers.Size = new System.Drawing.Size(138, 35);
@@ -149,7 +149,7 @@
             // 
             // btnConfirmCustomer
             // 
-            this.btnConfirmCustomer.Location = new System.Drawing.Point(436, 334);
+            this.btnConfirmCustomer.Location = new System.Drawing.Point(471, 334);
             this.btnConfirmCustomer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfirmCustomer.Name = "btnConfirmCustomer";
             this.btnConfirmCustomer.Size = new System.Drawing.Size(138, 35);
@@ -313,7 +313,7 @@
             // 
             // btnConfirmJob
             // 
-            this.btnConfirmJob.Location = new System.Drawing.Point(468, 337);
+            this.btnConfirmJob.Location = new System.Drawing.Point(471, 337);
             this.btnConfirmJob.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfirmJob.Name = "btnConfirmJob";
             this.btnConfirmJob.Size = new System.Drawing.Size(138, 35);
@@ -472,7 +472,7 @@
             // 
             // btnConfirmMaterials
             // 
-            this.btnConfirmMaterials.Location = new System.Drawing.Point(436, 298);
+            this.btnConfirmMaterials.Location = new System.Drawing.Point(471, 298);
             this.btnConfirmMaterials.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfirmMaterials.Name = "btnConfirmMaterials";
             this.btnConfirmMaterials.Size = new System.Drawing.Size(138, 37);
@@ -624,7 +624,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label20.Location = new System.Drawing.Point(412, 47);
+            this.label20.Location = new System.Drawing.Point(458, 47);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(284, 55);
             this.label20.TabIndex = 36;
@@ -643,7 +643,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EmployeeJobMaterial";
-            this.Text = "EmployeeJobMaterial";
+            this.Text = "Create Jobs";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.EmployeeJobMaterial_HelpButtonClicked);
             this.Load += new System.EventHandler(this.EmployeeJobMaterial_Load);
             this.tabControl1.ResumeLayout(false);
