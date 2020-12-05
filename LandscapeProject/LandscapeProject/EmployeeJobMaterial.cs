@@ -19,9 +19,30 @@ namespace LandscapeProject
         }
         private void EmployeeJobMaterial_Load(object sender, EventArgs e)
         {
-            
+            try
+            {
+                MaximizeBox = false;
+                MinimizeBox = false;
+                this.HelpButton = true; 
 
-            EmployeeProgOps.LoadCheckList(cklAssignWorkers); 
+                hlpEmpJob.HelpNamespace = Application.StartupPath + "\\landScapeEmployee.chm";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "The help files failed to load."); 
+            }
+            try
+            {
+                EmployeeProgOps.LoadCheckList(cklAssignWorkers);
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("The program failed to connect to the database. Please check your internet connection. If the issue persists then contact the help desk.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -35,6 +56,7 @@ namespace LandscapeProject
                 EmployeeProgOps.startJobs(txtJobCustId, txtJobAddress, txtJobType, txtStart, txtEnd, txtJobSize, txtPrice);
                 lblUpdated.Visible = true; 
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -106,6 +128,11 @@ namespace LandscapeProject
         private void txtWorkerJobID_TextChanged(object sender, EventArgs e)
         {
             lblUpdated.Visible = false; 
+        }
+
+        private void EmployeeJobMaterial_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpEmpJob.HelpNamespace);
         }
     }
 }
