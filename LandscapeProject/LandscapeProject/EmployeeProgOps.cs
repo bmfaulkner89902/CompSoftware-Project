@@ -104,7 +104,6 @@ namespace LandscapeProject
             empCommand = new SqlCommand("SELECT MaterialID FROM group1fa202330.Materials ORDER BY MaterialID DESC;", empConnection);
             empCommand.ExecuteNonQuery();
             int materialId = (int)empCommand.ExecuteScalar();
-            MessageBox.Show(materialId.ToString());
             //inserts jobid & materialId into jobMaterials. 
             empCommand = new SqlCommand($"INSERT INTO group1fa202330.JobMaterials(JobID, MaterialID) VALUES('{JobId.Text}', '{materialId}');", empConnection);
             empCommand.ExecuteNonQuery();
@@ -116,7 +115,6 @@ namespace LandscapeProject
             //get workerid/jobid. 
             foreach (object checkedItem in workerIDs.CheckedItems)
             {
-                MessageBox.Show(checkedItem.ToString());
                 empCommand = new SqlCommand($"INSERT INTO group1fa202330.WorkerJobs(WorkerID, JobId) VALUES('{checkedItem.ToString()}', '{JobID.Text}');", empConnection);
                 empCommand.ExecuteNonQuery();
             }
