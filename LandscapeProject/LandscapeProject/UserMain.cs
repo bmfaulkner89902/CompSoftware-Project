@@ -26,7 +26,7 @@ namespace LandscapeProject
             //point to help file
             hlpCustomer.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
             //Greeting
-            lblUserGreeting.Text = ("Hello " + cust + "(user#: " + custID.ToString() + "), request a job, contact a contractor, or make a payment below.");
+            lblUserGreeting.Text = ("Hello " + cust + "(user#: " + custID.ToString() + ")");
             //personalized jobs request            
             CustomerProgOps.Open();
             CustomerProgOps.LoadJobView(dgvJobInfo, custID);

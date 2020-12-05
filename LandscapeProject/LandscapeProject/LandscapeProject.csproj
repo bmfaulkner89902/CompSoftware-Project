@@ -52,6 +52,10 @@
   <PropertyGroup>
     <StartupObject>LandscapeProject.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -74,32 +78,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrystalReports\crptEmployeeTimeTable.cs" />
+    <Compile Include="CrystalReports\crptEmployeeTimeTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CrystalReports\crptJobFinancial.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crptJobFinancial.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomerAccountRecovery.cs" />
+    <Compile Include="CustomerAccountRecovery.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CustomerAccountRecovery.Designer.cs">
       <DependentUpon>CustomerAccountRecovery.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomerProgOps.cs" />
-    <Compile Include="EmpOwnerAccountRecovery.cs" />
+    <Compile Include="EmpOwnerAccountRecovery.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EmpOwnerAccountRecovery.Designer.cs">
       <DependentUpon>EmpOwnerAccountRecovery.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginCreateUser.cs" />
+    <Compile Include="LoginCreateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LoginCreateUser.Designer.cs">
       <DependentUpon>LoginCreateUser.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginProgOps.cs" />
-    <Compile Include="LoginScreen.cs" />
+    <Compile Include="LoginScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LoginScreen.Designer.cs">
       <DependentUpon>LoginScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="OwnerProgOps.cs" />
-    <Compile Include="ProgOps.cs" />
     <Compile Include="EmployeeJobMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,7 +141,9 @@
     <Compile Include="EmployeeProgOps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserMain.cs" />
+    <Compile Include="UserMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserMain.Designer.cs">
       <DependentUpon>UserMain.cs</DependentUpon>
     </Compile>

@@ -39,7 +39,7 @@
             // btnConfirm
             // 
             this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Location = new System.Drawing.Point(111, 68);
+            this.btnConfirm.Location = new System.Drawing.Point(111, 86);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(78, 32);
             this.btnConfirm.TabIndex = 5;
@@ -50,7 +50,7 @@
             // tbxEmail
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(29, 32);
+            this.tbxEmail.Location = new System.Drawing.Point(29, 50);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(251, 26);
             this.tbxEmail.TabIndex = 4;
@@ -59,7 +59,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 9);
+            this.label1.Location = new System.Drawing.Point(25, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 3;
@@ -69,7 +69,7 @@
             // 
             this.lblEmailOutput.AutoSize = true;
             this.lblEmailOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmailOutput.Location = new System.Drawing.Point(26, 112);
+            this.lblEmailOutput.Location = new System.Drawing.Point(26, 114);
             this.lblEmailOutput.Name = "lblEmailOutput";
             this.lblEmailOutput.Size = new System.Drawing.Size(0, 20);
             this.lblEmailOutput.TabIndex = 6;

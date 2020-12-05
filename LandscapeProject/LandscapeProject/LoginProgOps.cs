@@ -172,8 +172,6 @@ namespace LandscapeProject
                 password = (string)logCommand.ExecuteScalar();
                 logCommand.Dispose();
 
-                MessageBox.Show(username+" "+ password);
-
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
@@ -184,7 +182,7 @@ namespace LandscapeProject
                 {
                     From = new MailAddress("lansdcapeaccrec1@gmail.com"),
                     Subject = "Account Recovery",
-                    Body = "Hello Username: " + username + " Password: " + password,
+                    Body = "Hello, here are your credentials. Username: " + username + " Password: " + password,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(custEmail); 
@@ -205,21 +203,19 @@ namespace LandscapeProject
                 string username;
                 string password;
                 //uses email to find login
-                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Username FROM group1fa202330.EmployeeLogin JOIN" +
-                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
-                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand = new SqlCommand("SELECT group1fa202330.WorkerLogin.Username FROM group1fa202330.WorkerLogin JOIN" +
+                    " group1fa202330.Workers ON group1fa202330.Workers.WorkerID = group1fa202330.WorkerLogin.WorkerID WHERE" +
+                    " group1fa202330.Workers.Email LIKE @email;", logConnection);
                 logCommand.Parameters.AddWithValue("@email", empEmail);
                 username = (string)logCommand.ExecuteScalar();
                 logCommand.Dispose();
 
-                logCommand = new SqlCommand("SELECT group1fa202330.EmployeeLogin.Password FROM group1fa202330.EmployeeLogin JOIN" +
-                    " group1fa202330.Employeess ON group1fa202330.Employees.CustomerID = group1fa202330.EmployeeLogin.EmployeeID WHERE" +
-                    " group1fa202330.Employees.Email LIKE @email;", logConnection);
+                logCommand = new SqlCommand("SELECT group1fa202330.WorkerLogin.Password FROM group1fa202330.WorkerLogin JOIN" +
+                    " group1fa202330.Workers ON group1fa202330.Workers.WorkerID = group1fa202330.WorkerLogin.WorkerID WHERE" +
+                    " group1fa202330.Workers.Email LIKE @email;", logConnection);
                 logCommand.Parameters.AddWithValue("@email", empEmail);
                 password = (string)logCommand.ExecuteScalar();
-                logCommand.Dispose();
-
-                MessageBox.Show(username + " " + password);
+                logCommand.Dispose();                
 
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
@@ -231,7 +227,7 @@ namespace LandscapeProject
                 {
                     From = new MailAddress("lansdcapeaccrec1@gmail.com"),
                     Subject = "Account Recovery",
-                    Body = "Hello Username: " + username + " Password: " + password,
+                    Body = "Hello, here are your credentials. Username: " + username + " Password: " + password,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(empEmail);
