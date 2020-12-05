@@ -20,6 +20,11 @@ namespace LandscapeProject
 
         private void EmployeeCustomer_Load(object sender, EventArgs e)
         {
+            MinimizeBox = false;
+            MaximizeBox = false; 
+            this.HelpButton = true;
+
+            hlpEmpCustomer.HelpNamespace = Application.StartupPath + "\\landScapeEmployee.chm";
             try
             {
                 EmployeeProgOps.empCustLoad(dgvEmpCustomer); 
@@ -49,6 +54,9 @@ namespace LandscapeProject
             this.Close(); 
         }
 
-       
+        private void EmployeeCustomer_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpEmpCustomer.HelpNamespace);
+        }
     }
 }
