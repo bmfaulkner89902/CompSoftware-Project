@@ -25,6 +25,8 @@ namespace LandscapeProject
         //Add The Data Tables
         private static DataTable _dtLandscape = new DataTable();
 
+        static bool isSQLSuccessful;
+
         public static void OpenDatabase()
         {
             try
@@ -83,13 +85,13 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void AddJob(string JobType, string Address, string BeginDate, string EndDate, double Price, float JobSize)
+        public static bool AddJob(string JobType, string Address, string BeginDate, string EndDate, double Price, float JobSize)
         {
             try
             {
                 if (EndDate == "" || EndDate == " ")
                 {
-                    //Method for adding new employees
+                    //Method for adding new Jobs
                     SqlCommand cmd = new SqlCommand("Insert Into group1fa202330.JobSites " +
                         "Values('" + JobType + "','" + Address + "','" + BeginDate + "', NULL , " + Price + " , " + JobSize + ");", _cntDatabase);
                     cmd.ExecuteNonQuery();
@@ -97,7 +99,7 @@ namespace LandscapeProject
                 }
                 else
                 {
-                    //Method for adding new employees
+                    //Method for adding new Jobs
                     SqlCommand cmd = new SqlCommand("Insert Into group1fa202330.JobSites " +
                         "Values('" + JobType + "','" + Address + "','" + BeginDate + "','" + EndDate + "', " + Price + " , " + JobSize + ");", _cntDatabase);
                     cmd.ExecuteNonQuery();
@@ -106,18 +108,23 @@ namespace LandscapeProject
                 
                 MessageBox.Show("Successfully added a new Job.",
                 "Adding Job Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Adding A Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
-        public static void UpdateJob(string Category, string newInfo, int jobID)
+        public static bool UpdateJob(string Category, string newInfo, int jobID)
         {
             try
             {
-                //Method for updating information of Customers
+                //Method for updating information of Jobs
                 SqlCommand cmd = new SqlCommand("Update group1fa202330.JobSites set " + Category + "=@newInfo Where JobID=" + jobID + ";", _cntDatabase);
                 cmd.Parameters.AddWithValue("@newInfo", newInfo);
                 cmd.ExecuteNonQuery();
@@ -125,11 +132,16 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully updated Job information with the new information entered.",
                         "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;             
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
         public static void DeleteJob(int JobID)
@@ -305,7 +317,44 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void UpdateMaterials(string Category, string newInfo, int materialID)
+        public static bool AddMaterial(string MaterialType, string Date, double Price, float UnitsInYards, int JobID)
+        {
+            try
+            {
+                //Method for adding new materials
+                SqlCommand cmd = new SqlCommand("Insert Into group1fa202330.Materials " +
+                    "Values('" + Date + "'," + UnitsInYards + ",'" + MaterialType + "', " + Price + ");", _cntDatabase);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                //Method for connecting material to job
+                int MaterialID;
+
+                SqlCommand MaterialCmd = new SqlCommand("Select MaterialID from group1fa202330.Materials Order By 1 desc;", _cntDatabase);
+                MaterialID = (int)MaterialCmd.ExecuteScalar();
+                MessageBox.Show(MaterialID.ToString());
+                MaterialCmd.Dispose();
+
+                SqlCommand JobCmd = new SqlCommand("Insert Into group1fa202330.JobMaterials " +
+                    "Values(" + JobID + ", " + MaterialID + ");", _cntDatabase);
+                JobCmd.ExecuteNonQuery();
+                JobCmd.Dispose();
+
+                MessageBox.Show("Successfully added a new material to the job selected.",
+                "Adding Material Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error In Adding A Material", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
+            }
+            return isSQLSuccessful;
+        }
+
+        public static bool UpdateMaterials(string Category, string newInfo, int materialID)
         {
             try
             {
@@ -317,11 +366,16 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully updated material information with the new information entered.",
                 "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;    
             }
+            return isSQLSuccessful;
         }
         public static void DeleteMaterial(int materialID, int jobID)
         {
@@ -377,7 +431,7 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void UpdateCustomer(string Category, string newInfo, int cusID)
+        public static bool UpdateCustomer(string Category, string newInfo, int cusID)
         {
             try
             {
@@ -389,14 +443,19 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully updated Customer information with the new information entered.",
                         "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;    
             }
+            return isSQLSuccessful;
         }
 
-        public static void AddCustomer(string FirstName, string LastName, string Address, string Email, string City, string ZipCode)
+        public static bool AddCustomer(string FirstName, string LastName, string Address, string Email, string City, string ZipCode)
         {
             try
             {
@@ -408,11 +467,16 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully added a new Customer.",
                     "Adding Customer Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
         public static void DeleteCustomer(int CustomerID)
@@ -468,7 +532,7 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void UpdateContractor(string Category, string newInfo, int conID)
+        public static bool UpdateContractor(string Category, string newInfo, int conID)
         {
             try
             {
@@ -480,14 +544,19 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully updated Contractor information with the new information entered.",
                         "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
-        public static void AddContractor(string FirstName, string LastName, string Email, string Phone, string Address, string City, string ZipCode)
+        public static bool AddContractor(string FirstName, string LastName, string Email, string Phone, string Address, string City, string ZipCode)
         {
             try
             {
@@ -499,11 +568,16 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully added a new Contractor.",
                      "Adding Contractor Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
         public static void DeleteContractor(int ContractorID)
@@ -560,7 +634,7 @@ namespace LandscapeProject
             _dtLandscape.Dispose();
         }
 
-        public static void UpdateEmployee(string Category, string newInfo, int empID)
+        public static bool UpdateEmployee(string Category, string newInfo, int empID)
         {
             try
             {
@@ -572,14 +646,19 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully updated employee information with the new information entered.",
                         "Update Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }          
+
+                isSQLSuccessful = false;
+            }
+            return isSQLSuccessful;
         }
         
-        public static void AddEmployee(string FirstName, string LastName, string Address, string Email, string City, string ZipCode)
+        public static bool AddEmployee(string FirstName, string LastName, string Address, string Email, string City, string ZipCode)
         {
             try
             {
@@ -591,11 +670,16 @@ namespace LandscapeProject
 
                 MessageBox.Show("Successfully added a new employee.",
                 "Adding Employee Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isSQLSuccessful = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error In Updating Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                isSQLSuccessful = false;
             }
+            return isSQLSuccessful;
         }
 
         public static void DeleteEmployee(int EmployeeID)
