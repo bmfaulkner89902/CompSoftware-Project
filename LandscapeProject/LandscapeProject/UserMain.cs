@@ -24,6 +24,8 @@ namespace LandscapeProject
 //On load Form takes in custID creates a personalized user experience
         private void UserMain_Load(object sender, EventArgs e)//*Find jobs depending on custID*
         {
+            //point to help file
+            hlpCustomer.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
             //Greeting
             lblUserGreeting.Text = ("Hello " + cust + "(user#: " + custID.ToString() + "), request a job, contact a contractor, or make a payment below.");
             //personalized jobs request            
@@ -115,15 +117,9 @@ namespace LandscapeProject
             tbxJobAddress.Text = "";
             tbxJobType.Text = "";
         }
-
-        private void label7_Click(object sender, EventArgs e)
+        private void UserMain_HelpButtonClicked(object sender, CancelEventArgs e)
         {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            Help.ShowHelp(this, hlpCustomer.HelpNamespace);
         }
     }
 }

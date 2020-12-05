@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginScreen));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabUser = new System.Windows.Forms.TabPage();
             this.btnCreate = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.hlpLogin = new System.Windows.Forms.HelpProvider();
             this.tabControl1.SuspendLayout();
             this.tabUser.SuspendLayout();
             this.tabEmployee.SuspendLayout();
@@ -64,10 +66,11 @@
             this.tabControl1.Controls.Add(this.tabUser);
             this.tabControl1.Controls.Add(this.tabEmployee);
             this.tabControl1.Controls.Add(this.tabOwner);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(-2, 124);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(377, 222);
+            this.tabControl1.Size = new System.Drawing.Size(397, 282);
             this.tabControl1.TabIndex = 0;
             // 
             // tabUser
@@ -81,18 +84,19 @@
             this.tabUser.Controls.Add(this.tbxCustUsername);
             this.tabUser.Controls.Add(this.label3);
             this.tabUser.Controls.Add(this.label2);
-            this.tabUser.Location = new System.Drawing.Point(4, 22);
+            this.tabUser.Location = new System.Drawing.Point(4, 29);
             this.tabUser.Name = "tabUser";
             this.tabUser.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUser.Size = new System.Drawing.Size(369, 196);
+            this.tabUser.Size = new System.Drawing.Size(389, 249);
             this.tabUser.TabIndex = 0;
-            this.tabUser.Text = "User";
+            this.tabUser.Text = "Customer";
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(229, 141);
+            this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreate.Location = new System.Drawing.Point(271, 195);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(75, 23);
+            this.btnCreate.Size = new System.Drawing.Size(84, 32);
             this.btnCreate.TabIndex = 7;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -100,9 +104,10 @@
             // 
             // btnGuest
             // 
-            this.btnGuest.Location = new System.Drawing.Point(66, 141);
+            this.btnGuest.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuest.Location = new System.Drawing.Point(33, 195);
             this.btnGuest.Name = "btnGuest";
-            this.btnGuest.Size = new System.Drawing.Size(75, 23);
+            this.btnGuest.Size = new System.Drawing.Size(84, 32);
             this.btnGuest.TabIndex = 6;
             this.btnGuest.Text = "Guest";
             this.btnGuest.UseVisualStyleBackColor = true;
@@ -111,9 +116,10 @@
             // linkUserRecover
             // 
             this.linkUserRecover.AutoSize = true;
-            this.linkUserRecover.Location = new System.Drawing.Point(129, 87);
+            this.linkUserRecover.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkUserRecover.Location = new System.Drawing.Point(84, 131);
             this.linkUserRecover.Name = "linkUserRecover";
-            this.linkUserRecover.Size = new System.Drawing.Size(146, 13);
+            this.linkUserRecover.Size = new System.Drawing.Size(221, 20);
             this.linkUserRecover.TabIndex = 5;
             this.linkUserRecover.TabStop = true;
             this.linkUserRecover.Text = "Forgot username or password";
@@ -121,9 +127,10 @@
             // 
             // btnCustSubmit
             // 
-            this.btnCustSubmit.Location = new System.Drawing.Point(147, 167);
+            this.btnCustSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCustSubmit.Location = new System.Drawing.Point(152, 195);
             this.btnCustSubmit.Name = "btnCustSubmit";
-            this.btnCustSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnCustSubmit.Size = new System.Drawing.Size(84, 32);
             this.btnCustSubmit.TabIndex = 4;
             this.btnCustSubmit.Text = "Submit";
             this.btnCustSubmit.UseVisualStyleBackColor = true;
@@ -131,33 +138,35 @@
             // 
             // tbxCustPassword
             // 
-            this.tbxCustPassword.Location = new System.Drawing.Point(175, 64);
+            this.tbxCustPassword.Location = new System.Drawing.Point(188, 64);
             this.tbxCustPassword.Name = "tbxCustPassword";
-            this.tbxCustPassword.Size = new System.Drawing.Size(100, 20);
+            this.tbxCustPassword.Size = new System.Drawing.Size(100, 26);
             this.tbxCustPassword.TabIndex = 3;
             // 
             // tbxCustUsername
             // 
-            this.tbxCustUsername.Location = new System.Drawing.Point(175, 14);
+            this.tbxCustUsername.Location = new System.Drawing.Point(188, 14);
             this.tbxCustUsername.Name = "tbxCustUsername";
-            this.tbxCustUsername.Size = new System.Drawing.Size(100, 20);
+            this.tbxCustUsername.Size = new System.Drawing.Size(100, 26);
             this.tbxCustUsername.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(94, 71);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(100, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.Size = new System.Drawing.Size(82, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Password:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(94, 21);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(95, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(87, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Username:";
             // 
@@ -170,28 +179,29 @@
             this.tabEmployee.Controls.Add(this.tbxEmpUsername);
             this.tabEmployee.Controls.Add(this.label4);
             this.tabEmployee.Controls.Add(this.label5);
-            this.tabEmployee.Location = new System.Drawing.Point(4, 22);
+            this.tabEmployee.Location = new System.Drawing.Point(4, 29);
             this.tabEmployee.Name = "tabEmployee";
             this.tabEmployee.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEmployee.Size = new System.Drawing.Size(369, 196);
+            this.tabEmployee.Size = new System.Drawing.Size(389, 249);
             this.tabEmployee.TabIndex = 1;
             this.tabEmployee.Text = "Employee";
             // 
             // linkEmpRecover
             // 
             this.linkEmpRecover.AutoSize = true;
-            this.linkEmpRecover.Location = new System.Drawing.Point(129, 87);
+            this.linkEmpRecover.Location = new System.Drawing.Point(84, 131);
             this.linkEmpRecover.Name = "linkEmpRecover";
-            this.linkEmpRecover.Size = new System.Drawing.Size(146, 13);
+            this.linkEmpRecover.Size = new System.Drawing.Size(221, 20);
             this.linkEmpRecover.TabIndex = 11;
             this.linkEmpRecover.TabStop = true;
             this.linkEmpRecover.Text = "Forgot username or password";
+            this.linkEmpRecover.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEmpRecover_LinkClicked);
             // 
             // btnEmpSubmit
             // 
-            this.btnEmpSubmit.Location = new System.Drawing.Point(148, 170);
+            this.btnEmpSubmit.Location = new System.Drawing.Point(152, 195);
             this.btnEmpSubmit.Name = "btnEmpSubmit";
-            this.btnEmpSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnEmpSubmit.Size = new System.Drawing.Size(84, 32);
             this.btnEmpSubmit.TabIndex = 10;
             this.btnEmpSubmit.Text = "Submit";
             this.btnEmpSubmit.UseVisualStyleBackColor = true;
@@ -199,33 +209,33 @@
             // 
             // tbxEmpPassword
             // 
-            this.tbxEmpPassword.Location = new System.Drawing.Point(175, 64);
+            this.tbxEmpPassword.Location = new System.Drawing.Point(188, 64);
             this.tbxEmpPassword.Name = "tbxEmpPassword";
-            this.tbxEmpPassword.Size = new System.Drawing.Size(100, 20);
+            this.tbxEmpPassword.Size = new System.Drawing.Size(100, 26);
             this.tbxEmpPassword.TabIndex = 9;
             // 
             // tbxEmpUsername
             // 
-            this.tbxEmpUsername.Location = new System.Drawing.Point(175, 14);
+            this.tbxEmpUsername.Location = new System.Drawing.Point(188, 14);
             this.tbxEmpUsername.Name = "tbxEmpUsername";
-            this.tbxEmpUsername.Size = new System.Drawing.Size(100, 20);
+            this.tbxEmpUsername.Size = new System.Drawing.Size(100, 26);
             this.tbxEmpUsername.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(94, 71);
+            this.label4.Location = new System.Drawing.Point(100, 70);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.Size = new System.Drawing.Size(82, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Password:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(94, 21);
+            this.label5.Location = new System.Drawing.Point(95, 20);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 13);
+            this.label5.Size = new System.Drawing.Size(87, 20);
             this.label5.TabIndex = 6;
             this.label5.Text = "Username:";
             // 
@@ -238,27 +248,28 @@
             this.tabOwner.Controls.Add(this.tbxOwnUsername);
             this.tabOwner.Controls.Add(this.label6);
             this.tabOwner.Controls.Add(this.label7);
-            this.tabOwner.Location = new System.Drawing.Point(4, 22);
+            this.tabOwner.Location = new System.Drawing.Point(4, 29);
             this.tabOwner.Name = "tabOwner";
-            this.tabOwner.Size = new System.Drawing.Size(369, 196);
+            this.tabOwner.Size = new System.Drawing.Size(389, 249);
             this.tabOwner.TabIndex = 2;
             this.tabOwner.Text = "Owner";
             // 
             // linkOwnRecover
             // 
             this.linkOwnRecover.AutoSize = true;
-            this.linkOwnRecover.Location = new System.Drawing.Point(129, 87);
+            this.linkOwnRecover.Location = new System.Drawing.Point(84, 131);
             this.linkOwnRecover.Name = "linkOwnRecover";
-            this.linkOwnRecover.Size = new System.Drawing.Size(146, 13);
+            this.linkOwnRecover.Size = new System.Drawing.Size(221, 20);
             this.linkOwnRecover.TabIndex = 11;
             this.linkOwnRecover.TabStop = true;
             this.linkOwnRecover.Text = "Forgot username or password";
+            this.linkOwnRecover.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOwnRecover_LinkClicked);
             // 
             // btnOwnerSubmit
             // 
-            this.btnOwnerSubmit.Location = new System.Drawing.Point(148, 170);
+            this.btnOwnerSubmit.Location = new System.Drawing.Point(152, 195);
             this.btnOwnerSubmit.Name = "btnOwnerSubmit";
-            this.btnOwnerSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnOwnerSubmit.Size = new System.Drawing.Size(84, 32);
             this.btnOwnerSubmit.TabIndex = 10;
             this.btnOwnerSubmit.Text = "Submit";
             this.btnOwnerSubmit.UseVisualStyleBackColor = true;
@@ -266,33 +277,33 @@
             // 
             // tbxOwnPassword
             // 
-            this.tbxOwnPassword.Location = new System.Drawing.Point(175, 64);
+            this.tbxOwnPassword.Location = new System.Drawing.Point(188, 64);
             this.tbxOwnPassword.Name = "tbxOwnPassword";
-            this.tbxOwnPassword.Size = new System.Drawing.Size(100, 20);
+            this.tbxOwnPassword.Size = new System.Drawing.Size(100, 26);
             this.tbxOwnPassword.TabIndex = 9;
             // 
             // tbxOwnUsername
             // 
-            this.tbxOwnUsername.Location = new System.Drawing.Point(175, 14);
+            this.tbxOwnUsername.Location = new System.Drawing.Point(188, 14);
             this.tbxOwnUsername.Name = "tbxOwnUsername";
-            this.tbxOwnUsername.Size = new System.Drawing.Size(100, 20);
+            this.tbxOwnUsername.Size = new System.Drawing.Size(100, 26);
             this.tbxOwnUsername.TabIndex = 8;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(94, 71);
+            this.label6.Location = new System.Drawing.Point(100, 70);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.Size = new System.Drawing.Size(82, 20);
             this.label6.TabIndex = 7;
             this.label6.Text = "Password:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(94, 21);
+            this.label7.Location = new System.Drawing.Point(95, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 13);
+            this.label7.Size = new System.Drawing.Size(87, 20);
             this.label7.TabIndex = 6;
             this.label7.Text = "Username:";
             // 
@@ -300,26 +311,37 @@
             // 
             this.label1.Font = new System.Drawing.Font("MV Boli", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(26, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(348, 112);
             this.label1.TabIndex = 1;
             this.label1.Text = "LandscaperZ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // hlpLogin
+            // 
+            this.hlpLogin.HelpNamespace = "";
+            // 
             // LoginScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tan;
-            this.ClientSize = new System.Drawing.Size(372, 344);
+            this.ClientSize = new System.Drawing.Size(395, 387);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HelpButton = true;
+            this.hlpLogin.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.TableOfContents);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LoginScreen";
+            this.hlpLogin.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LoginScreen";
+            this.Text = "LandscaperZ";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.LoginScreen_HelpButtonClicked);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginScreen_FormClosed);
             this.Load += new System.EventHandler(this.LoginScreen_Load);
             this.tabControl1.ResumeLayout(false);
@@ -360,5 +382,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.HelpProvider hlpLogin;
     }
 }
