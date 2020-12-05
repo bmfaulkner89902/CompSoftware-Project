@@ -61,5 +61,16 @@ namespace LandscapeProject
             tbxUserPassword.Text = "";
             tbxUserZip.Text = "";
         }
+
+        private void LoginCreateUser_Load(object sender, EventArgs e)
+        {
+            //point to help file
+            hlpCustCreate.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
+        }
+
+        private void LoginCreateUser_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpCustCreate.HelpNamespace);
+        }
     }
 }

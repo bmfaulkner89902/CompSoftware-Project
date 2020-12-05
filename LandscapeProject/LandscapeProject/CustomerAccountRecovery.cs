@@ -26,5 +26,16 @@ namespace LandscapeProject
             lblEmailOutput.Text = "Check your inbox for account recovery information.";
 
         }
+
+        private void CustomerAccountRecovery_Load(object sender, EventArgs e)
+        {
+            //point to help file
+            hlpCustAccRecovery.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
+        }
+
+        private void CustomerAccountRecovery_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpCustAccRecovery.HelpNamespace);
+        }
     }
 }

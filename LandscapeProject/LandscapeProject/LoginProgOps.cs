@@ -41,7 +41,7 @@ namespace LandscapeProject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error In Opening Connection, MessageBoxButtons.OK, MessageBoxIcon.Error");
+                MessageBox.Show(ex.Message, "Error In Opening Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 //Customer login code
@@ -57,14 +57,15 @@ namespace LandscapeProject
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
                 logAdapter.Fill(logUserInfoDT);
-                int i = logCommand.ExecuteNonQuery();
-                custID = (int)logCommand.ExecuteScalar();
+                int i = logCommand.ExecuteNonQuery();                
                 if (logUserInfoDT.Rows.Count > 0)//redirects to next page
                 {
+                    custID = (int)logCommand.ExecuteScalar();
                     MessageBox.Show("Access Granted User: " + username.Text + " ID#: " + custID);
                     UserMain form2 = new UserMain();
                     form2.cust = username.Text;
                     form2.custID = custID;
+                    form2.Text = "LandscaperZ - " + form2.cust;
                     form2.ShowDialog();
                 }
                 else
@@ -86,7 +87,7 @@ namespace LandscapeProject
             try
             {
                 //get data
-                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password", logConnection);
+                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password and Position = 'Employee';", logConnection);
                 logCommand.Parameters.AddWithValue("@UserName", username.Text);
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
@@ -96,6 +97,7 @@ namespace LandscapeProject
                 {
                     MessageBox.Show("Access Granted");
                     EmployeeMain form2 = new EmployeeMain();
+                    form2.Text = "LandscaperZ - " + username.Text;
                     form2.ShowDialog();
 
                 }
@@ -120,7 +122,7 @@ namespace LandscapeProject
             try
             {
                 //get data
-                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password;", logConnection);
+                logCommand = new SqlCommand("SELECT * FROM group1fa202330.WorkerLogin where UserName=@UserName and Password =@Password and Position = 'Owner';", logConnection);
                 logCommand.Parameters.AddWithValue("@UserName", username.Text);
                 logCommand.Parameters.AddWithValue("@Password", password.Text);
                 logAdapter.SelectCommand = logCommand;
@@ -130,6 +132,7 @@ namespace LandscapeProject
                 {
                     MessageBox.Show("Access Granted");
                     OwnerMain form2 = new OwnerMain();
+                    form2.Text = "LandscaperZ - " + username.Text;
                     form2.ShowDialog();
                 }
                 else
@@ -152,7 +155,6 @@ namespace LandscapeProject
             try
             {
                 custEmail.Trim();
-                string hardEmail = "coltonchrane@gmail.com";
                 string username;
                 string password;
                 //uses email to find login
@@ -185,7 +187,7 @@ namespace LandscapeProject
                     Body = "Hello Username: " + username + " Password: " + password,
                     IsBodyHtml = true,
                 };
-                mailMessage.To.Add(hardEmail);
+                mailMessage.To.Add(custEmail); 
 
                 smtpClient.Send(mailMessage);
             }
@@ -199,8 +201,7 @@ namespace LandscapeProject
         {
             try
             {
-                //custEmail.Trim();
-                empEmail = "coltonchrane@gmail.com";
+                empEmail.Trim();
                 string username;
                 string password;
                 //uses email to find login

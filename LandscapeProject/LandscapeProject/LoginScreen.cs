@@ -21,6 +21,7 @@ namespace LandscapeProject
                 this.Hide();
                 UserMain form1 = new UserMain();
                 form1.cust = "Guest";
+                form1.Text = "LandscaperZ - " + form1.cust;
                 form1.ShowDialog();
                 this.Show();
             }
@@ -37,6 +38,7 @@ namespace LandscapeProject
                 this.Hide();
                 ClearForm();
                 LoginCreateUser form1 = new LoginCreateUser();
+                form1.Text = "LandscaperZ - Create User";
                 form1.ShowDialog();
                 this.Show();
 
@@ -103,6 +105,7 @@ namespace LandscapeProject
                 this.Hide();
                 ClearForm();
                 CustomerAccountRecovery form1 = new CustomerAccountRecovery();
+                form1.Text = "LandscaperZ - Account Recovery";
                 form1.ShowDialog();
                 this.Show();
             }
@@ -127,6 +130,9 @@ namespace LandscapeProject
         private void LoginScreen_Load(object sender, EventArgs e)
         {
             LoginProgOps.Open();
+            //point to help file
+            hlpLogin.HelpNamespace = Application.StartupPath + "\\Login-Help.chm";
+
         }
 
         private void LoginScreen_FormClosed(object sender, FormClosedEventArgs e)
@@ -134,6 +140,43 @@ namespace LandscapeProject
             LoginProgOps.CloseAllLog();
         }
 
+        private void linkEmpRecover_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                ClearForm();
+                EmpOwnerAccountRecovery form1 = new EmpOwnerAccountRecovery();
+                form1.Text = "LandscaperZ - Account Recovery";
+                form1.ShowDialog();
+                this.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Opening Link", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void linkOwnRecover_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                ClearForm();
+                EmpOwnerAccountRecovery form1 = new EmpOwnerAccountRecovery();
+                form1.Text = "LandscaperZ - Account Recovery";
+                form1.ShowDialog();
+                this.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Opening Link", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoginScreen_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Help.ShowHelp(this, hlpLogin.HelpNamespace);
+        }
     }
 }
