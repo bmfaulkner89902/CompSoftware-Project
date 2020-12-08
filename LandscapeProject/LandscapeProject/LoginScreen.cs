@@ -5,6 +5,12 @@ using System.Windows.Forms;
 
 namespace LandscapeProject
 {
+    //*************************************************************
+    //Group Number One
+    //Programmers: Brandon Faulkner, Colton Crane, Zoe Delozeir
+    //Project: Landscape Business Application
+    //*************************************************************
+
     public partial class LoginScreen : Form
     {
 
